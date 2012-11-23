@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:selfletbehavior="http://selfletbehavior/1.0" xmi:id="_QNUeMA36EeKXLdMoPt9oFg" type="SelfletBehavior" name="service2.service_diagram" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_QNUeMQ36EeKXLdMoPt9oFg"/>
+  <element xmi:type="selfletbehavior:Selflet" href="service2.service#/"/>
+</notation:Diagram>

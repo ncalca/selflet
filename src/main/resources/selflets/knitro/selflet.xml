@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:selflet name="knitro_instance" xmlns:p="http://sourceforge.net/projects/selflet/">
+
+	<selfletProperties>
+		<author></author>
+		<description></description>
+		<passive/>
+		<reds>
+			<ipAddress>127.0.0.1</ipAddress>
+			<port>8000</port>
+		</reds>
+	</selfletProperties>
+
+</p:selflet>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selfletbehavior:Selflet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:selfletbehavior="http://selfletbehavior/1.0">
+  <service name="service2.service" description="Implementations of Service: service2.service">
+    <behavior xsi:type="selfletbehavior:Complex" name="behavior2.behavior">
+      <state xsi:type="selfletbehavior:Init">
+        <next targetState="//@service.0/@behavior.0/@state.1"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="service1">
+        <action body="do /service2.service.behavior2.behavior.state1.action" actionFile="service2.service.behavior2.behavior.state1.action"/>
+        <next targetState="//@service.0/@behavior.0/@state.2"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="service1">
+        <action body="do /service2.service.behavior2.behavior.state2.action" actionFile="service2.service.behavior2.behavior.state2.action"/>
+        <next targetState="//@service.0/@behavior.0/@state.3"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="service1">
+        <action body="do /service2.service.behavior2.behavior.state3.action" actionFile="service2.service.behavior2.behavior.state3.action"/>
+        <next targetState="//@service.0/@behavior.0/@state.4"/>
+      </state>
+      <state xsi:type="selfletbehavior:Final"/>
+    </behavior>
+  </service>
+</selfletbehavior:Selflet>

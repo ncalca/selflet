@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:selfletbehavior="http://selfletbehavior/1.0" xmi:id="_VTpe0A36EeKXLdMoPt9oFg" type="SelfletBehavior" name="service3.service_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_Vbmg8A36EeKXLdMoPt9oFg" type="2005" fontName="Lucida Grande">
+    <children xmi:type="notation:DecorationNode" xmi:id="_VbnIAA36EeKXLdMoPt9oFg" type="5009"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VbnIAQ36EeKXLdMoPt9oFg" type="5010"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VbnIAg36EeKXLdMoPt9oFg" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_V9Y_YA36EeKXLdMoPt9oFg" type="3001" fontName="Lucida Grande">
+        <children xmi:type="notation:DecorationNode" xmi:id="_V9ZmcA36EeKXLdMoPt9oFg" type="5005"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_V9ZmcQ36EeKXLdMoPt9oFg" type="7002">
+          <children xmi:type="notation:Node" xmi:id="_XekeQA36EeKXLdMoPt9oFg" type="3011">
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_XekeQQ36EeKXLdMoPt9oFg"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_XekeQg36EeKXLdMoPt9oFg" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Init" href="service3.service#//@service.0/@behavior.0/@state.0"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XekeQw36EeKXLdMoPt9oFg" x="260" y="46"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_aNvaQA36EeKXLdMoPt9oFg" type="3012">
+            <children xmi:type="notation:DecorationNode" xmi:id="_aNwBUA36EeKXLdMoPt9oFg" type="5011"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_aNwBUQ36EeKXLdMoPt9oFg" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_fNB-wA36EeKXLdMoPt9oFg" type="3013">
+                <element xmi:type="selfletbehavior:Action" href="service3.service#//@service.0/@behavior.0/@state.1/@action"/>
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_fNB-wQ36EeKXLdMoPt9oFg"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_aNwBUg36EeKXLdMoPt9oFg"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_aNwBUw36EeKXLdMoPt9oFg"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_aNvaQQ36EeKXLdMoPt9oFg"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_aNvaQg36EeKXLdMoPt9oFg" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Invocation" href="service3.service#//@service.0/@behavior.0/@state.1"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aNvaQw36EeKXLdMoPt9oFg" x="161" y="118"/>
+          </children>
+          <children xmi:type="notation:Shape" xmi:id="_b_r5AA36EeKXLdMoPt9oFg" type="3014" fontName="Lucida Grande">
+            <element xmi:type="selfletbehavior:Final" href="service3.service#//@service.0/@behavior.0/@state.2"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_b_r5AQ36EeKXLdMoPt9oFg" x="258" y="216"/>
+          </children>
+        </children>
+        <element xmi:type="selfletbehavior:Elementary" href="service3.service#//@service.0/@behavior.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_V9Y_YQ36EeKXLdMoPt9oFg"/>
+      </children>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_VbnIAw36EeKXLdMoPt9oFg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_VbnIBA36EeKXLdMoPt9oFg"/>
+    </children>
+    <element xmi:type="selfletbehavior:Service" href="service3.service#//@service.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Vbmg8Q36EeKXLdMoPt9oFg"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_VTpe0Q36EeKXLdMoPt9oFg"/>
+  <element xmi:type="selfletbehavior:Selflet" href="service3.service#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_clq68A36EeKXLdMoPt9oFg" type="4007" source="_XekeQA36EeKXLdMoPt9oFg" target="_aNvaQA36EeKXLdMoPt9oFg">
+    <children xmi:type="notation:DecorationNode" xmi:id="_clriAA36EeKXLdMoPt9oFg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_clriAQ36EeKXLdMoPt9oFg" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_clq68Q36EeKXLdMoPt9oFg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_clq68g36EeKXLdMoPt9oFg" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="service3.service#//@service.0/@behavior.0/@state.0/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_clq68w36EeKXLdMoPt9oFg" points="[-5, 11, 0, -53]$[-3, 61, 2, -3]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_clvMYA36EeKXLdMoPt9oFg" id="(0.57,0.075)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_dFY80A36EeKXLdMoPt9oFg" type="4007" source="_aNvaQA36EeKXLdMoPt9oFg" target="_b_r5AA36EeKXLdMoPt9oFg">
+    <children xmi:type="notation:DecorationNode" xmi:id="_dFZj4A36EeKXLdMoPt9oFg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_dFaK8A36EeKXLdMoPt9oFg" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_dFY80Q36EeKXLdMoPt9oFg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_dFY80g36EeKXLdMoPt9oFg" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="service3.service#//@service.0/@behavior.0/@state.1/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_dFY80w36EeKXLdMoPt9oFg" points="[5, 20, -18, -61]$[23, 78, 0, -3]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_dFdOQA36EeKXLdMoPt9oFg" id="(0.53125,0.09375)"/>
+  </edges>
+</notation:Diagram>
