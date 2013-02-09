@@ -15,3 +15,5 @@
 # Selflet specific data
 ./SelfLetOsgiframeworks
 ./logs
+/logs
+/SelfLetOsgiframeworks

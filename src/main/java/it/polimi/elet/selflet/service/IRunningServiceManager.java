@@ -27,7 +27,14 @@ public interface IRunningServiceManager extends ISelfletComponent {
 	 * */
 	void resumePendingService(MessageID messageID);
 
-	
+	/**
+	 * Returns an object containing all service execution stats
+	 * */
 	ServiceExecutionStats getServiceExecutionStats();
+
+	/**
+	 * Removes old entries from the running service manager
+	 * */
+	void cleanOldRequests();
 
 }

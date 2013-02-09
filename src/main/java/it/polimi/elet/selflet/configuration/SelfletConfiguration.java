@@ -14,11 +14,10 @@ public class SelfletConfiguration extends Configuration {
 	// singleton instance
 	private static volatile SelfletConfiguration singleton;
 
+
 	public int minimumTimeBetweenTwoRemovalActionsInSec;
 
 	public long maxNeighborAgeInSec;
-	public int serviceThreadPoolSize;
-	public int genericThreadPoolSize;
 	public long minimumTimeToRemoveSelfletInSec;
 	public int minimumTimeBetweenNewSelfletActionsInSec;
 
@@ -35,6 +34,12 @@ public class SelfletConfiguration extends Configuration {
 	public int initialDelayAfterSelfletInitializationInMs;
 	public int neighborUpdateManagerIntervalInSec;
 	public int utilizationCheckerPeriodInSec;
+
+	/* Service execution parameters */
+	public int maxServiceExecutionTimeInSec;
+	public int serviceThreadPoolSize;
+	public int genericThreadPoolSize;
+	public int requestCleanerPeriodInSec;
 
 	public static SelfletConfiguration getSingleton() {
 		if (singleton == null) {

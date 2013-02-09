@@ -28,6 +28,7 @@ import it.polimi.elet.selflet.negotiation.nodeState.INeighborStateUpdaterTimerTa
 import it.polimi.elet.selflet.optimization.IOptimizationManager;
 import it.polimi.elet.selflet.service.IRunningServiceManager;
 import it.polimi.elet.selflet.service.IServiceExecutor;
+import it.polimi.elet.selflet.service.OldRequestCleanerTimerTask;
 import it.polimi.elet.selflet.service.utilization.IPerformanceMonitor;
 import it.polimi.elet.selflet.service.utilization.UtilizationCheckerTimerTask;
 import it.polimi.elet.selflet.threadUtilities.PeriodicThreadStarter;
@@ -99,7 +100,8 @@ public class SelfletInstance {
 	 * @param ruleFilePath
 	 *            the rule file path for the autonomic manager
 	 */
-	public SelfletInstance(String selfLetIdString, String selfletType, List<ServiceType> services, String workingDir, List<String> ruleFiles) {
+	public SelfletInstance(String selfLetIdString, String selfletType, List<ServiceType> services, String workingDir,
+			List<String> ruleFiles) {
 		UtilitiesProvider.setWorkingDir(workingDir);
 
 		this.selfLetId = new SelfLetID(selfLetIdString);
@@ -156,7 +158,8 @@ public class SelfletInstance {
 	 *            should be removed from here
 	 */
 
-	public void startup(String redsAddress, int redsPort, int limePort, List<AbstractAbility> abilities, String initialService) {
+	public void startup(String redsAddress, int redsPort, int limePort, List<AbstractAbility> abilities,
+			String initialService) {
 
 		LOG.info("Starting selflet...");
 		startTime = System.currentTimeMillis();
@@ -188,6 +191,7 @@ public class SelfletInstance {
 		periodicThreadsStarter.addPeriodicTask(injector.getInstance(SelfLetAliveTimerTask.class));
 		periodicThreadsStarter.addPeriodicTask(injector.getInstance(INeighborStateUpdaterTimerTask.class));
 		periodicThreadsStarter.addPeriodicTask(injector.getInstance(IOptimizationManager.class));
+		periodicThreadsStarter.addPeriodicTask(injector.getInstance(OldRequestCleanerTimerTask.class));
 
 		injector.getInstance(ISelfletShutdown.class).addPeriodicThreadStarter(periodicThreadsStarter);
 		periodicThreadsStarter.start();
@@ -225,9 +229,10 @@ public class SelfletInstance {
 
 	private void registerSelfletComponents() {
 
-		ImmutableSet<ISelfletComponent> componentsToRegister = ImmutableSet.of(messageHandler, abilityExecutionEnvironment, generalKnowledge,
-				negotiationManager, autonomicManager, actionManager, runningServiceManager, negotiationEventReceiver, messageHandler, autonomicAttuator,
-				performanceMonitor, neighborStateManager, serviceExecutor);
+		ImmutableSet<ISelfletComponent> componentsToRegister = ImmutableSet.of(messageHandler,
+				abilityExecutionEnvironment, generalKnowledge, negotiationManager, autonomicManager, actionManager,
+				runningServiceManager, negotiationEventReceiver, messageHandler, autonomicAttuator, performanceMonitor,
+				neighborStateManager, serviceExecutor);
 
 		for (ISelfletComponent component : componentsToRegister) {
 			dispatcher.registerSelfLetComponent(component);

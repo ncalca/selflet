@@ -5,11 +5,11 @@ package it.polimi.elet.selflet;
  * 
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
-public class SelfLet {
+public class Main {
 
-	private static final String USAGE = "Usage:\n\t" + SelfLet.class.getName() + " workingDir [-b ADDRESS:PORT] [-i IDENTIFIER]";
+	private static final String USAGE = "Usage:\n\t" + Main.class.getName() + " workingDir [-b ADDRESS:PORT] [-i IDENTIFIER]";
 
-	private SelfLet() {
+	private Main() {
 		// private constructor
 	}
 

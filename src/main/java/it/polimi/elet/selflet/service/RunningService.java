@@ -35,6 +35,7 @@ public abstract class RunningService extends Thread {
 	private final Service service;
 	private final NextStateExtractor nextStateExtractor;
 	private final IEventDispatcher dispatcher;
+	private long startTime;
 
 	private Object lastOutput;
 	private long responseTime;
@@ -42,7 +43,8 @@ public abstract class RunningService extends Thread {
 
 	private CountDownLatch countDownLatch;
 
-	public RunningService(Service service, IGeneralKnowledge generalKnowledge, IActionExecutorFactory actionExecutorFactory, IEventDispatcher dispatcher,
+	public RunningService(Service service, IGeneralKnowledge generalKnowledge,
+			IActionExecutorFactory actionExecutorFactory, IEventDispatcher dispatcher,
 			IConditionEvaluator conditionEvaluator) {
 		super(service.getName());
 		this.service = service;
@@ -56,6 +58,8 @@ public abstract class RunningService extends Thread {
 
 	public void run() {
 		LOG.debug("Starting execution of service " + service);
+		startTime = System.currentTimeMillis();
+
 		// main service loop
 		currentState = defaultBehavior.getInitialState();
 
@@ -74,9 +78,9 @@ public abstract class RunningService extends Thread {
 	}
 
 	private void finalizeService() {
+		LOG.debug("Service '" + service.getName() + "' completed. Response time: " + formatNumber(responseTime));
 		logStateInfo();
 		computeResponseTime();
-		LOG.debug("Service '" + service.getName() + "' completed. Response time: " + formatNumber(responseTime));
 		fireCompletionEvent();
 	}
 
@@ -85,7 +89,6 @@ public abstract class RunningService extends Thread {
 	}
 
 	private void executeCurrentState() {
-
 		if (currentState.isInitialState()) {
 			return;
 		}
@@ -145,7 +148,8 @@ public abstract class RunningService extends Thread {
 	}
 
 	private void logStateInfo() {
-		LOG.info("Current state: <<" + currentState.getName() + ":" + currentState.getUniqueId() + " of behavior: " + defaultBehavior + ">>");
+		LOG.info("Current state: <<" + currentState.getName() + ":" + currentState.getUniqueId() + " of behavior: "
+				+ defaultBehavior + ">>");
 	}
 
 	/**
@@ -179,15 +183,21 @@ public abstract class RunningService extends Thread {
 		}
 	}
 
-	private void fireServiceNeededEvent(String serviceName, String outputDestination, RunningService callingService) {
-		DispatchingUtility.dispatchEvent(dispatcher, ServiceNeededEvent.class, serviceName, outputDestination, callingService);
-	}
-
 	public Service getService() {
 		return service;
+	}
+
+	public long getServiceLifeTimeInMillis() {
+		return System.currentTimeMillis() - startTime;
 	}
 
 	public abstract boolean isChildService();
 
 	public abstract boolean isLocalServiceInvocation();
+
+	private void fireServiceNeededEvent(String serviceName, String outputDestination, RunningService callingService) {
+		DispatchingUtility.dispatchEvent(dispatcher, ServiceNeededEvent.class, serviceName, outputDestination,
+				callingService);
+	}
+
 }
