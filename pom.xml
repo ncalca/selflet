@@ -143,7 +143,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>it.polimi.elet.selflet.SelfLet</mainClass>
+					<mainClass>it.polimi.elet.selflet.Main</mainClass>
 				</configuration>
 			</plugin>
 
