@@ -9,6 +9,9 @@ import it.polimi.elet.selflet.threadUtilities.PeriodicThreadStarter;
  * */
 public interface ISelfletShutdown {
 
+	/**
+	 * Shuts down the current selflet
+	 * */
 	void shutDown();
 
 	void addPeriodicThreadStarter(PeriodicThreadStarter periodicThreadsStarter);

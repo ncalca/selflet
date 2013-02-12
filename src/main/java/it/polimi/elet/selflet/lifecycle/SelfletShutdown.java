@@ -46,7 +46,7 @@ public class SelfletShutdown implements ISelfletShutdown {
 //		messageHandler.disconnect();
 		
 		// TODO for now brutally kill this selflet
-//		System.exit(0);
+		System.exit(0);
 	}
 
 	private void sleep() {
