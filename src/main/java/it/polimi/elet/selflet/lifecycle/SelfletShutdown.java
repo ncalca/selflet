@@ -20,7 +20,7 @@ public class SelfletShutdown implements ISelfletShutdown {
 
 	private static final Logger LOG = Logger.getLogger(SelfletShutdown.class);
 
-	private static final long SLEEP_BEFORE_KILL = 60 * 1000;
+	private static final long SLEEP_BEFORE_KILL = 20 * 1000;
 
 	private final INegotiationManager negotiationManager;
 	private final IMessageHandler messageHandler;
@@ -43,7 +43,7 @@ public class SelfletShutdown implements ISelfletShutdown {
 		while (runningServiceManager.getServiceExecutionStats().getActiveCount() > 0) {
 			sleep();
 		}
-//		messageHandler.disconnect();
+		messageHandler.disconnect();
 		
 		// TODO for now brutally kill this selflet
 		System.exit(0);
