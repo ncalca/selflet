@@ -19,7 +19,8 @@ public class LocalRunningService extends RunningService {
 	private final RunningService callingService;
 
 	public LocalRunningService(Service service, RunningService callingService, IGeneralKnowledge generalKnowledge,
-			IActionExecutorFactory actionExecutorFactory, IEventDispatcher dispatcher, IConditionEvaluator conditionEvaluator) {
+			IActionExecutorFactory actionExecutorFactory, IEventDispatcher dispatcher,
+			IConditionEvaluator conditionEvaluator) {
 
 		super(service, generalKnowledge, actionExecutorFactory, dispatcher, conditionEvaluator);
 		this.callingService = callingService;
@@ -27,9 +28,11 @@ public class LocalRunningService extends RunningService {
 
 	@Override
 	public boolean isChildService() {
-		if (callingService instanceof RemoteRunningService) {
+
+		if (callingService == null || callingService instanceof RemoteRunningService) {
 			return false;
 		}
+
 		boolean calledByElementaryBehavior = callingService.getService().isImplementedByElementaryBehavior();
 		return !calledByElementaryBehavior;
 	}
@@ -39,8 +42,10 @@ public class LocalRunningService extends RunningService {
 		fireLocalReqLocalExeCompletedEvent(getServiceName(), callingService, this, getLastOutput(), getResponseTime());
 	}
 
-	private void fireLocalReqLocalExeCompletedEvent(String name, RunningService callingService, RunningService runningService, Object output, Long responseTime) {
-		DispatchingUtility.dispatchEvent(getDispatcher(), LocalReqLocalExeCompletedEvent.class, name, callingService, runningService, output, responseTime);
+	private void fireLocalReqLocalExeCompletedEvent(String name, RunningService callingService,
+			RunningService runningService, Object output, Long responseTime) {
+		DispatchingUtility.dispatchEvent(getDispatcher(), LocalReqLocalExeCompletedEvent.class, name, callingService,
+				runningService, output, responseTime);
 	}
 
 	@Override

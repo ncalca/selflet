@@ -58,8 +58,9 @@ public class AutonomicManagerDrools extends SelfletComponent implements IAutonom
 	private WorkingMemory workingMemory;
 
 	@Inject
-	public AutonomicManagerDrools(INegotiationManager negotiationManager, IAbilityExecutionEnvironment abilityExecutionEnvironment,
-			IKnowledgesContainer knowledges, IAutonomicActuator autonomicAttuator) {
+	public AutonomicManagerDrools(INegotiationManager negotiationManager,
+			IAbilityExecutionEnvironment abilityExecutionEnvironment, IKnowledgesContainer knowledges,
+			IAutonomicActuator autonomicAttuator) {
 		this.negotiationManager = negotiationManager;
 		this.serviceKnowledge = knowledges.getServiceKnowledge();
 		this.generalKnowledge = knowledges.getGeneralKnowledge();
@@ -73,10 +74,13 @@ public class AutonomicManagerDrools extends SelfletComponent implements IAutonom
 
 	public void addRuleFiles(List<String> rules) {
 		// TODO make it generic so that it accepts multiple rules
-		if (rules.size() > 0) {
-			addRuleFile(rules.get(0));
+
+		if (rules.isEmpty()) {
+			LOG.debug("No rules found");
 		} else {
-			throw new NotImplementedExeception("Management of multiple rules is still not implemented");
+			String rule = rules.get(0);
+			LOG.debug("Adding only one rule: " + rule);
+			addRuleFile(rule);
 		}
 	}
 
