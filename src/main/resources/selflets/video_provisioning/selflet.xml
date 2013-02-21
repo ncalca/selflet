@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:selflet name="video_provisioning" xmlns:p="http://sourceforge.net/projects/selflet/">
+
+	<selfletProperties>
+		<author></author>
+		<description></description>
+		<active mainService="videoProvisioner"/>
+		<reds>
+			<ipAddress>127.0.0.1</ipAddress>
+			<port>8000</port>
+		</reds>
+	</selfletProperties>
+
+</p:selflet>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:service name="scaleVideo"  active="true"  offerMode="CanDo"  xmlns:p="http://sourceforge.net/projects/selflet/service">
+	<input>
+	</input>
+	<output>
+		<param name="output" type="Object" />
+	</output>
+	<revenue> 100 </revenue>
+	<maxResponseTime> 100 </maxResponseTime>
+</p:service>

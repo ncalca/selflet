@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selfletbehavior:Selflet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:selfletbehavior="http://selfletbehavior/1.0">
+  <service name="checkIfAvailable.service" description="Implementations of Service: checkIfAvailable.service">
+    <behavior xsi:type="selfletbehavior:Elementary" name="checkIfAvailable">
+      <state xsi:type="selfletbehavior:Init">
+        <next targetState="//@service.0/@behavior.0/@state.1"/>
+      </state>
+      <state xsi:type="selfletbehavior:Invocation" name="checkIfAvailable">
+        <action body="do /checkIfAvailable.service.checkIfAvailable.checkIfAvailable.action" actionFile="checkIfAvailable.service.checkIfAvailable.checkIfAvailable.action"/>
+        <next targetState="//@service.0/@behavior.0/@state.2"/>
+      </state>
+      <state xsi:type="selfletbehavior:Final"/>
+    </behavior>
+  </service>
+</selfletbehavior:Selflet>

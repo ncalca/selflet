@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selfletbehavior:Selflet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:selfletbehavior="http://selfletbehavior/1.0">
+  <service name="videoProvisioner.service" description="Implementations of Service: videoProvisioner.service">
+    <behavior xsi:type="selfletbehavior:Complex" name="videoProvisioner_behavior.service">
+      <state xsi:type="selfletbehavior:Init">
+        <next targetState="//@service.0/@behavior.0/@state.1"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="getVideoResource">
+        <next targetState="//@service.0/@behavior.0/@state.2"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="scaleVideo">
+        <next targetState="//@service.0/@behavior.0/@state.3"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="transcodeVideo">
+        <next targetState="//@service.0/@behavior.0/@state.4"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="bitDepthReduction">
+        <next targetState="//@service.0/@behavior.0/@state.7"/>
+        <next targetState="//@service.0/@behavior.0/@state.5"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="getSubtitles">
+        <next targetState="//@service.0/@behavior.0/@state.6"/>
+      </state>
+      <state xsi:type="selfletbehavior:Intermediate" name="applySubtitles">
+        <next targetState="//@service.0/@behavior.0/@state.7"/>
+      </state>
+      <state xsi:type="selfletbehavior:Final"/>
+    </behavior>
+  </service>
+</selfletbehavior:Selflet>
