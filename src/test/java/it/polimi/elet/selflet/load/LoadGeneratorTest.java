@@ -6,7 +6,7 @@ import static junit.framework.Assert.*;
 
 public class LoadGeneratorTest {
 
-	private static final double TOLERANCE = 1.05;
+	private static final double TOLERANCE = 2;
 
 	@Test
 	public void testLoadGenerator() {

@@ -5,8 +5,10 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import it.polimi.elet.selflet.configuration.SelfletConfiguration;
 import it.polimi.elet.selflet.utilities.ThreadUtilities;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
@@ -15,6 +17,11 @@ public class EventDispatcherTest {
 
 	private static final int SLEEP_TIME = 10;
 	private IEventDispatcher eventDispatcher;
+
+	@BeforeClass
+	public static void setUp() {
+		SelfletConfiguration.getSingleton().genericThreadPoolSize = 10;
+	}
 
 	@Test
 	public void testNoListeners() {
