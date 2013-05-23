@@ -1,5 +1,7 @@
 package it.polimi.elet.selflet.load;
 
+import java.util.List;
+
 /**
  * Manages the tracks used for load
  * 
@@ -16,5 +18,15 @@ public interface ILoadProfileManager {
 	 * Returns the number of loaded tracks
 	 * */
 	int getNumberOfLoadProfiles();
+
+	/**
+	 * Retrieves all load profiles
+	 * */
+	List<String> getLoadProfiles();
+
+	/**
+	 * Returns the loadProfile with the given name
+	 * */
+	LoadProfile getLoadProfile(String loadProfileName);
 
 }

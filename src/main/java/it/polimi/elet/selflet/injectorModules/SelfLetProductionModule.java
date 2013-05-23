@@ -29,6 +29,8 @@ import it.polimi.elet.selflet.knowledge.ServiceKnowledge;
 import it.polimi.elet.selflet.knowledge.TypeKnowledge;
 import it.polimi.elet.selflet.lifecycle.ISelfletShutdown;
 import it.polimi.elet.selflet.lifecycle.SelfletShutdown;
+import it.polimi.elet.selflet.load.ILoadProfileManager;
+import it.polimi.elet.selflet.load.LoadProfileManager;
 import it.polimi.elet.selflet.message.IMessageHandler;
 import it.polimi.elet.selflet.message.IRedsMessageFactory;
 import it.polimi.elet.selflet.message.ISelfLetMsgFactory;
@@ -81,6 +83,7 @@ import it.polimi.elet.selflet.service.utilization.RedirectMonitor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
 /**
  * Creates bindings between interfaces and concrete classes which are used by
@@ -167,6 +170,7 @@ public class SelfLetProductionModule extends AbstractModule {
 		bind(IActionAPIFactory.class).to(ActionAPIFactory.class);
 		bind(IActionExecutorFactory.class).to(ActionExecutorFactory.class);
 		bind(IConditionEvaluator.class).to(JEXL2ConditionEvaluator.class);
+		bind(ILoadProfileManager.class).to(LoadProfileManager.class);
 	}
 
 	private void bindKnowledges() {

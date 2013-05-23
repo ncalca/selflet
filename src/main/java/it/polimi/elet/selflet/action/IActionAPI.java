@@ -2,6 +2,7 @@ package it.polimi.elet.selflet.action;
 
 import it.polimi.elet.selflet.events.ISelfletComponent;
 import it.polimi.elet.selflet.exceptions.ActionException;
+import it.polimi.elet.selflet.load.ILoadProfileManager;
 
 import java.util.List;
 
@@ -39,4 +40,8 @@ public interface IActionAPI extends ISelfletComponent {
 	 * */
 	Object needService(String serviceName);
 
+	/**
+	 * Returns the load profiler
+	 * */
+	ILoadProfileManager getLoadProfileManager();
 }

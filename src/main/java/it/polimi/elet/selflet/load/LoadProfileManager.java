@@ -72,12 +72,18 @@ public class LoadProfileManager implements ILoadProfileManager {
 	}
 
 	@Override
+	public LoadProfile getLoadProfile(String profileName) {
+		return profiles.get(profileName);
+	}
+
+	@Override
 	public int getNumberOfLoadProfiles() {
 		return profiles.size();
 	}
 
-	public LoadProfile getLoadProfile(String profileName) {
-		return profiles.get(profileName);
+	@Override
+	public List<String> getLoadProfiles() {
+		return Lists.newArrayList(profiles.keySet());
 	}
 
 }

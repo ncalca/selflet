@@ -12,15 +12,15 @@ public class LoadGeneratorTest {
 	public void testLoadGenerator() {
 		Boolean doCpuTest = true;
 		Boolean doHdTest = true;
-		double testDurationInSec = 2;
+		double testDurationInSec = 0.5;
 		double testDurationInMillis = testDurationInSec * 1000;
 
 		LoadGenerator loadGenerator = new LoadGenerator(doCpuTest, doHdTest, LoadType.Constant, testDurationInSec);
 		long before = System.currentTimeMillis();
 		loadGenerator.runTest();
 		long after = System.currentTimeMillis();
-		long duration = after - before;
-		assertTrue(duration >= testDurationInMillis);
-		assertTrue(duration <= (testDurationInMillis * TOLERANCE));
+		long durationInMillis = after - before;
+		assertTrue(durationInMillis >= testDurationInMillis);
+		assertTrue(durationInMillis <= (testDurationInMillis * TOLERANCE));
 	}
 }

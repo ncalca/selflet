@@ -12,6 +12,7 @@ import it.polimi.elet.selflet.knowledge.IGeneralKnowledge;
 import it.polimi.elet.selflet.knowledge.IKnowledgesContainer;
 import it.polimi.elet.selflet.knowledge.ITypeKnowledge;
 import it.polimi.elet.selflet.knowledge.KnowledgeBase;
+import it.polimi.elet.selflet.load.ILoadProfileManager;
 import it.polimi.elet.selflet.service.RunningService;
 
 import java.util.List;
@@ -34,12 +35,15 @@ public class ActionAPI extends SelfletComponent implements IActionAPI {
 	private final ITypeKnowledge typeKnowledge;
 	private final IGeneralKnowledge generalKnowledge;
 	private final RunningService runningService;
+	private final ILoadProfileManager loadProfilerManager;
 
-	public ActionAPI(IAbilityExecutionEnvironment abilityExecutionEnvironment, IKnowledgesContainer knowledges, RunningService runningService) {
+	public ActionAPI(IAbilityExecutionEnvironment abilityExecutionEnvironment, IKnowledgesContainer knowledges,
+			RunningService runningService, ILoadProfileManager loadProfilerManager) {
 		this.abilityExecutionEnvironment = abilityExecutionEnvironment;
 		this.typeKnowledge = knowledges.getTypeKnowledge();
 		this.generalKnowledge = knowledges.getGeneralKnowledge();
 		this.runningService = runningService;
+		this.loadProfilerManager = loadProfilerManager;
 	}
 
 	public Object needService(String serviceName) {
@@ -131,6 +135,11 @@ public class ActionAPI extends SelfletComponent implements IActionAPI {
 		}
 
 		throw new IllegalStateException("Cannot load ability");
+	}
+
+	@Override
+	public ILoadProfileManager getLoadProfileManager() {
+		return this.loadProfilerManager;
 	}
 
 	/* *************** */
