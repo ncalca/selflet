@@ -41,6 +41,8 @@ public class SelfletConfiguration extends Configuration {
 	public int genericThreadPoolSize;
 	public int requestCleanerPeriodInSec;
 
+	public String loadProfileTrafficMix;
+
 	public static SelfletConfiguration getSingleton() {
 		if (singleton == null) {
 			singleton = new SelfletConfiguration();

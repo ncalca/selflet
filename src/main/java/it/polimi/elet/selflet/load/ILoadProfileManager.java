@@ -13,7 +13,7 @@ public interface ILoadProfileManager {
 	 * Loads tracks from default location
 	 * */
 	void loadProfiles();
-	
+
 	/**
 	 * Loads tracks from disk
 	 * */
@@ -33,5 +33,15 @@ public interface ILoadProfileManager {
 	 * Returns the loadProfile with the given name
 	 * */
 	LoadProfile getLoadProfile(String loadProfileName);
+
+	/**
+	 * Extracts a new load profile from the mix
+	 * */
+	String extractLoadProfile();
+
+	/**
+	 * Returns a list containing the mix for all load profiles
+	 * */
+	List<TrafficMixItem> getLoadProfilesMix();
 
 }

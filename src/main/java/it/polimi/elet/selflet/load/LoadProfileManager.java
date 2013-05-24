@@ -1,5 +1,10 @@
 package it.polimi.elet.selflet.load;
 
+import static it.polimi.elet.selflet.utilities.MathUtil.*;
+
+import it.polimi.elet.selflet.configuration.SelfletConfiguration;
+import it.polimi.elet.selflet.utilities.RandomDistributions;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -9,6 +14,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -26,9 +32,10 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 	private static final Logger LOG = Logger.getLogger(LoadProfileManager.class);
 	private static final String LOAD_PROFILE_FILE_EXTENSION = ".csv";
-	private final String DEFAULT_PATH_LOCATION = "../../../../../load_profiles/";
+	private static final String DEFAULT_PATH_LOCATION = "../../../../../load_profiles/";
 
 	private final Map<String, LoadProfile> profiles = Maps.newHashMap();
+	private final List<TrafficMixItem> loadProfilesMix = Lists.newArrayList();
 
 	@Override
 	public void loadProfiles() {
@@ -37,7 +44,32 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 	@Override
 	public void loadProfiles(String path) {
-		List<File> files = getAvailableFiles(path);
+		List<File> files = getAvailableProfileFiles(path);
+		loadFiles(files);
+		loadProfileMix();
+	}
+
+	private void loadProfileMix() {
+		String loadProfileTrafficMix = SelfletConfiguration.getSingleton().loadProfileTrafficMix;
+		String stringItems[] = loadProfileTrafficMix.split(",");
+		for (String item : stringItems) {
+			TrafficMixItem mixItem = new TrafficMixItem(item);
+			loadProfilesMix.add(mixItem);
+		}
+
+		checkValidityOfProfileMix();
+	}
+
+	private void checkValidityOfProfileMix() {
+		Set<String> profileNames = profiles.keySet();
+		for (TrafficMixItem item : loadProfilesMix) {
+			if (!profileNames.contains(item.profileName)) {
+				throw new IllegalArgumentException("Invalid profile mix item: " + item.profileName);
+			}
+		}
+	}
+
+	private void loadFiles(List<File> files) {
 		for (File file : files) {
 			LOG.warn("Loading load profile: " + file);
 			LoadProfile loadProfile = createLoadProfile(file);
@@ -46,7 +78,7 @@ public class LoadProfileManager implements ILoadProfileManager {
 		}
 	}
 
-	private List<File> getAvailableFiles(String path) {
+	private List<File> getAvailableProfileFiles(String path) {
 		URL folderURL = LoadProfileManager.class.getResource(path);
 		File folder = null;
 		try {
@@ -97,6 +129,26 @@ public class LoadProfileManager implements ILoadProfileManager {
 	@Override
 	public List<String> getLoadProfiles() {
 		return Lists.newArrayList(profiles.keySet());
+	}
+
+	@Override
+	public List<TrafficMixItem> getLoadProfilesMix() {
+		return loadProfilesMix;
+	}
+
+	@Override
+	public String extractLoadProfile() {
+		double random = RandomDistributions.randUniform();
+		double prevProb = 0;
+		for (int i = 0; i < loadProfilesMix.size() - 1; i++) {
+			TrafficMixItem item = loadProfilesMix.get(i);
+			if (isInRangeInclusive(random, prevProb, item.probability)) {
+				return item.profileName;
+			}
+			prevProb = item.probability;
+		}
+
+		return loadProfilesMix.get(loadProfilesMix.size() - 1).profileName;
 	}
 
 }
