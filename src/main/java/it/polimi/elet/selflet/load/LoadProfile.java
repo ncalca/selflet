@@ -33,7 +33,7 @@ public class LoadProfile {
 		return couples.size();
 	}
 
-	public double extractANewDuration() {
+	public double extractNewWaitTimeInMillis() {
 		double randomNumber = RandomDistributions.randUniform();
 		double prevProbability = 0;
 		for (int i = 0; i < couples.size() - 1; i++) {

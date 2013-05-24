@@ -35,7 +35,7 @@ public class LoadGenerator {
 		this.doCpuTest = true;
 		this.doHdTest = false;
 		this.distTest = LoadType.Constant;
-		this.averageExecutionTimeInSec = loadProfile.extractANewDuration();
+		this.averageExecutionTimeInSec = loadProfile.extractNewWaitTimeInMillis() / 1000;
 	}
 
 	public LoadGenerator(boolean doCpuTest, boolean doHdTest, LoadType loadType, double averageExecutionTimeInSec) {

@@ -56,7 +56,7 @@ public class LoadProfileManagerTest {
 		Map<Integer, Integer> values = Maps.newHashMap();
 
 		for (int i = 0; i < REPETITIONS; i++) {
-			int duration = (int) loadProfile.extractANewDuration();
+			int duration = (int) loadProfile.extractNewWaitTimeInMillis();
 			if (values.containsKey(duration)) {
 				values.put(duration, values.get(duration) + 1);
 			} else {
