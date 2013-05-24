@@ -10,6 +10,11 @@ import java.util.List;
 public interface ILoadProfileManager {
 
 	/**
+	 * Loads tracks from default location
+	 * */
+	void loadProfiles();
+	
+	/**
 	 * Loads tracks from disk
 	 * */
 	void loadProfiles(String path);

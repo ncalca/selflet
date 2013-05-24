@@ -28,6 +28,16 @@ public class LoadGenerator {
 	private final double averageExecutionTimeInSec;
 	private final LoadType distTest;
 
+	/**
+	 * Use data extracted from a load profile
+	 * */
+	public LoadGenerator(LoadProfile loadProfile) {
+		this.doCpuTest = true;
+		this.doHdTest = false;
+		this.distTest = LoadType.Constant;
+		this.averageExecutionTimeInSec = loadProfile.extractANewDuration();
+	}
+
 	public LoadGenerator(boolean doCpuTest, boolean doHdTest, LoadType loadType, double averageExecutionTimeInSec) {
 		this.doCpuTest = doCpuTest;
 		this.doHdTest = doHdTest;

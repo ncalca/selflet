@@ -14,13 +14,26 @@ import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.inject.Singleton;
 
+/**
+ * An implementation for load profile manager
+ * 
+ * @author Nicola Calcavecchia <calcavecchia@gmail.com>
+ * */
+@Singleton
 public class LoadProfileManager implements ILoadProfileManager {
 
 	private static final Logger LOG = Logger.getLogger(LoadProfileManager.class);
 	private static final String LOAD_PROFILE_FILE_EXTENSION = ".csv";
+	private final String DEFAULT_PATH_LOCATION = "../../../../../load_profiles/";
 
 	private final Map<String, LoadProfile> profiles = Maps.newHashMap();
+
+	@Override
+	public void loadProfiles() {
+		loadProfiles(DEFAULT_PATH_LOCATION);
+	}
 
 	@Override
 	public void loadProfiles(String path) {

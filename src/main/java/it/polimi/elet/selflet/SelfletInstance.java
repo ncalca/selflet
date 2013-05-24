@@ -18,6 +18,7 @@ import it.polimi.elet.selflet.knowledge.IGeneralKnowledge;
 import it.polimi.elet.selflet.knowledge.IKnowledgesContainer;
 import it.polimi.elet.selflet.knowledge.IServiceKnowledge;
 import it.polimi.elet.selflet.lifecycle.ISelfletShutdown;
+import it.polimi.elet.selflet.load.ILoadProfileManager;
 import it.polimi.elet.selflet.message.IMessageHandler;
 import it.polimi.elet.selflet.message.SelfLetAliveTimerTask;
 import it.polimi.elet.selflet.negotiation.INegotiationEventReceiver;
@@ -76,6 +77,7 @@ public class SelfletInstance {
 	private final IActionFactory actionFactory;
 	private final INeighborStateManager neighborStateManager;
 	private final IServiceExecutor serviceExecutor;
+	private final ILoadProfileManager loadProfileManager;
 
 	/** Knowledges */
 	private final IKnowledgesContainer knowledges;
@@ -123,6 +125,7 @@ public class SelfletInstance {
 		this.actionFactory = injector.getInstance(IActionFactory.class);
 		this.neighborStateManager = injector.getInstance(INeighborStateManager.class);
 		this.serviceExecutor = injector.getInstance(IServiceExecutor.class);
+		this.loadProfileManager = injector.getInstance(ILoadProfileManager.class);
 
 		registerSelfletComponents();
 
@@ -163,20 +166,15 @@ public class SelfletInstance {
 
 		LOG.info("Starting selflet...");
 		startTime = System.currentTimeMillis();
-
-		LOG.info("Starting dispatcher");
 		ThreadUtilities.submitGenericJob(dispatcher);
-
 		messageHandler.connect(redsAddress, redsPort);
-
-		LOG.info("Starting negotiation event receiver");
 		ThreadUtilities.submitGenericJob(negotiationEventReceiver);
-
 		autonomicManager.start();
 		abilityExecutionEnvironment.startEnvironment();
 		setAbilities(abilities);
 
 		startPeriodicThreads();
+		loadProfileManager.loadProfiles();
 
 		LOG.info("<-- Initialization phase completed ! -->\n\n");
 		startInitialService(initialService);
