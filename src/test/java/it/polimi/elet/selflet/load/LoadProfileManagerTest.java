@@ -15,6 +15,7 @@ public class LoadProfileManagerTest {
 
 	private final String PATH = "../../../../../load_profiles/";
 	private final String TEST_PROFILE = "test";
+	private final String TRAFFIC_MIX = TEST_PROFILE + ":" + "1";
 	private final double DELTA = 1e-3;
 
 	private LoadProfileManager profilesManager;
@@ -23,7 +24,7 @@ public class LoadProfileManagerTest {
 	@Before
 	public void setUp() {
 		this.profilesManager = new LoadProfileManager();
-		this.profilesManager.loadProfiles(PATH);
+		this.profilesManager.loadProfiles(PATH, TRAFFIC_MIX);
 		this.loadProfile = profilesManager.getLoadProfile(TEST_PROFILE);
 	}
 

@@ -39,18 +39,17 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 	@Override
 	public void loadProfiles() {
-		loadProfiles(DEFAULT_PATH_LOCATION);
+		loadProfiles(DEFAULT_PATH_LOCATION, SelfletConfiguration.getSingleton().loadProfileTrafficMix);
 	}
 
 	@Override
-	public void loadProfiles(String path) {
+	public void loadProfiles(String path, String trafficMix) {
 		List<File> files = getAvailableProfileFiles(path);
 		loadFiles(files);
-		loadProfileMix();
+		loadProfileMix(trafficMix);
 	}
 
-	private void loadProfileMix() {
-		String loadProfileTrafficMix = SelfletConfiguration.getSingleton().loadProfileTrafficMix;
+	private void loadProfileMix(String loadProfileTrafficMix) {
 		String stringItems[] = loadProfileTrafficMix.split(",");
 		for (String item : stringItems) {
 			TrafficMixItem mixItem = new TrafficMixItem(item);

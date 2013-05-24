@@ -83,7 +83,6 @@ import it.polimi.elet.selflet.service.utilization.RedirectMonitor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
 /**
  * Creates bindings between interfaces and concrete classes which are used by

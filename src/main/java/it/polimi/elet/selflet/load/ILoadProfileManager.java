@@ -17,7 +17,7 @@ public interface ILoadProfileManager {
 	/**
 	 * Loads tracks from disk
 	 * */
-	void loadProfiles(String path);
+	void loadProfiles(String path, String trafficMix);
 
 	/**
 	 * Returns the number of loaded tracks
