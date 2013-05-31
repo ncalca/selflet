@@ -70,7 +70,7 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 	private void loadFiles(List<File> files) {
 		for (File file : files) {
-			LOG.warn("Loading load profile: " + file);
+			LOG.info("Loading load profile: " + file);
 			LoadProfile loadProfile = createLoadProfile(file);
 			String profileName = file.getName().replace(".csv", "");
 			profiles.put(profileName, loadProfile);

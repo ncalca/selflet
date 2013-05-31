@@ -1,7 +1,6 @@
 package it.polimi.elet.selflet.load;
 
 import org.junit.Ignore;
-import org.junit.Test;
 
 import static junit.framework.Assert.*;
 
@@ -9,7 +8,6 @@ public class LoadGeneratorTest {
 
 	private static final double TOLERANCE = 2;
 
-	@Test
 	@Ignore
 	public void testLoadGenerator() {
 		Boolean doCpuTest = true;
