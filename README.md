@@ -27,7 +27,8 @@ Each (sub)project has its own github repository as describe below:
 - Request dispatcher (https://github.com/ncalca/selflet-request-dispatcher)
 
 The first step is to clone the previously listed git repositories in a common folder. 
-One way to do this using Eclipse IDE is to: 
+One way to do this using Eclipse IDE is to:
+
 1. Checkout the git repository locally
 2. Import project from local git repository as a `General Project`
 3. Convert the project to a Maven project (Configure -> Convert to Maven project)
