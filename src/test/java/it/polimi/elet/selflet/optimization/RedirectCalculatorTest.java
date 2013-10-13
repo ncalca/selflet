@@ -18,7 +18,7 @@ import static junit.framework.Assert.*;
 public class RedirectCalculatorTest {
 
 	private static final int MAX_ITERATIONS = 1000;
-	private static final double DELTA = 0.05;
+	private static final double DELTA = 0.1;
 
 	@Test
 	public void testEmptySetOfRedirectPolicies() {
