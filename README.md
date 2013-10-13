@@ -46,7 +46,7 @@ These are the steps to run a simple example SelfLet-based system already shipped
 In this case we also need to pass three additional parameters specify the: 1) name of the selflet project to run, 2) the selflet unique numeric identifier and the broker address to which the SelfLet will connect. The final expression (using an example SelfLet is): ```mvn exec:java -Dexec.args="src/main/resources/selflets/selflet1 -i 1 -b 127.0.0.1:8000"```
 
 3. Launch the request dispatcher as a Jetty HTTP server. In order to do this you need to execute the ```jetty:run``` maven command.
-4. Launch the workload generator using JMeter.
+4. Launch the workload generator using JMeter. The request track is stored in ```selflet-request-dispatcher/src/main/resources/jmeter_track.jmx``` and in order to be run JMeter needs the so called "JMeter Plugins" that can be found at http://jmeter-plugins.org/.
 
 ## Papers
 1. [Incorporating prediction models in the SelfLet framework: a plugin approach](http://arxiv.org/pdf/1005.2299)
