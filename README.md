@@ -48,6 +48,9 @@ In this case we also need to pass three additional parameters specify the: 1) na
 3. Launch the request dispatcher as a Jetty HTTP server. In order to do this you need to execute the ```jetty:run``` maven command.
 4. Launch the workload generator using JMeter. The request track is stored in ```selflet-request-dispatcher/src/main/resources/jmeter_track.jmx``` and in order to be run JMeter needs the so called "JMeter Plugins" that can be found at http://jmeter-plugins.org/.
 
+
+The optimization model can be found in ```selflet-request-dispatcher/src/main/resources/optimization_model```.
+
 ## Papers
 1. [Incorporating prediction models in the SelfLet framework: a plugin approach](http://arxiv.org/pdf/1005.2299)
 2. [The emergence of load balancing in distributed systems: the selflet approach](http://home.deib.polimi.it/calcavecchia/publications/runtime_models2010.pdf)
