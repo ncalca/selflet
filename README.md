@@ -51,6 +51,13 @@ In this case we also need to pass three additional parameters specify the: 1) na
 
 The optimization model can be found in ```selflet-request-dispatcher/src/main/resources/optimization_model```.
 
+**Important**: Before launching the dispatcher it is necessary to set the Amazon Credentials in the ```selflet-request-dispacther/src/main/resources/AwsCredentials.properties``` file. The content of the file has the following format:
+```
+accessKey=SECRET
+secretKey=SECRET
+```
+where ```SECRET``` is substituted with your AWS credentials.
+
 ## Papers
 1. [Incorporating prediction models in the SelfLet framework: a plugin approach](http://arxiv.org/pdf/1005.2299)
 2. [The emergence of load balancing in distributed systems: the selflet approach](http://home.deib.polimi.it/calcavecchia/publications/runtime_models2010.pdf)
