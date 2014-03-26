@@ -6,5 +6,5 @@
 		<param name="output" type="Object" />
 	</output>
 	<revenue> 100 </revenue>
-	<maxResponseTime> 100 </maxResponseTime>
+	<maxResponseTime> 8000 </maxResponseTime>
 </p:service>

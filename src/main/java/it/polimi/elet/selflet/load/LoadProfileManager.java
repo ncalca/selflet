@@ -1,7 +1,6 @@
 package it.polimi.elet.selflet.load;
 
 import static it.polimi.elet.selflet.utilities.MathUtil.*;
-
 import it.polimi.elet.selflet.configuration.SelfletConfiguration;
 import it.polimi.elet.selflet.utilities.RandomDistributions;
 
@@ -12,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -30,7 +30,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class LoadProfileManager implements ILoadProfileManager {
 
-	private static final Logger LOG = Logger.getLogger(LoadProfileManager.class);
+	private static final Logger LOG = Logger
+			.getLogger(LoadProfileManager.class);
 	private static final String LOAD_PROFILE_FILE_EXTENSION = ".csv";
 	private static final String DEFAULT_PATH_LOCATION = "../../../../../load_profiles/";
 
@@ -39,7 +40,8 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 	@Override
 	public void loadProfiles() {
-		loadProfiles(DEFAULT_PATH_LOCATION, SelfletConfiguration.getSingleton().loadProfileTrafficMix);
+		loadProfiles(DEFAULT_PATH_LOCATION,
+				SelfletConfiguration.getSingleton().loadProfileTrafficMix);
 	}
 
 	@Override
@@ -63,7 +65,8 @@ public class LoadProfileManager implements ILoadProfileManager {
 		Set<String> profileNames = profiles.keySet();
 		for (TrafficMixItem item : loadProfilesMix) {
 			if (!profileNames.contains(item.profileName)) {
-				throw new IllegalArgumentException("Invalid profile mix item: " + item.profileName);
+				throw new IllegalArgumentException("Invalid profile mix item: "
+						+ item.profileName);
 			}
 		}
 	}
@@ -89,7 +92,8 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 			@Override
 			public boolean accept(File fileName) {
-				return fileName.getName().toLowerCase().endsWith(LOAD_PROFILE_FILE_EXTENSION);
+				return fileName.getName().toLowerCase()
+						.endsWith(LOAD_PROFILE_FILE_EXTENSION);
 			}
 		});
 
@@ -106,6 +110,11 @@ public class LoadProfileManager implements ILoadProfileManager {
 
 		LoadProfile loadProfile = new LoadProfile();
 		Scanner scanner = new Scanner(fileInputStream);
+
+		// Line added by Luca Florio. Solve errors with system locale different
+		// from US.
+		scanner.useLocale(Locale.US);
+
 		while (scanner.hasNext()) {
 			float duration = scanner.nextFloat();
 			float probability = scanner.nextFloat();

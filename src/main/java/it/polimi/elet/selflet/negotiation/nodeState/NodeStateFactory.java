@@ -92,6 +92,10 @@ public class NodeStateFactory implements INodeStateFactory {
 
 		performanceData.put(CPU_UTILIZATION.toString(), performanceMonitor.getCurrentTotalCPUUtilization());
 		nodeState.setUtilization(performanceMonitor.getCurrentTotalCPUUtilization());
+		//TODO
+		performanceData.put(CPU_UTILIZATION_UPPER_BOUND.toString(), performanceMonitor.getCPUUtilizationUpperBound());
+		nodeState.setUtilizationUpperBound(performanceMonitor.getCPUUtilizationUpperBound());
+		
 		nodeState.addGenericData(performanceData);
 	}
 

@@ -19,18 +19,30 @@ import it.polimi.elet.selflet.utilities.CollectionUtils;
 public class UtilizationManager implements IUtilizationManager {
 
 	private static final int HISTORY_LENGTH = 10;
-	private static final double UTILIZATION_FOR_REMOTE_SERVICE = SelfletConfiguration.getSingleton().utilizationForRemoteService;
-	private static final double UTILIZATION_UPPER_BOUND = SelfletConfiguration.getSingleton().utilizationUpperBound;
-	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration.getSingleton().utilizationLowerBound;
+	private static final double UTILIZATION_FOR_REMOTE_SERVICE = SelfletConfiguration
+			.getSingleton().utilizationForRemoteService;
+	private static final double UTILIZATION_UPPER_BOUND = SelfletConfiguration
+			.getSingleton().utilizationUpperBound;
+	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration
+			.getSingleton().utilizationLowerBound;
 
 	private final CircularFifoQueue<Double> utilizationHistoryBuffer;
 	private final IPerformanceMonitor performanceMonitor;
 	private final IServiceKnowledge serviceKnowledge;
 
-	public UtilizationManager(IPerformanceMonitor performanceMonitor, IServiceKnowledge serviceKnowledge) {
+	// Strategy for the computation of the CPU upper bound
+	private IUtilizationStrategy utilizationStrategy;
+
+	public UtilizationManager(IPerformanceMonitor performanceMonitor,
+			IServiceKnowledge serviceKnowledge) {
 		this.performanceMonitor = performanceMonitor;
 		this.serviceKnowledge = serviceKnowledge;
-		this.utilizationHistoryBuffer = new CircularFifoQueue<Double>(HISTORY_LENGTH, Double.valueOf(0));
+		this.utilizationHistoryBuffer = new CircularFifoQueue<Double>(
+				HISTORY_LENGTH, Double.valueOf(0));
+		// Use UtilizationUpperBoundDefault() for the fixed bound or
+		// UtilizationUpperBoundComputation to compute it dynamically
+		this.utilizationStrategy = new UtilizationUpperBoundComputation(
+				serviceKnowledge, performanceMonitor);
 	}
 
 	/**
@@ -52,7 +64,8 @@ public class UtilizationManager implements IUtilizationManager {
 	@Override
 	public double getCurrentServiceUtilization(Service service) {
 		String serviceName = service.getName();
-		double throughput = performanceMonitor.getServiceThroughput(serviceName);
+		double throughput = performanceMonitor
+				.getServiceThroughput(serviceName);
 
 		if (throughput <= 0) {
 			return 0;
@@ -86,7 +99,9 @@ public class UtilizationManager implements IUtilizationManager {
 				continue;
 			}
 
-			utilization += getCurrentServiceUtilization(stateService) * BehaviorUtilities.computeStateProbability(defaultBehavior, state);
+			utilization += getCurrentServiceUtilization(stateService)
+					* BehaviorUtilities.computeStateProbability(
+							defaultBehavior, state);
 		}
 		return utilization;
 	}
@@ -94,9 +109,11 @@ public class UtilizationManager implements IUtilizationManager {
 	private double computeElementaryUtilizationForService(Service service) {
 		// computed according to the formula CPUTime x throughput
 
-		double throughput = performanceMonitor.getServiceThroughput(service.getName());
+		double throughput = performanceMonitor.getServiceThroughput(service
+				.getName());
 
-		double responseTimeInMsec = performanceMonitor.getServiceResponseTimeInMsec(service.getName());
+		double responseTimeInMsec = performanceMonitor
+				.getServiceResponseTimeInMsec(service.getName());
 		double responseTimeInSec = responseTimeInMsec / 1000;
 		return responseTimeInSec * throughput;
 	}
@@ -119,7 +136,8 @@ public class UtilizationManager implements IUtilizationManager {
 
 	@Override
 	public double getUtilizationUpperBound() {
-		return UTILIZATION_UPPER_BOUND;
+		// TODO
+		return utilizationStrategy.computeUtilizationUpperBound();
 	}
 
 	@Override
