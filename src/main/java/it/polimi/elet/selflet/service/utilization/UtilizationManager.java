@@ -25,6 +25,8 @@ public class UtilizationManager implements IUtilizationManager {
 			.getSingleton().utilizationUpperBound;
 	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration
 			.getSingleton().utilizationLowerBound;
+	private static final boolean USE_DYNAMIC_STRATEGY = SelfletConfiguration
+			.getSingleton().useDynamicStrategy;
 
 	private final CircularFifoQueue<Double> utilizationHistoryBuffer;
 	private final IPerformanceMonitor performanceMonitor;
@@ -39,10 +41,11 @@ public class UtilizationManager implements IUtilizationManager {
 		this.serviceKnowledge = serviceKnowledge;
 		this.utilizationHistoryBuffer = new CircularFifoQueue<Double>(
 				HISTORY_LENGTH, Double.valueOf(0));
-		// Use UtilizationUpperBoundDefault() for the fixed bound or
-		// UtilizationUpperBoundComputation to compute it dynamically
-		this.utilizationStrategy = new UtilizationUpperBoundComputation(
-				serviceKnowledge, performanceMonitor);
+		if (USE_DYNAMIC_STRATEGY)
+			this.utilizationStrategy = new UtilizationUpperBoundDynamic(
+					serviceKnowledge, performanceMonitor);
+		else
+			this.utilizationStrategy = new UtilizationUpperBoundDefault();
 	}
 
 	/**

@@ -11,7 +11,7 @@ import it.polimi.elet.selflet.service.Service;
  * @author lucaflorio
  * 
  */
-public class UtilizationUpperBoundComputation implements IUtilizationStrategy {
+public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 
 	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration
 			.getSingleton().utilizationLowerBound;
@@ -26,7 +26,7 @@ public class UtilizationUpperBoundComputation implements IUtilizationStrategy {
 	 * @param serviceKnoledge the service knowledge of the selflet
 	 * @param performanceMonitor the performance monitor of the selflet
 	 */
-	public UtilizationUpperBoundComputation(IServiceKnowledge serviceKnoledge,
+	public UtilizationUpperBoundDynamic(IServiceKnowledge serviceKnoledge,
 			IPerformanceMonitor performanceMonitor) {
 		this.myServiceKnolegde = serviceKnoledge;
 		this.myPerformanceMonitor = performanceMonitor;
