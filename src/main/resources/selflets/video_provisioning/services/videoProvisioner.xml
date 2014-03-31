@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:service name="videoProvisioner"  active="true"  offerMode="CanDo"  xmlns:p="http://sourceforge.net/projects/selflet/service">
+
 	<input>
 	</input>
+
 	<output>
+
 		<param name="video" type="Object" />
+
 	</output>
+
 	<revenue> 100 </revenue>
-	<maxResponseTime> 235000 </maxResponseTime>
+	<maxResponseTime> 135000 </maxResponseTime>
+	<serviceDemand> 13500 </serviceDemand>
 </p:service>
+

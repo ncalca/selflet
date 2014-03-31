@@ -16,6 +16,7 @@ public class ServicePackFactory implements IServicePackFactory {
 		
 		servicePack.setDefaultBehavior(service.getDefaultBehavior());
 		servicePack.setMaxResponseTime(service.getMaxResponseTimeInMsec());
+		servicePack.setServiceDemand(service.getServiceDemand());
 		
 		return servicePack;
 	}

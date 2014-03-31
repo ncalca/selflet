@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:service name="getDefaultSubtitle"  active="true"  offerMode="CanDo"  xmlns:p="http://sourceforge.net/projects/selflet/service">
+
 	<input>
 	</input>
+
 	<output>
+
 		<param name="output" type="Object" />
+
 	</output>
+
 	<revenue> 100 </revenue>
-	<maxResponseTime> 2000 </maxResponseTime>
+	<maxResponseTime> 5000 </maxResponseTime>
+	<serviceDemand> 500 </serviceDemand>
 </p:service>
+

@@ -42,8 +42,10 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		for (Service service : myServiceKnolegde.getServices()) {
 			try {
 
-				serviceDemand = myPerformanceMonitor
-						.getServiceResponseTimeInMsec(service.getName());
+//				serviceDemand = myPerformanceMonitor
+//						.getServicePredictedCPUTimeInSec(service) / 1000;
+				
+				serviceDemand = service.getServiceDemand();
 
 				tempUtilization = (1 - (serviceDemand / service
 						.getMaxResponseTimeInMsec()));

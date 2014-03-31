@@ -86,6 +86,7 @@ public class ServiceInitializer {
 		service.setInputParameters(inputParameters);
 		service.setRevenue(serviceType.getRevenue());
 		service.setMaxResponseTimeInMsec((long) serviceType.getMaxResponseTime());
+		service.setServiceDemand(serviceType.getServiceDemand());
 
 		serviceKnowledge.setProperty(serviceName, service);
 		LOG.debug("Added known service " + serviceName);

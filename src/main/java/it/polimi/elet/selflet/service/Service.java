@@ -40,6 +40,7 @@ public class Service implements Serializable {
 	private boolean enabled = true;
 	private double revenue = 0;
 	private long maxResponseTimeInMsec;
+	private double serviceDemand;
 
 	/**
 	 * Creates a service with the given name
@@ -143,6 +144,14 @@ public class Service implements Serializable {
 
 	public long getMaxResponseTimeInMsec() {
 		return maxResponseTimeInMsec;
+	}
+	
+	public void setServiceDemand(double serviceDemand){
+		this.serviceDemand = serviceDemand;
+	}
+	
+	public double getServiceDemand(){
+		return this.serviceDemand;
 	}
 
 	public String toString() {

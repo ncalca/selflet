@@ -47,6 +47,7 @@ public class ServiceTeachMessageHandler implements ISelfletMessageHandler {
 
 		receivedService.addImplementingBehavior(servicePack.getImplementingBehaviors());
 		receivedService.setMaxResponseTimeInMsec(servicePack.getMaxResponseTimeInMsec());
+		receivedService.setServiceDemand(servicePack.getServiceDemand());
 
 		addActionsToActionManager(servicePack.getImplementingBehaviors());
 		receivedService.setDefaultBehavior(servicePack.getDefaultBehavior());
