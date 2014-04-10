@@ -12,6 +12,6 @@
 
 	<revenue> 100 </revenue>
 	<maxResponseTime> 1250000 </maxResponseTime>
-	<serviceDemand> 12500 </serviceDemand>
+	<serviceDemand> 86000 </serviceDemand>
 </p:service>
 
