@@ -1,6 +1,5 @@
 package it.polimi.elet.selflet.service.utilization;
 
-import it.polimi.elet.selflet.configuration.SelfletConfiguration;
 import it.polimi.elet.selflet.knowledge.IServiceKnowledge;
 import it.polimi.elet.selflet.service.Service;
 
@@ -13,12 +12,7 @@ import it.polimi.elet.selflet.service.Service;
  */
 public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 
-	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration
-			.getSingleton().utilizationLowerBound;
-	private final double UTILIZATION_DELTA = 0.1;
-
 	private IServiceKnowledge myServiceKnolegde;
-	private IPerformanceMonitor myPerformanceMonitor;
 	private double utilizationUpperBound;
 
 	/**
@@ -29,7 +23,6 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 	public UtilizationUpperBoundDynamic(IServiceKnowledge serviceKnoledge,
 			IPerformanceMonitor performanceMonitor) {
 		this.myServiceKnolegde = serviceKnoledge;
-		this.myPerformanceMonitor = performanceMonitor;
 		this.utilizationUpperBound = 1;
 	}
 
@@ -42,10 +35,7 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		for (Service service : myServiceKnolegde.getServices()) {
 			try {
 
-				serviceDemand = myPerformanceMonitor
-						.getServicePredictedCPUTimeInSec(service) * 1000;
-				
-//				serviceDemand = service.getServiceDemand();
+				serviceDemand = service.getServiceDemand();
 
 				tempUtilization = (1 - (serviceDemand / service
 						.getMaxResponseTimeInMsec()));
@@ -53,16 +43,7 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 				if (tempUtilization < utilizationUpperBound)
 					utilizationUpperBound = tempUtilization;
 
-				if (utilizationUpperBound <= UTILIZATION_LOWER_BOUND
-						+ UTILIZATION_DELTA) {
-					utilizationUpperBound = UTILIZATION_LOWER_BOUND
-							+ UTILIZATION_DELTA;
-					break;
-				}
 			} catch (Exception e) {
-				// System.out.println("[UtilizationUpperBoundComputation] Error in cpu upper bound computation");
-				// System.out.println("[UtilizationUpperBoundComputation] service: " + service.getName());
-				// System.out.println("[UtilizationUpperBoundComputation]service demand: " + serviceDemand);
 				e.printStackTrace();
 			}
 		}
