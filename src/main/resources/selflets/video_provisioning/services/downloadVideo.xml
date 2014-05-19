@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<p:service name="downloadVideo"  active="true"  offerMode="CanDo"  xmlns:p="http://sourceforge.net/projects/selflet/service">
+<p:service name="downloadVideo"  active="true"  offerMode="Both"  xmlns:p="http://sourceforge.net/projects/selflet/service">
 
 	<input>
 	</input>

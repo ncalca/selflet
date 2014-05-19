@@ -35,6 +35,8 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		for (Service service : myServiceKnolegde.getServices()) {
 			try {
 				
+				
+				
 				if(service.isLocallyAvailable()){
 
 				serviceDemand = service.getServiceDemand();
