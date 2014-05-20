@@ -17,7 +17,9 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 
 	/**
 	 * Create an instance of this strategy
-	 * @param serviceKnowledge the service knowledge of the selflet
+	 * 
+	 * @param serviceKnowledge
+	 *            the service knowledge of the selflet
 	 */
 	public UtilizationUpperBoundDynamic(IServiceKnowledge serviceKnowledge) {
 		this.myServiceKnowlegde = serviceKnowledge;
@@ -32,17 +34,17 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		utilizationUpperBound = 1;
 		for (Service service : myServiceKnowlegde.getServices()) {
 			try {
-				
-				if(service.isLocallyAvailable()){
 
-				serviceDemand = service.getServiceDemand();
+//				if (service.isLocallyAvailable()) {
 
-				tempUtilization = (1 - (serviceDemand / service
-						.getMaxResponseTimeInMsec()));
+					serviceDemand = service.getServiceDemand();
 
-				if (tempUtilization < utilizationUpperBound)
-					utilizationUpperBound = tempUtilization;
-				}
+					tempUtilization = (1 - (serviceDemand / service
+							.getMaxResponseTimeInMsec()));
+
+					if (tempUtilization < utilizationUpperBound)
+						utilizationUpperBound = tempUtilization;
+//				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
