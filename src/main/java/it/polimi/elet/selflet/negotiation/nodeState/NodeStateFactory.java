@@ -101,7 +101,7 @@ public class NodeStateFactory implements INodeStateFactory {
 
 	private Set<String> getAvailableServices() {
 		Set<String> availableServices = Sets.newHashSet();
-		for (Service service : serviceKnowledge.getProperties().values()) {
+		for (Service service : serviceKnowledge.getServices()) {
 			if (service.isLocallyAvailable()) {
 				availableServices.add(service.getName());
 			}

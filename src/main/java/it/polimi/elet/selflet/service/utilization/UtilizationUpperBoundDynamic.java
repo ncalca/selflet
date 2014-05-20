@@ -35,7 +35,9 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		for (Service service : myServiceKnowlegde.getServices()) {
 			try {
 
-//				if (service.isLocallyAvailable()) {
+				utilizationUpperBound = 9.9;
+				
+				if (service.isLocallyAvailable()) {
 
 					serviceDemand = service.getServiceDemand();
 
@@ -44,7 +46,7 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 
 					if (tempUtilization < utilizationUpperBound)
 						utilizationUpperBound = tempUtilization;
-//				}
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
