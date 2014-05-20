@@ -35,7 +35,7 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		for (Service service : myServiceKnowlegde.getServices()) {
 			try {
 
-				utilizationUpperBound = 9.9;
+				utilizationUpperBound = 0.9;
 				
 				if (service.isLocallyAvailable()) {
 
