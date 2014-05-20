@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:selfletbehavior="http://selfletbehavior/1.0" xmi:id="_QYRJ0XruEeK5BZRjeN5vfw" type="SelfletBehavior" name="videoProvisioner.service_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_RCtN8HruEeK5BZRjeN5vfw" type="2005" fontName="Lucida Grande">
+    <children xmi:type="notation:DecorationNode" xmi:id="_RCwRQHruEeK5BZRjeN5vfw" type="5009"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_RCwRQXruEeK5BZRjeN5vfw" type="5010"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_RCyGcHruEeK5BZRjeN5vfw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_XXrL8HruEeK5BZRjeN5vfw" type="3006" fontName="Lucida Grande">
+        <children xmi:type="notation:DecorationNode" xmi:id="_XXrzAHruEeK5BZRjeN5vfw" type="5008"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_XXrzAXruEeK5BZRjeN5vfw" type="7003">
+          <children xmi:type="notation:Node" xmi:id="_ZqF6gHruEeK5BZRjeN5vfw" type="3015">
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_ZqF6gXruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_ZqF6gnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Init" href="videoProvisioner.service#//@service.0/@behavior.0/@state.0"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZqF6g3ruEeK5BZRjeN5vfw" x="260" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_aTDX8HruEeK5BZRjeN5vfw" type="3016">
+            <children xmi:type="notation:DecorationNode" xmi:id="_aTD_AHruEeK5BZRjeN5vfw" type="5012"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_aTD_AXruEeK5BZRjeN5vfw" type="7005">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_aTEmEHruEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_aTEmEXruEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_aTDX8XruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_aTDX8nruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <styles xmi:type="notation:LineStyle" xmi:id="_aTDX83ruEeK5BZRjeN5vfw"/>
+            <element xmi:type="selfletbehavior:Intermediate" href="videoProvisioner.service#//@service.0/@behavior.0/@state.1"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aTDX9HruEeK5BZRjeN5vfw" x="170" y="109"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_glg0gHruEeK5BZRjeN5vfw" type="3016">
+            <children xmi:type="notation:DecorationNode" xmi:id="_glhbkHruEeK5BZRjeN5vfw" type="5012"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_glhbkXruEeK5BZRjeN5vfw" type="7005">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_glhbknruEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_glhbk3ruEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_glg0gXruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_glg0gnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <styles xmi:type="notation:LineStyle" xmi:id="_glg0g3ruEeK5BZRjeN5vfw"/>
+            <element xmi:type="selfletbehavior:Intermediate" href="videoProvisioner.service#//@service.0/@behavior.0/@state.2"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_glg0hHruEeK5BZRjeN5vfw" x="170" y="172" width="199" height="46"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_iaUaAHruEeK5BZRjeN5vfw" type="3016">
+            <children xmi:type="notation:DecorationNode" xmi:id="_iaVoIHruEeK5BZRjeN5vfw" type="5012"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_iaVoIXruEeK5BZRjeN5vfw" type="7005">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_iaVoInruEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_iaVoI3ruEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_iaUaAXruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_iaUaAnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <styles xmi:type="notation:LineStyle" xmi:id="_iaUaA3ruEeK5BZRjeN5vfw"/>
+            <element xmi:type="selfletbehavior:Intermediate" href="videoProvisioner.service#//@service.0/@behavior.0/@state.3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iaUaBHruEeK5BZRjeN5vfw" x="170" y="244" width="208" height="46"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_kCuiQHruEeK5BZRjeN5vfw" type="3016">
+            <children xmi:type="notation:DecorationNode" xmi:id="_kCvJUHruEeK5BZRjeN5vfw" type="5012"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_kCvJUXruEeK5BZRjeN5vfw" type="7005">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_kCvJUnruEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_kCvJU3ruEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_kCuiQXruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_kCuiQnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <styles xmi:type="notation:LineStyle" xmi:id="_kCuiQ3ruEeK5BZRjeN5vfw"/>
+            <element xmi:type="selfletbehavior:Intermediate" href="videoProvisioner.service#//@service.0/@behavior.0/@state.4"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kCuiRHruEeK5BZRjeN5vfw" x="170" y="307" width="208" height="55"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_yQK4YHruEeK5BZRjeN5vfw" type="3016">
+            <children xmi:type="notation:DecorationNode" xmi:id="_yQLfcHruEeK5BZRjeN5vfw" type="5012"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_yQLfcXruEeK5BZRjeN5vfw" type="7005">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_yQLfcnruEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_yQLfc3ruEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_yQK4YXruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_yQK4YnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <styles xmi:type="notation:LineStyle" xmi:id="_yQK4Y3ruEeK5BZRjeN5vfw"/>
+            <element xmi:type="selfletbehavior:Intermediate" href="videoProvisioner.service#//@service.0/@behavior.0/@state.5"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yQK4ZHruEeK5BZRjeN5vfw" x="53" y="424" width="136" height="55"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_znROMHruEeK5BZRjeN5vfw" type="3016">
+            <children xmi:type="notation:DecorationNode" xmi:id="_znRONXruEeK5BZRjeN5vfw" type="5012"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_znR1QHruEeK5BZRjeN5vfw" type="7005">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_znR1QXruEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_znR1QnruEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_znROMXruEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_znROMnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <styles xmi:type="notation:LineStyle" xmi:id="_znROM3ruEeK5BZRjeN5vfw"/>
+            <element xmi:type="selfletbehavior:Intermediate" href="videoProvisioner.service#//@service.0/@behavior.0/@state.6"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_znRONHruEeK5BZRjeN5vfw" x="53" y="496" width="136" height="46"/>
+          </children>
+          <children xmi:type="notation:Shape" xmi:id="_15r8wHruEeK5BZRjeN5vfw" type="3018" fontName="Lucida Grande">
+            <element xmi:type="selfletbehavior:Final" href="videoProvisioner.service#//@service.0/@behavior.0/@state.7"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_15r8wXruEeK5BZRjeN5vfw" x="251" y="568" width="37" height="28"/>
+          </children>
+        </children>
+        <element xmi:type="selfletbehavior:Complex" href="videoProvisioner.service#//@service.0/@behavior.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XXrL8XruEeK5BZRjeN5vfw"/>
+      </children>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_RCyGcXruEeK5BZRjeN5vfw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_RCyGcnruEeK5BZRjeN5vfw"/>
+    </children>
+    <element xmi:type="selfletbehavior:Service" href="videoProvisioner.service#//@service.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RCtN8XruEeK5BZRjeN5vfw" x="126" y="9" width="730" height="658"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_QYRJ0nruEeK5BZRjeN5vfw"/>
+  <element xmi:type="selfletbehavior:Selflet" href="videoProvisioner.service#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_eaSTEHruEeK5BZRjeN5vfw" type="4007" source="_ZqF6gHruEeK5BZRjeN5vfw" target="_aTDX8HruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_eaS6IHruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eaThMHruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_eaSTEXruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_eaSTEnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.0/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eaSTE3ruEeK5BZRjeN5vfw" points="[-4, 11, -23, -69]$[-81, 81, -100, 1]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_3IzbQHruEeK5BZRjeN5vfw" type="4007" source="_aTDX8HruEeK5BZRjeN5vfw" target="_glg0gHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_3I0CUHruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_3I0CUXruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_3IzbQXruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_3IzbQnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.1/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_3IzbQ3ruEeK5BZRjeN5vfw" points="[3, 20, 4, -46]$[3, 43, 4, -23]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_4JFzkHruEeK5BZRjeN5vfw" type="4007" source="_glg0gHruEeK5BZRjeN5vfw" target="_iaUaAHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_4JGaoHruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_4JGaoXruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_4JFzkXruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_4JFzknruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.2/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4JFzk3ruEeK5BZRjeN5vfw" points="[-7, 10, 0, -62]$[-12, 82, -5, 10]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4JgDQHruEeK5BZRjeN5vfw" id="(0.5276381909547738,0.782608695652174)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4JgDQXruEeK5BZRjeN5vfw" id="(0.47115384615384615,0.782608695652174)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_4p720HruEeK5BZRjeN5vfw" type="4007" source="_iaUaAHruEeK5BZRjeN5vfw" target="_kCuiQHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_4p8d4HruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_4p8d4XruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_4p720XruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_4p720nruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.3/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4p7203ruEeK5BZRjeN5vfw" points="[-4, 10, 1, -44]$[-4, 82, 1, 28]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4p_hMHruEeK5BZRjeN5vfw" id="(0.5240384615384616,0.782608695652174)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5NkvYHruEeK5BZRjeN5vfw" type="4007" source="_kCuiQHruEeK5BZRjeN5vfw" target="_15r8wHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_5NlWcHruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5NlWcXruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_5NkvYXruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5NkvYnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.4/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5NkvY3ruEeK5BZRjeN5vfw" points="[-3, 8, 0, -213]$[-2, 214, 1, -7]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5NoZwHruEeK5BZRjeN5vfw" id="(0.5,0.8545454545454545)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5NpA0HruEeK5BZRjeN5vfw" id="(0.5405405405405406,0.21875)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5vAogHruEeK5BZRjeN5vfw" type="4007" source="_kCuiQHruEeK5BZRjeN5vfw" target="_yQK4YHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_5vBPkHruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5vB2oHruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_5vAogXruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5vAognruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.4/@next.1"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5vAog3ruEeK5BZRjeN5vfw" points="[-19, 9, 131, -63]$[-150, 71, 0, -1]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5vES4HruEeK5BZRjeN5vfw" id="(0.4855769230769231,0.8363636363636363)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5vES4XruEeK5BZRjeN5vfw" id="(0.5,0.01818181818181818)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_6LlPwHruEeK5BZRjeN5vfw" type="4007" source="_yQK4YHruEeK5BZRjeN5vfw" target="_znROMHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6Ll20HruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_6Ll20XruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_6LlPwXruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_6LlPwnruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.5/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6LlPw3ruEeK5BZRjeN5vfw" points="[0, 8, -8, -40]$[0, 71, -8, 23]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6Lo6IHruEeK5BZRjeN5vfw" id="(0.4411764705882353,0.8545454545454545)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_62Kd0HruEeK5BZRjeN5vfw" type="4007" source="_znROMHruEeK5BZRjeN5vfw" target="_15r8wHruEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_62LE4HruEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_62LE4XruEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_62Kd0XruEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_62Kd0nruEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="videoProvisioner.service#//@service.0/@behavior.0/@state.6/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_62Kd03ruEeK5BZRjeN5vfw" points="[43, 23, -96, -51]$[131, 81, -8, 7]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_62OIMHruEeK5BZRjeN5vfw" id="(0.24324324324324326,0.78125)"/>
+  </edges>
+</notation:Diagram>

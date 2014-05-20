@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:selfletbehavior="http://selfletbehavior/1.0" xmi:id="_xGBgYHtlEeK5BZRjeN5vfw" type="SelfletBehavior" name="checkIfSubtitlesExists.service_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_xGnWQHtlEeK5BZRjeN5vfw" type="2005" fontName="Lucida Grande">
+    <children xmi:type="notation:DecorationNode" xmi:id="_xGnWQntlEeK5BZRjeN5vfw" type="5009"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_xGn9UHtlEeK5BZRjeN5vfw" type="5010"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_xGn9UXtlEeK5BZRjeN5vfw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_xe6hgHtlEeK5BZRjeN5vfw" type="3001" fontName="Lucida Grande">
+        <children xmi:type="notation:DecorationNode" xmi:id="_xe7IkHtlEeK5BZRjeN5vfw" type="5005"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_xe7IkXtlEeK5BZRjeN5vfw" type="7002">
+          <children xmi:type="notation:Node" xmi:id="_ykY70HtlEeK5BZRjeN5vfw" type="3011">
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_ykY70XtlEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_ykY70ntlEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Init" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0/@state.0"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ykY703tlEeK5BZRjeN5vfw" x="296" y="64"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_y7WDQHtlEeK5BZRjeN5vfw" type="3012">
+            <children xmi:type="notation:DecorationNode" xmi:id="_y7WqUHtlEeK5BZRjeN5vfw" type="5011"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_y7WqUXtlEeK5BZRjeN5vfw" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_KRXhsHwaEeKA2KhNNZGZFw" type="3013">
+                <element xmi:type="selfletbehavior:Action" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0/@state.1/@action"/>
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_KRXhsXwaEeKA2KhNNZGZFw"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_y7WqUntlEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_y7WqU3tlEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_y7WDQXtlEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_y7WDQntlEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Invocation" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0/@state.1"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y7WDQ3tlEeK5BZRjeN5vfw" x="206" y="146"/>
+          </children>
+          <children xmi:type="notation:Shape" xmi:id="_zfTr8HtlEeK5BZRjeN5vfw" type="3014" fontName="Lucida Grande">
+            <element xmi:type="selfletbehavior:Final" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0/@state.2"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zfTr8XtlEeK5BZRjeN5vfw" x="287" y="280"/>
+          </children>
+        </children>
+        <element xmi:type="selfletbehavior:Elementary" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xe6hgXtlEeK5BZRjeN5vfw"/>
+      </children>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_xGn9UntlEeK5BZRjeN5vfw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_xGn9U3tlEeK5BZRjeN5vfw"/>
+    </children>
+    <element xmi:type="selfletbehavior:Service" href="checkIfSubtitlesExists.service#//@service.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xGnWQXtlEeK5BZRjeN5vfw"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_xGBgYXtlEeK5BZRjeN5vfw"/>
+  <element xmi:type="selfletbehavior:Selflet" href="checkIfSubtitlesExists.service#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_z6zVIHtlEeK5BZRjeN5vfw" type="4007" source="_ykY70HtlEeK5BZRjeN5vfw" target="_y7WDQHtlEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_z6z8MHtlEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_z6z8MXtlEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_z6zVIXtlEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_z6zVIntlEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0/@state.0/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_z6zVI3tlEeK5BZRjeN5vfw" points="[6, 17, -74, -84]$[-20, 93, -100, -8]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_z63mkHtlEeK5BZRjeN5vfw" id="(0.22727272727272727,0.22727272727272727)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_1FveQHtlEeK5BZRjeN5vfw" type="4007" source="_y7WDQHtlEeK5BZRjeN5vfw" target="_zfTr8HtlEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_1F85oHtlEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_1F9gsHtlEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_1FveQXtlEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_1FveQntlEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="checkIfSubtitlesExists.service#//@service.0/@behavior.0/@state.1/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_1FveQ3tlEeK5BZRjeN5vfw" points="[1, 20, 4, -110]$[1, 114, 4, -16]"/>
+  </edges>
+</notation:Diagram>

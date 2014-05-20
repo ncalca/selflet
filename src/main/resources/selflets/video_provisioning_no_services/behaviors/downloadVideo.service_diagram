@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:selfletbehavior="http://selfletbehavior/1.0" xmi:id="_OFdHwHrwEeK5BZRjeN5vfw" type="SelfletBehavior" name="downloadVideo.service_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_OGV4kHrwEeK5BZRjeN5vfw" type="2005" fontName="Lucida Grande">
+    <children xmi:type="notation:DecorationNode" xmi:id="_OGWfoXrwEeK5BZRjeN5vfw" type="5009"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_OGWfonrwEeK5BZRjeN5vfw" type="5010"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_OGWfo3rwEeK5BZRjeN5vfw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_OqS6MHrwEeK5BZRjeN5vfw" type="3001" fontName="Lucida Grande">
+        <children xmi:type="notation:DecorationNode" xmi:id="_OqThQHrwEeK5BZRjeN5vfw" type="5005"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_OqThQXrwEeK5BZRjeN5vfw" type="7002">
+          <children xmi:type="notation:Node" xmi:id="_QXWR4HrwEeK5BZRjeN5vfw" type="3011">
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_QXWR4XrwEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_QXWR4nrwEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Init" href="downloadVideo.service#//@service.0/@behavior.0/@state.0"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QXWR43rwEeK5BZRjeN5vfw" x="217" y="64"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_g_zAgHthEeK5BZRjeN5vfw" type="3012">
+            <children xmi:type="notation:DecorationNode" xmi:id="_g_35AHthEeK5BZRjeN5vfw" type="5011"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_hAFUYHthEeK5BZRjeN5vfw" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_Q9jF0HwaEeKA2KhNNZGZFw" type="3013">
+                <element xmi:type="selfletbehavior:Action" href="downloadVideo.service#//@service.0/@behavior.0/@state.1/@action"/>
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_Q9jF0XwaEeKA2KhNNZGZFw"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_hAF7cHthEeK5BZRjeN5vfw"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_hAF7cXthEeK5BZRjeN5vfw"/>
+            </children>
+            <styles xmi:type="notation:DescriptionStyle" xmi:id="_g_3R8HthEeK5BZRjeN5vfw"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_g_3R8XthEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+            <element xmi:type="selfletbehavior:Invocation" href="downloadVideo.service#//@service.0/@behavior.0/@state.1"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_g_3R8nthEeK5BZRjeN5vfw" x="152" y="127" width="181" height="64"/>
+          </children>
+          <children xmi:type="notation:Shape" xmi:id="_oNGUsHthEeK5BZRjeN5vfw" type="3014" fontName="Lucida Grande">
+            <element xmi:type="selfletbehavior:Final" href="downloadVideo.service#//@service.0/@behavior.0/@state.2"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oNGUsXthEeK5BZRjeN5vfw" x="215" y="253" width="37" height="28"/>
+          </children>
+        </children>
+        <element xmi:type="selfletbehavior:Elementary" href="downloadVideo.service#//@service.0/@behavior.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_OqS6MXrwEeK5BZRjeN5vfw"/>
+      </children>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_OGWfpHrwEeK5BZRjeN5vfw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_OGWfpXrwEeK5BZRjeN5vfw"/>
+    </children>
+    <element xmi:type="selfletbehavior:Service" href="downloadVideo.service#//@service.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_OGWfoHrwEeK5BZRjeN5vfw"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_OFdHwXrwEeK5BZRjeN5vfw"/>
+  <element xmi:type="selfletbehavior:Selflet" href="downloadVideo.service#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_ouWAkHthEeK5BZRjeN5vfw" type="4007" source="_QXWR4HrwEeK5BZRjeN5vfw" target="_g_zAgHthEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_ouWnoHthEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_ouWnoXthEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_ouWAkXthEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_ouWAknthEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="downloadVideo.service#//@service.0/@behavior.0/@state.0/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ouWAk3thEeK5BZRjeN5vfw" points="[2, 8, -24, -73]$[-26, 49, -52, -32]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ouiN0HthEeK5BZRjeN5vfw" id="(0.7727272727272727,0.6363636363636364)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_ptaQ4HthEeK5BZRjeN5vfw" type="4007" source="_g_zAgHthEeK5BZRjeN5vfw" target="_oNGUsHthEeK5BZRjeN5vfw">
+    <children xmi:type="notation:DecorationNode" xmi:id="_pta38HthEeK5BZRjeN5vfw" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_pta38XthEeK5BZRjeN5vfw" y="40"/>
+    </children>
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_ptaQ4XthEeK5BZRjeN5vfw"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_ptaQ4nthEeK5BZRjeN5vfw" fontName="Lucida Grande"/>
+    <element xmi:type="selfletbehavior:Condition" href="downloadVideo.service#//@service.0/@behavior.0/@state.1/@next.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ptaQ43thEeK5BZRjeN5vfw" points="[-10, 32, 17, -78]$[-31, 94, -4, -16]"/>
+  </edges>
+</notation:Diagram>

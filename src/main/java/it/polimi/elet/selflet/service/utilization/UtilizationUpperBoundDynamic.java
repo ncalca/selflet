@@ -12,17 +12,15 @@ import it.polimi.elet.selflet.service.Service;
  */
 public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 
-	private IServiceKnowledge myServiceKnolegde;
+	private IServiceKnowledge myServiceKnowlegde;
 	private double utilizationUpperBound;
 
 	/**
 	 * Create an instance of this strategy
-	 * @param serviceKnoledge the service knowledge of the selflet
-	 * @param performanceMonitor the performance monitor of the selflet
+	 * @param serviceKnowledge the service knowledge of the selflet
 	 */
-	public UtilizationUpperBoundDynamic(IServiceKnowledge serviceKnoledge,
-			IPerformanceMonitor performanceMonitor) {
-		this.myServiceKnolegde = serviceKnoledge;
+	public UtilizationUpperBoundDynamic(IServiceKnowledge serviceKnowledge) {
+		this.myServiceKnowlegde = serviceKnowledge;
 		this.utilizationUpperBound = 1;
 	}
 
@@ -32,10 +30,8 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		double tempUtilization = 0;
 
 		utilizationUpperBound = 1;
-		for (Service service : myServiceKnolegde.getServices()) {
+		for (Service service : myServiceKnowlegde.getServices()) {
 			try {
-				
-				
 				
 				if(service.isLocallyAvailable()){
 

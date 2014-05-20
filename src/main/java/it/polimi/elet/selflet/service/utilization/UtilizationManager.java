@@ -43,7 +43,7 @@ public class UtilizationManager implements IUtilizationManager {
 				HISTORY_LENGTH, Double.valueOf(0));
 		if (USE_DYNAMIC_STRATEGY)
 			this.utilizationStrategy = new UtilizationUpperBoundDynamic(
-					serviceKnowledge, performanceMonitor);
+					serviceKnowledge);
 		else
 			this.utilizationStrategy = new UtilizationUpperBoundDefault();
 	}
