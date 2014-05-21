@@ -1,6 +1,9 @@
 package it.polimi.elet.selflet.service.utilization;
 
+import org.apache.log4j.Logger;
+
 import it.polimi.elet.selflet.knowledge.IServiceKnowledge;
+import it.polimi.elet.selflet.message.MessageDispatcherThread;
 import it.polimi.elet.selflet.service.Service;
 
 /**
@@ -11,6 +14,9 @@ import it.polimi.elet.selflet.service.Service;
  * 
  */
 public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
+
+	private static final Logger LOG = Logger
+			.getLogger(MessageDispatcherThread.class);
 
 	private IServiceKnowledge myServiceKnowlegde;
 	private double utilizationUpperBound;
@@ -28,6 +34,9 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 
 	@Override
 	public double computeUtilizationUpperBound() {
+
+		LOG.debug("computing upper bound...");
+
 		double serviceDemand = 0;
 		double tempUtilization = 0;
 
@@ -35,7 +44,6 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 		for (Service service : myServiceKnowlegde.getServices()) {
 			try {
 
-				
 				if (service.isLocallyAvailable()) {
 
 					serviceDemand = service.getServiceDemand();
@@ -43,20 +51,21 @@ public class UtilizationUpperBoundDynamic implements IUtilizationStrategy {
 					tempUtilization = (1 - (serviceDemand / service
 							.getMaxResponseTimeInMsec()));
 
+					LOG.debug("service: " + service.getName() + "; demand: "
+							+ serviceDemand + "Max Resp. Time: "
+							+ service.getMaxResponseTimeInMsec());
+
 					if (tempUtilization < utilizationUpperBound)
 						utilizationUpperBound = tempUtilization;
-					
-				} else {
-					
-					utilizationUpperBound += 1;
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				utilizationUpperBound = -1;
+				LOG.debug("Error in computing upper bound");
 			}
 		}
 
+		LOG.debug("Computed upper bound: " + utilizationUpperBound);
 		return utilizationUpperBound;
 	}
 
