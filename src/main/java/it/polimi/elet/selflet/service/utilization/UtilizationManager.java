@@ -21,8 +21,6 @@ public class UtilizationManager implements IUtilizationManager {
 	private static final int HISTORY_LENGTH = 10;
 	private static final double UTILIZATION_FOR_REMOTE_SERVICE = SelfletConfiguration
 			.getSingleton().utilizationForRemoteService;
-	private static final double UTILIZATION_UPPER_BOUND = SelfletConfiguration
-			.getSingleton().utilizationUpperBound;
 	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration
 			.getSingleton().utilizationLowerBound;
 	private static final boolean USE_DYNAMIC_STRATEGY = SelfletConfiguration
@@ -139,7 +137,6 @@ public class UtilizationManager implements IUtilizationManager {
 
 	@Override
 	public double getUtilizationUpperBound() {
-		// TODO
 		return utilizationStrategy.computeUtilizationUpperBound();
 	}
 
@@ -164,7 +161,7 @@ public class UtilizationManager implements IUtilizationManager {
 
 	@Override
 	public boolean isCPUUtilizationOverTheThreshold() {
-		return computeTotalUtilization() > UTILIZATION_UPPER_BOUND;
+		return computeTotalUtilization() > getUtilizationUpperBound();
 	}
 
 }
