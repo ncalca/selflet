@@ -56,9 +56,10 @@ public class RedirectServiceActionGenerator implements IActionGenerator {
 		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
 		Set<IOptimizationAction> optimizationActions = Sets.newHashSet();
 
-		if (service.isRecentlyCreated()) {
-			return optimizationActions;
-		}
+		// FIXME Why???????????
+//		if (service.isRecentlyCreated()) {
+//			return optimizationActions;
+//		}
 
 		for (Neighbor neighbor : neighbors) {
 			if (neighborIsOfferingService(neighbor, service) && neighborNotRedirectingToMe(neighbor, service)
