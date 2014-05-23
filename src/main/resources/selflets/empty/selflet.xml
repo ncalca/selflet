@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<p:selflet name="1" xmlns:p="http://sourceforge.net/projects/selflet/">
+<p:selflet name="video_provisioning" xmlns:p="http://sourceforge.net/projects/selflet/">
 
 	<selfletProperties>
 		<author></author>
