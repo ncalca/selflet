@@ -207,7 +207,7 @@ public class SelfletInstance {
 		LOG.info("Starting initial service " + initialService);
 		// to start the initial service just generate a service execute event
 		// with a null calling behavior
-		dispatcher.dispatchEvent(new LocalReqLocalExeExecuteEvent(initialService, null));
+//		dispatcher.dispatchEvent(new LocalReqLocalExeExecuteEvent(initialService, null));
 	}
 
 	private void setAbilities(List<AbstractAbility> abilities) {
