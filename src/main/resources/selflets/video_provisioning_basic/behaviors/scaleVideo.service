@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selfletbehavior:Selflet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:selfletbehavior="http://selfletbehavior/1.0">
+  <service name="scaleVideo.service" description="Implementations of Service: scaleVideo.service">
+    <behavior xsi:type="selfletbehavior:Elementary" name="scaleVideo_behavior1">
+      <state xsi:type="selfletbehavior:Init">
+        <next targetState="//@service.0/@behavior.0/@state.1"/>
+      </state>
+      <state xsi:type="selfletbehavior:Invocation" name="scaleVideo1">
+        <action body="do /scaleVideo.service.scaleVideo_behavior1.scaleVideo1.action" actionFile="scaleVideo.service.scaleVideo_behavior1.scaleVideo1.action"/>
+        <next targetState="//@service.0/@behavior.0/@state.2"/>
+      </state>
+      <state xsi:type="selfletbehavior:Final"/>
+    </behavior>
+    <behavior xsi:type="selfletbehavior:Elementary" name="scaleVideo_behavior2">
+      <state xsi:type="selfletbehavior:Init">
+        <next targetState="//@service.0/@behavior.1/@state.1"/>
+      </state>
+      <state xsi:type="selfletbehavior:Invocation" name="scaleVideo2">
+        <action body="do /scaleVideo.service.scaleVideo_behavior2.scaleVideo2.action" actionFile="scaleVideo.service.scaleVideo_behavior2.scaleVideo2.action"/>
+        <next targetState="//@service.0/@behavior.1/@state.2"/>
+      </state>
+      <state xsi:type="selfletbehavior:Final"/>
+    </behavior>
+  </service>
+</selfletbehavior:Selflet>
