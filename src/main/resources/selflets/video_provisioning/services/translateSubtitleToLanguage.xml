@@ -11,7 +11,7 @@
 	</output>
 
 	<revenue> 100 </revenue>
-	<maxResponseTime> 1000 </maxResponseTime>
+	<maxResponseTime> 1500 </maxResponseTime>
 	<serviceDemand> 500 </serviceDemand>
 </p:service>
 
