@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 public class SelfLetLogger {
 
 	private String selfLetID;
-	private static final String LOG_FOLDER = "./logs";
+	private static final String LOG_FOLDER = "./../selflets-log";
 
 	public SelfLetLogger(String selfLetID) {
 		this.selfLetID = selfLetID;
