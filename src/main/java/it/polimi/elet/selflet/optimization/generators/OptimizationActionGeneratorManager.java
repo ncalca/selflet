@@ -32,8 +32,7 @@ public class OptimizationActionGeneratorManager implements IOptimizationActionGe
 	private static final Logger LOG = Logger.getLogger(OptimizationActionGeneratorManager.class);
 	private static final ImmutableSet<OptimizationActionTypeEnum>
 
-//	OPTIMIZATION_ACTIONS = ImmutableSet.of(REDIRECT_SERVICE, ADD_SELFLET, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION, TEACH_SERVICE);
-	OPTIMIZATION_ACTIONS = ImmutableSet.of(CHANGE_SERVICE_IMPLEMENTATION, TEACH_SERVICE, REDIRECT_SERVICE);
+	OPTIMIZATION_ACTIONS = ImmutableSet.of(REDIRECT_SERVICE, ADD_SELFLET, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION, TEACH_SERVICE);
 
 	private final IOptimizationActionGeneratorFactory optimizationActionGeneratorFactory;
 	private final List<IActionGenerator> actionGenerators;
