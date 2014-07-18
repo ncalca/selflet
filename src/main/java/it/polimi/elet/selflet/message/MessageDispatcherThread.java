@@ -17,7 +17,8 @@ import polimi.reds.DispatchingService;
  */
 public class MessageDispatcherThread extends Thread {
 
-	private static final Logger LOG = Logger.getLogger(MessageDispatcherThread.class);
+	private static final Logger LOG = Logger
+			.getLogger(MessageDispatcherThread.class);
 
 	private final DispatchingService dispatchingService;
 	private final IEventDispatcher eventDispatcher;
@@ -32,7 +33,8 @@ public class MessageDispatcherThread extends Thread {
 	 * @param bindings
 	 *            the bindings between message types and event types
 	 */
-	public MessageDispatcherThread(DispatchingService dispatchingService, IEventDispatcher eventDispatcher) {
+	public MessageDispatcherThread(DispatchingService dispatchingService,
+			IEventDispatcher eventDispatcher) {
 		this.dispatchingService = dispatchingService;
 		this.eventDispatcher = eventDispatcher;
 		this.stop = false;
@@ -45,11 +47,13 @@ public class MessageDispatcherThread extends Thread {
 	public void run() {
 
 		while (!stop) {
-			RedsMessage redsMessage = (RedsMessage) dispatchingService.getNextMessage();
+			RedsMessage redsMessage = (RedsMessage) dispatchingService
+					.getNextMessage();
 			SelfLetMsg selfletMsg = redsMessage.getMessage();
 			selfletMsg.setId(redsMessage.getID());
 
-			LOG.debug("Dispatcher thread: received message: " + selfletMsg);
+			if (selfletMsg.getType() != SelfLetMessageTypeEnum.NODE_STATE)
+				LOG.info("received message: " + selfletMsg);
 			fireMessageReceivedEvent(selfletMsg);
 		}
 	}
@@ -62,6 +66,8 @@ public class MessageDispatcherThread extends Thread {
 	}
 
 	private void fireMessageReceivedEvent(SelfLetMsg selfletMessage) {
-		DispatchingUtility.dispatchEvent(eventDispatcher, MessageReceivedEvent.class, selfletMessage);
+		// LOG.debug("firing message to dispatching utility");
+		DispatchingUtility.dispatchEvent(eventDispatcher,
+				MessageReceivedEvent.class, selfletMessage);
 	}
 }

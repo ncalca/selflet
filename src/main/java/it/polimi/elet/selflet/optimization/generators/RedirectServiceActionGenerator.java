@@ -7,6 +7,7 @@ import it.polimi.elet.selflet.negotiation.nodeState.INeighborStateManager;
 import it.polimi.elet.selflet.negotiation.nodeState.INodeState;
 import it.polimi.elet.selflet.negotiation.nodeState.NodeStateGenericDataEnum;
 import it.polimi.elet.selflet.optimization.actions.IOptimizationAction;
+import it.polimi.elet.selflet.optimization.actions.OptimizationActionActuator;
 import it.polimi.elet.selflet.optimization.actions.redirect.RedirectAction;
 import it.polimi.elet.selflet.optimization.actions.redirect.RedirectPolicy;
 import it.polimi.elet.selflet.service.Service;
@@ -18,6 +19,8 @@ import java.util.Collection;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.Sets;
 
 /**
@@ -26,6 +29,8 @@ import com.google.common.collect.Sets;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 public class RedirectServiceActionGenerator implements IActionGenerator {
+	
+	private static final Logger LOG = Logger.getLogger(RedirectServiceActionGenerator.class);
 
 	private final INeighborStateManager neighborStateManager;
 	private final IPerformanceMonitor performanceMonitor;
@@ -64,6 +69,7 @@ public class RedirectServiceActionGenerator implements IActionGenerator {
 		for (Neighbor neighbor : neighbors) {
 			if (neighborIsOfferingService(neighbor, service) && neighborNotRedirectingToMe(neighbor, service)
 					&& !neighborIsExceedingThreshold(neighbor, service)) {
+				LOG.info("creating redirect action for service " + service.getName() + " to neighbor " + neighbor.getId().getID());
 				IOptimizationAction redirectAction = createRedirectAction(service, neighbor);
 				optimizationActions.add(redirectAction);
 			}
@@ -80,23 +86,33 @@ public class RedirectServiceActionGenerator implements IActionGenerator {
 
 		long responseTime;
 		double utilization;
-
-		try {
-			Serializable data = nodeState.getGenericDataWithKey(NodeStateGenericDataEnum.RESPONSE_TIME.toString());
-			if (data == null) {
-				return true;
-			}
-			responseTime = (Long) data;
-			data = nodeState.getGenericDataWithKey(NodeStateGenericDataEnum.CPU_UTILIZATION.toString());
-			if (data == null) {
-				return true;
-			}
-
-			utilization = (Double) data;
-		} catch (NotFoundException e) {
+		
+		try{
+			utilization = nodeState.getUtilization();
+			responseTime = nodeState.getResponseTimeOfService(service.getName());
+		} catch (Exception e) {
+			LOG.info("exception in neighborIsExceedingThreshold");
 			return true;
 		}
 
+//		try {
+//			Serializable data = nodeState.getGenericDataWithKey(NodeStateGenericDataEnum.RESPONSE_TIME.toString());
+//			if (data == null) {
+//				LOG.info("response time == null");
+//				return true;
+//			}
+//			responseTime = (Long) data;
+//			data = nodeState.getGenericDataWithKey(NodeStateGenericDataEnum.CPU_UTILIZATION.toString());
+//			if (data == null) {
+//				LOG.info("utilization == null");
+//				return true;
+//			}
+//
+//			utilization = (Double) data;
+//		} catch (NotFoundException e) {
+//			LOG.info("exception!!!!!!");
+//			return true;
+//		}
 		return (responseTime > service.getMaxResponseTimeInMsec()) || utilization >= performanceMonitor.getCPUUtilizationUpperBound();
 	}
 

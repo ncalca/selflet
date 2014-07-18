@@ -82,12 +82,14 @@ public class NodeStateFactory implements INodeStateFactory {
 
 	private void fillPerformanceData(INodeState nodeState) {
 		Map<String, Serializable> performanceData = Maps.newHashMap();
+		Map<String, Long> responseTimes = Maps.newHashMap();
 
 		for (String serviceName : getAvailableServices()) {
 			performanceData.put(REQUEST_RATE.toString() + ": " + serviceName, performanceMonitor.getServiceRequestRate(serviceName));
 			performanceData.put(THROUGHPUT.toString() + ": " + serviceName, performanceMonitor.getServiceThroughput(serviceName));
 			performanceData.put(SERVICE_UTILIZATION.toString() + ": " + serviceName, performanceMonitor.getServiceUtilization(serviceName));
 			performanceData.put(RESPONSE_TIME.toString() + ": " + serviceName, new Double(performanceMonitor.getServiceResponseTimeInMsec(serviceName)));
+			responseTimes.put(serviceName, performanceMonitor.getServiceResponseTimeInMsec(serviceName));
 		}
 
 		performanceData.put(CPU_UTILIZATION.toString(), performanceMonitor.getCurrentTotalCPUUtilization());
@@ -95,6 +97,8 @@ public class NodeStateFactory implements INodeStateFactory {
 		//TODO
 		performanceData.put(CPU_UTILIZATION_UPPER_BOUND.toString(), performanceMonitor.getCPUUtilizationUpperBound());
 		nodeState.setUtilizationUpperBound(performanceMonitor.getCPUUtilizationUpperBound());
+		
+		nodeState.setResponseTimes(responseTimes);
 		
 		nodeState.addGenericData(performanceData);
 	}
