@@ -43,7 +43,9 @@ public class MessageHandlerMessageBinder {
 
 	ISTANTIATE_NEW_SELFLET_REPLY,
 
-	NEIGHBORS
+	NEIGHBORS,
+	
+	CHANGE_SERVICE_IMPLEMENTATION
 
 	);
 

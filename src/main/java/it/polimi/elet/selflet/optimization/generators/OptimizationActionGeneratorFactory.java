@@ -53,7 +53,7 @@ public class OptimizationActionGeneratorFactory implements IOptimizationActionGe
 			return new TeachActionGenerator(neighborStateManager, knowledges.getServiceKnowledge(), performanceMonitor);
 
 		case CHANGE_SERVICE_IMPLEMENTATION:
-			return new ChangeServiceImplementationGenerator();
+			return new ChangeServiceImplementationGenerator(neighborStateManager, performanceMonitor, knowledges.getServiceKnowledge());
 
 		default:
 			throw new NotFoundException("Trying to instantiate a non existent type of action generator " + actionType);

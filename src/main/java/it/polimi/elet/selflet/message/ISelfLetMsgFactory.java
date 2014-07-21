@@ -2,6 +2,7 @@ package it.polimi.elet.selflet.message;
 
 import java.io.Serializable;
 
+import it.polimi.elet.selflet.behavior.IBehavior;
 import it.polimi.elet.selflet.id.ISelfLetID;
 import it.polimi.elet.selflet.negotiation.ServicePack;
 import it.polimi.elet.selflet.negotiation.NeededServiceParam;
@@ -168,5 +169,8 @@ public interface ISelfLetMsgFactory {
 	 * Message used to notify the dispatcher that this selflet is removing
 	 * */
 	SelfLetMsg newRemovalSelfletMessage(ISelfLetID receiver);
+	
+	SelfLetMsg changeServiceImplementation(String serviceName,
+			IBehavior newBehavior);
 
 }

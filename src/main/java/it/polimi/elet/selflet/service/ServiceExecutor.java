@@ -68,7 +68,6 @@ public class ServiceExecutor extends SelfletComponent implements IServiceExecuto
 	private void manageLocalExecution(Service service, String outputDest, RunningService callingService) {
 		// compute whether we need to redirect
 		IRedirectCalculator redirectCalculator = redirectCalculatorFactory.create(service, redirectPolicies);
-
 		ISelfLetID redirectedProvider = redirectCalculator.getRedirectedProvider();
 		if (redirectCalculator.performRedirect() && redirectedProvider != null) {
 			autonomicAttuator.redirectRequestToProvider(service.getName(), redirectedProvider, callingService);

@@ -2,6 +2,10 @@ package it.polimi.elet.selflet.message;
 
 import java.io.Serializable;
 
+
+import com.google.common.collect.Sets;
+
+import it.polimi.elet.selflet.behavior.IBehavior;
 import it.polimi.elet.selflet.id.BroadcastSelfLetID;
 import it.polimi.elet.selflet.id.DispatcherID;
 import it.polimi.elet.selflet.id.ISelfLetID;
@@ -14,7 +18,6 @@ import it.polimi.elet.selflet.negotiation.ServiceExecutionParameter;
 import it.polimi.elet.selflet.negotiation.ServiceOfferModeEnum;
 import it.polimi.elet.selflet.negotiation.ServiceProvider;
 import it.polimi.elet.selflet.negotiation.nodeState.INodeState;
-
 import static it.polimi.elet.selflet.message.SelfLetMessageTypeEnum.*;
 
 /**
@@ -110,6 +113,15 @@ public class SelfLetMsgFactory implements ISelfLetMsgFactory {
 	@Override
 	public SelfLetMsg newRemovalSelfletMessage(ISelfLetID receiver) {
 		return new SelfLetMsg(thisSelfLetID, receiver, REMOVE_SELFLET, "");
+	}
+	
+	@Override
+	public SelfLetMsg changeServiceImplementation(String serviceName,
+			IBehavior newBehavior) {
+		ISelfLetID broadCastSelfLetId = new BroadcastSelfLetID();
+		ServicePack servicePack = new ServicePack(serviceName, Sets.newHashSet(newBehavior));
+		servicePack.setDefaultBehavior(newBehavior);
+		return new SelfLetMsg(thisSelfLetID, broadCastSelfLetId, CHANGE_SERVICE_IMPLEMENTATION, servicePack);
 	}
 
 }

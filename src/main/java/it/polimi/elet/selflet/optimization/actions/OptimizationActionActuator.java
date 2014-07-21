@@ -6,8 +6,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import it.polimi.elet.selflet.autonomic.IAutonomicActuator;
-import it.polimi.elet.selflet.exceptions.NotImplementedExeception;
 import it.polimi.elet.selflet.id.ISelfLetID;
+import it.polimi.elet.selflet.optimization.actions.changeImplementation.ChangeServiceImplementationAction;
 import it.polimi.elet.selflet.optimization.actions.redirect.RedirectAction;
 import it.polimi.elet.selflet.optimization.actions.scaling.AddSelfletAction;
 import it.polimi.elet.selflet.optimization.actions.scaling.RemoveSelfletAction;
@@ -61,7 +61,9 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 			break;
 
 		case CHANGE_SERVICE_IMPLEMENTATION:
-			throw new NotImplementedExeception("Change Service implementation not implemented yet");
+			ChangeServiceImplementationAction changeServiceImplementationAction = (ChangeServiceImplementationAction) optimizationAction;
+			actuateChangeServiceImplementation(changeServiceImplementationAction);
+			break;
 
 		default:
 			throw new IllegalStateException("Trying to actuate an action for which the actuation procedure has not been already specified");
@@ -88,6 +90,10 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 
 	private void actuateRedirect(RedirectAction redirectOptimizationAction) {
 		serviceExecutor.setRedirectPolicies(redirectOptimizationAction.getRedirectPolicy());
+	}
+	
+	private void actuateChangeServiceImplementation(ChangeServiceImplementationAction changeServiceImplementationAction){
+		autonomicAttuator.changeServiceImplementation(changeServiceImplementationAction.getService().getName(), changeServiceImplementationAction.getBehaviorQuality());
 	}
 
 }

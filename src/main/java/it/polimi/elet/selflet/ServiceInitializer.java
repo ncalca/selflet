@@ -21,12 +21,14 @@ import org.apache.log4j.Logger;
 
 public class ServiceInitializer {
 
-	private static final Logger LOG = Logger.getLogger(ServiceInitializer.class);
+	private static final Logger LOG = Logger
+			.getLogger(ServiceInitializer.class);
 
 	private final IServiceKnowledge serviceKnowledge;
 	private final IActionFactory actionFactory;
 
-	public ServiceInitializer(IServiceKnowledge serviceKnowledge, IActionFactory actionFactory) {
+	public ServiceInitializer(IServiceKnowledge serviceKnowledge,
+			IActionFactory actionFactory) {
 		this.serviceKnowledge = serviceKnowledge;
 		this.actionFactory = actionFactory;
 	}
@@ -36,23 +38,27 @@ public class ServiceInitializer {
 	 * */
 	public void addServices(List<ServiceType> services) {
 
-		SelfLetParser selfletParser = new SelfLetParser(UtilitiesProvider.getWorkingDir());
+		SelfLetParser selfletParser = new SelfLetParser(
+				UtilitiesProvider.getWorkingDir());
 
 		for (ServiceType serviceType : services) {
 			String serviceName = serviceType.getName();
 			LOG.debug("Adding service " + serviceName + "...");
 			addKnownService(serviceName, serviceType);
-			ServiceOfferModeEnum mode = ServiceOfferModeEnum.valueOf(serviceType.getOfferMode().value());
+			ServiceOfferModeEnum mode = ServiceOfferModeEnum
+					.valueOf(serviceType.getOfferMode().value());
 			Boolean active = serviceType.isActive() == null ? false : true;
 			setServiceOfferMode(serviceName, mode, active);
 
-			List<File> behaviorFiles = selfletParser.parseBehaviorOfService(serviceName);
+			List<File> behaviorFiles = selfletParser
+					.parseBehaviorOfService(serviceName);
 			loadBehaviors(serviceName, behaviorFiles);
 		}
 
 	}
 
-	private void setServiceOfferMode(String serviceName, ServiceOfferModeEnum mode, Boolean active) {
+	private void setServiceOfferMode(String serviceName,
+			ServiceOfferModeEnum mode, Boolean active) {
 		Service service = serviceKnowledge.getProperty(serviceName);
 
 		if (service == null) {
@@ -79,13 +85,15 @@ public class ServiceInitializer {
 		Map<String, Class<?>> inputParameters = new HashMap<String, Class<?>>();
 
 		for (ParamType param : input) {
-			Class<?> classType = StringToClassConversion.convert(param.getType());
+			Class<?> classType = StringToClassConversion.convert(param
+					.getType());
 			inputParameters.put(param.getName(), classType);
 		}
 
 		service.setInputParameters(inputParameters);
 		service.setRevenue(serviceType.getRevenue());
-		service.setMaxResponseTimeInMsec((long) serviceType.getMaxResponseTime());
+		service.setMaxResponseTimeInMsec((long) serviceType
+				.getMaxResponseTime());
 		service.setServiceDemand(serviceType.getServiceDemand());
 
 		serviceKnowledge.setProperty(serviceName, service);
@@ -96,7 +104,8 @@ public class ServiceInitializer {
 
 		Service service = serviceKnowledge.getProperty(serviceName);
 		for (File file : behaviorFiles) {
-			EMFBehaviorBuilder behaviorBuilder = new EMFBehaviorBuilder(actionFactory, file);
+			EMFBehaviorBuilder behaviorBuilder = new EMFBehaviorBuilder(
+					actionFactory, file);
 			List<IBehavior> behaviors = behaviorBuilder.getBehaviors();
 			for (IBehavior behavior : behaviors) {
 				service.addImplementingBehavior(behavior);
@@ -104,11 +113,29 @@ public class ServiceInitializer {
 
 			// TODO for now I'm setting the default behavior as the first
 			// behavior however this should be specified in the selflet project
+			// TODO I decided to start with the high quality behavior.
 			if (!behaviors.isEmpty()) {
-				service.setDefaultBehavior(behaviors.get(0));
+				service.setDefaultBehavior(getHighQualityBehavior(behaviors));
 			}
 		}
 
+	}
+
+	private IBehavior getHighQualityBehavior(List<IBehavior> behaviors) {
+		if (behaviors.size() > 1) {
+			for (IBehavior behavior : behaviors) {
+				if (getBehaviorQuality(behavior.getName()) == 2) {
+					return behavior;
+				}
+			}
+		}
+
+		return behaviors.get(0);
+	}
+
+	private int getBehaviorQuality(String behaviorName) {
+		return Integer
+				.parseInt(behaviorName.substring(behaviorName.length() - 1));
 	}
 
 }

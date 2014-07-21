@@ -87,6 +87,9 @@ public class SelfletMessageHandlerFactory extends SelfletComponent implements IS
 
 		case REMOVE_SELFLET:
 			return new RemoveNeighborMessageHandler(neighborManager, neighborStateManager);
+			
+		case CHANGE_SERVICE_IMPLEMENTATION:
+			return new ChangeServiceImplementationMessageHandler(serviceKnowledge);
 
 		default:
 			throw new IllegalArgumentException("Invalid enumeration type for message handler " + messageHandlerType);

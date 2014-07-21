@@ -55,11 +55,13 @@ public class NegotiationEventReceiver extends SelfletComponent implements INegot
 
 		Set<SelfLetMessageTypeEnum> messageHandlerTypes = Sets.immutableEnumSet(ASK_NEEDED_SERVICE, GET_SERVICE_PROVIDER_INDIRECTLY,
 				EXECUTE_ACHIEVABLE_SERVICE, DOWNLOAD_ACHIEVABLE_SERVICE, ADVERTISE_ACHIEVABLE_SERVICE, NODE_STATE, REDIRECT_REQUEST, NEIGHBORS, SERVICE_TEACH,
-				REDIRECT_REQUEST_REPLY, REMOVE_SELFLET);
+				REDIRECT_REQUEST_REPLY, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION);
 
 		for (SelfLetMessageTypeEnum messageType : messageHandlerTypes) {
 			addMessageHandler(selfletMessageHandlerFactory.create(messageType));
 		}
+		
+		LOG.debug("Message handlers initialized");
 	}
 
 	private void addMessageHandler(ISelfletMessageHandler selfletMessageHandler) {

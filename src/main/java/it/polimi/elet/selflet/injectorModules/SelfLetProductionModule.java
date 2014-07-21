@@ -68,10 +68,12 @@ import it.polimi.elet.selflet.optimization.generators.OptimizationActionGenerato
 import it.polimi.elet.selflet.service.IRunningServiceFactory;
 import it.polimi.elet.selflet.service.IRunningServiceManager;
 import it.polimi.elet.selflet.service.IServiceExecutor;
+import it.polimi.elet.selflet.service.IServiceImplementationChanger;
 import it.polimi.elet.selflet.service.IServiceTeacher;
 import it.polimi.elet.selflet.service.RunningServiceFactory;
 import it.polimi.elet.selflet.service.RunningServiceManager;
 import it.polimi.elet.selflet.service.ServiceExecutor;
+import it.polimi.elet.selflet.service.ServiceImplementationChanger;
 import it.polimi.elet.selflet.service.ServiceTeacher;
 import it.polimi.elet.selflet.service.serviceEventHandlers.IServiceEventHandlerFactory;
 import it.polimi.elet.selflet.service.serviceEventHandlers.ServiceEventHandlerFactory;
@@ -161,6 +163,7 @@ public class SelfLetProductionModule extends AbstractModule {
 		bind(IServiceExecutor.class).to(ServiceExecutor.class);
 		bind(IServiceEventHandlerFactory.class).to(ServiceEventHandlerFactory.class);
 		bind(IRedirectMonitor.class).to(RedirectMonitor.class);
+		bind(IServiceImplementationChanger.class).to(ServiceImplementationChanger.class);
 	}
 
 	private void bindActionSubSystem() {

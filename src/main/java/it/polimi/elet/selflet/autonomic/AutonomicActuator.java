@@ -1,5 +1,6 @@
 package it.polimi.elet.selflet.autonomic;
 
+
 import it.polimi.elet.selflet.ability.IAbilityExecutionEnvironment;
 import it.polimi.elet.selflet.events.SelfletComponent;
 import it.polimi.elet.selflet.events.service.ServiceNeededEvent;
@@ -14,6 +15,7 @@ import it.polimi.elet.selflet.negotiation.ServiceAskModeEnum;
 import it.polimi.elet.selflet.negotiation.ServiceExecutionParameter;
 import it.polimi.elet.selflet.negotiation.ServiceOfferModeEnum;
 import it.polimi.elet.selflet.service.IServiceExecutor;
+import it.polimi.elet.selflet.service.IServiceImplementationChanger;
 import it.polimi.elet.selflet.service.IServiceTeacher;
 import it.polimi.elet.selflet.service.RunningService;
 import it.polimi.elet.selflet.service.Service;
@@ -31,7 +33,8 @@ import com.google.inject.Singleton;
  * @author silvia
  */
 @Singleton
-public class AutonomicActuator extends SelfletComponent implements IAutonomicActuator {
+public class AutonomicActuator extends SelfletComponent implements
+		IAutonomicActuator {
 
 	private static final Logger LOG = Logger.getLogger(AutonomicActuator.class);
 
@@ -42,12 +45,17 @@ public class AutonomicActuator extends SelfletComponent implements IAutonomicAct
 	private final IServiceExecutor serviceExecutor;
 	private final IAbilityExecutionEnvironment abilityExecutionEnvironment;
 	private final ISelfletShutdown selfletShutdown;
+	private final IServiceImplementationChanger serviceImplementationChanger;
 
 	private long lastTimeIstantiatedSelflet = 0;
 
 	@Inject
-	public AutonomicActuator(IKnowledgesContainer knowledges, INegotiationManager negotiationManager, IAbilityExecutionEnvironment abilityExecutionEnvironment,
-			IServiceTeacher serviceTeacher, IServiceExecutor serviceExecutor, ISelfletShutdown selfletShutdown) {
+	public AutonomicActuator(IKnowledgesContainer knowledges,
+			INegotiationManager negotiationManager,
+			IAbilityExecutionEnvironment abilityExecutionEnvironment,
+			IServiceTeacher serviceTeacher, IServiceExecutor serviceExecutor,
+			ISelfletShutdown selfletShutdown,
+			IServiceImplementationChanger serviceImplementationChanger) {
 		this.serviceKnowledge = knowledges.getServiceKnowledge();
 		this.generalKnowledge = knowledges.getGeneralKnowledge();
 		this.negotiationManager = negotiationManager;
@@ -55,35 +63,48 @@ public class AutonomicActuator extends SelfletComponent implements IAutonomicAct
 		this.serviceTeacher = serviceTeacher;
 		this.serviceExecutor = serviceExecutor;
 		this.selfletShutdown = selfletShutdown;
+		this.serviceImplementationChanger = serviceImplementationChanger;
 	}
 
-	public void executeService(String serviceName, String outputDest, RunningService callingService) {
+	public void executeService(String serviceName, String outputDest,
+			RunningService callingService) {
 		addServiceIfNotKnown(serviceName);
 		Service service = serviceKnowledge.getProperty(serviceName);
 		serviceExecutor.executeService(service, outputDest, callingService);
 	}
 
-	public void modifyServiceOfferMode(String serviceName, ServiceOfferModeEnum mode, boolean active) {
-		negotiationManager.setAchievableServiceOfferMode(serviceName, mode, active);
+	public void modifyServiceOfferMode(String serviceName,
+			ServiceOfferModeEnum mode, boolean active) {
+		negotiationManager.setAchievableServiceOfferMode(serviceName, mode,
+				active);
 		negotiationManager.advertiseAchievableService(serviceName, mode);
 	}
 
 	@Override
-	public void redirectRequest(ServiceNeededEvent serviceNeededEvent, RunningService callingService) {
+	public void redirectRequest(ServiceNeededEvent serviceNeededEvent,
+			RunningService callingService) {
 		throw new NotImplementedExeception("redirectRequest");
 	}
 
 	@Override
-	public void redirectRequestToProvider(ServiceNeededEvent serviceNeededEvent, ISelfLetID provider, RunningService callingService) {
-		redirectRequestToProvider(serviceNeededEvent.getServiceName(), provider, callingService);
+	public void redirectRequestToProvider(
+			ServiceNeededEvent serviceNeededEvent, ISelfLetID provider,
+			RunningService callingService) {
+		redirectRequestToProvider(serviceNeededEvent.getServiceName(),
+				provider, callingService);
 	}
 
 	@Override
-	public void redirectRequestToProvider(String serviceName, ISelfLetID provider, RunningService callingService) {
-		LOG.debug("Redirecting request for service " + serviceName + " to provider " + provider);
-		ServiceParametersExtractor serviceParametersExtractor = new ServiceParametersExtractor(serviceName, serviceKnowledge, generalKnowledge);
-		ServiceExecutionParameter serviceExecutionParameter = new ServiceExecutionParameter(serviceName, serviceParametersExtractor.getServiceParameters());
-		negotiationManager.redirectRequestToProvider(serviceExecutionParameter, provider, callingService);
+	public void redirectRequestToProvider(String serviceName,
+			ISelfLetID provider, RunningService callingService) {
+		LOG.debug("Redirecting request for service " + serviceName
+				+ " to provider " + provider);
+		ServiceParametersExtractor serviceParametersExtractor = new ServiceParametersExtractor(
+				serviceName, serviceKnowledge, generalKnowledge);
+		ServiceExecutionParameter serviceExecutionParameter = new ServiceExecutionParameter(
+				serviceName, serviceParametersExtractor.getServiceParameters());
+		negotiationManager.redirectRequestToProvider(serviceExecutionParameter,
+				provider, callingService);
 	}
 
 	@Override
@@ -98,7 +119,8 @@ public class AutonomicActuator extends SelfletComponent implements IAutonomicAct
 	}
 
 	public void modifyServiceAskMode(String service, ServiceAskModeEnum mode) {
-		throw new NotImplementedExeception("Modify service ask mode is not implemented yet");
+		throw new NotImplementedExeception(
+				"Modify service ask mode is not implemented yet");
 	}
 
 	@Override
@@ -130,8 +152,10 @@ public class AutonomicActuator extends SelfletComponent implements IAutonomicAct
 		}
 	}
 
-	public void installAbility(String inputFileName, String abilityName, String serviceName, String methodName) {
-		abilityExecutionEnvironment.installAbility(inputFileName, abilityName, serviceName, methodName);
+	public void installAbility(String inputFileName, String abilityName,
+			String serviceName, String methodName) {
+		abilityExecutionEnvironment.installAbility(inputFileName, abilityName,
+				serviceName, methodName);
 	}
 
 	public void restartDefault() {
@@ -148,6 +172,12 @@ public class AutonomicActuator extends SelfletComponent implements IAutonomicAct
 	@Override
 	public long getLastTimeIstantiatedSelflet() {
 		return lastTimeIstantiatedSelflet;
+	}
+
+	@Override
+	public void changeServiceImplementation(String serviceName,
+			int qualityOfBehavior) {
+		serviceImplementationChanger.changeServiceImplementation(serviceName, qualityOfBehavior);
 	}
 
 }

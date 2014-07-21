@@ -52,17 +52,10 @@ public class TeachActionGenerator implements IActionGenerator {
 
 		for (Service service : serviceKnowledge.getServices()) {
 
-			if (neighborIsOfferingService(neighbor, service) || neighborIsOverloaded(neighbor)) {
-				continue;
-			}
-
-//			boolean neighborCanExecuteTheService = true;
-//					//neighborCanDirectlyExecuteTheService(neighbor, service);
-			
-//			if (neighborCanExecuteTheService) {
+			if (!neighborIsOfferingService(neighbor, service) && !neighborIsOverloaded(neighbor)) {
 				double weight = performanceMonitor.getServiceUtilization(service.getName());
 				actions.add(new TeachServiceAction(neighbor.getId(), service, weight));
-//			}
+			}
 		}
 
 		return actions;

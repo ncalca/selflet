@@ -1,5 +1,7 @@
 package it.polimi.elet.selflet.optimization.generators;
 
+import static it.polimi.elet.selflet.negotiation.nodeState.NodeStateGenericDataEnum.CPU_UTILIZATION;
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ import it.polimi.elet.selflet.exceptions.NotFoundException;
 import it.polimi.elet.selflet.knowledge.IServiceKnowledge;
 import it.polimi.elet.selflet.knowledge.Neighbor;
 import it.polimi.elet.selflet.negotiation.nodeState.INeighborStateManager;
+import it.polimi.elet.selflet.negotiation.nodeState.INodeState;
 import it.polimi.elet.selflet.optimization.actions.IOptimizationAction;
 import it.polimi.elet.selflet.optimization.actions.scaling.RemoveSelfletAction;
 import it.polimi.elet.selflet.service.Service;
@@ -51,7 +54,7 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 
 		// || stillReceivingRequests()
 		if (selfletRecentlyCreated() || selfletIsLoaded() || theOnlySelflet()
-				|| removalActionRecentlyCreated() || theOnlyOneProvidingSomeService()) {
+				|| removalActionRecentlyCreated() || theOnlyOneProvidingSomeService() || neighborsAreLoaded()) {
 			return Lists.newArrayList();
 		}
 
@@ -119,6 +122,39 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 		long now = System.currentTimeMillis();
 		long elapsed = now - startupTime;
 		return elapsed < MINIMUM_TIME_TO_REMOVE_SELFLET;
+	}
+	
+	private boolean neighborsAreLoaded() {
+
+		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
+
+		if (neighbors.isEmpty()) {
+			return false;
+		}
+
+		return (computeUtilizationAverage() >= performanceMonitor.getCPUUtilizationUpperBound());
+	}
+
+	private double computeUtilizationAverage() {
+		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
+		double utilizationSum = 0;
+		int count = 0;
+
+		for (Neighbor neighbor : neighbors) {
+			if (neighborStateManager.haveInformationAboutNeighbor(neighbor)) {
+				INodeState nodeState = neighborStateManager.getNodeStateOfNeighbor(neighbor);
+				double neighborUtilization = (Double) nodeState.getGenericDataWithKey(CPU_UTILIZATION.toString());
+				utilizationSum += neighborUtilization;
+				count++;
+			}
+		}
+
+		if (count == 0) {
+			return 0;
+		}
+
+		double utilizationAverage = utilizationSum / count;
+		return utilizationAverage;
 	}
 
 }

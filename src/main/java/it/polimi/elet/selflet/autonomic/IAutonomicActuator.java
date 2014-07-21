@@ -123,5 +123,8 @@ public interface IAutonomicActuator extends ISelfletComponent {
 	void removeSelflet();
 
 	long getLastTimeIstantiatedSelflet();
+	
+	public void changeServiceImplementation(String serviceName,
+			int qualityOfBehavior);
 
 }
