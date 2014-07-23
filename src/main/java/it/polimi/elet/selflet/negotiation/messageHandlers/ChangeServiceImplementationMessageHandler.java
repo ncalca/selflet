@@ -11,12 +11,14 @@ import it.polimi.elet.selflet.service.Service;
 
 public class ChangeServiceImplementationMessageHandler implements
 		ISelfletMessageHandler {
-	
-	private static final Logger LOG = Logger.getLogger(ChangeServiceImplementationMessageHandler.class);
-	
-	private final IServiceKnowledge serviceKnowledge; 
-	
-	public ChangeServiceImplementationMessageHandler(IServiceKnowledge serviceKnowledge){
+
+	private static final Logger LOG = Logger
+			.getLogger(ChangeServiceImplementationMessageHandler.class);
+
+	private final IServiceKnowledge serviceKnowledge;
+
+	public ChangeServiceImplementationMessageHandler(
+			IServiceKnowledge serviceKnowledge) {
 		this.serviceKnowledge = serviceKnowledge;
 	}
 
@@ -26,16 +28,20 @@ public class ChangeServiceImplementationMessageHandler implements
 		changeServiceImplementation(servicePack);
 
 	}
-	
-	private void changeServiceImplementation(ServicePack servicePack){
+
+	private void changeServiceImplementation(ServicePack servicePack) {
 		Service service = serviceKnowledge.getProperty(servicePack.getName());
-		IBehavior newDefaultBehavior = servicePack.getDefaultBehavior();
-		if(service.getDefaultBehavior().equals(newDefaultBehavior)){
-			return;
+		if (serviceKnowledge.isLocalService(service.getName())) {
+			IBehavior newDefaultBehavior = servicePack.getDefaultBehavior();
+			if (service.getDefaultBehavior().equals(newDefaultBehavior)) {
+				return;
+			}
+			service.setDefaultBehavior(newDefaultBehavior);
+			serviceKnowledge.updateProperty(service.getName(), service);
+			LOG.info("service " + service.getName()
+					+ " has a new default behavior: "
+					+ newDefaultBehavior.getName());
 		}
-		service.setDefaultBehavior(newDefaultBehavior);
-		serviceKnowledge.updateProperty(service.getName(), service);
-		LOG.info("service " + service.getName() + " has a new default behavior: " + newDefaultBehavior.getName());
 	}
 
 	@Override
