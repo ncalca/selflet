@@ -23,50 +23,58 @@ import it.polimi.elet.selflet.utilities.RandomDistributions;
 @Singleton
 public class OptimizationActionActuator implements IOptimizationActionActuator {
 
-	private static final Logger LOG = Logger.getLogger(OptimizationActionActuator.class);
+	private static final Logger LOG = Logger
+			.getLogger(OptimizationActionActuator.class);
 
 	private final IServiceExecutor serviceExecutor;
 	private final IAutonomicActuator autonomicAttuator;
 
 	@Inject
-	public OptimizationActionActuator(IServiceExecutor serviceExecutor, IAutonomicActuator autonomicAttuator) {
+	public OptimizationActionActuator(IServiceExecutor serviceExecutor,
+			IAutonomicActuator autonomicAttuator) {
 		this.serviceExecutor = serviceExecutor;
 		this.autonomicAttuator = autonomicAttuator;
 	}
 
 	@Override
 	public void actuateAction(IOptimizationAction optimizationAction) {
-		LOG.info("Actuating action " + optimizationAction.optimizationType());
+		try {
+			LOG.info("Actuating action "
+					+ optimizationAction.optimizationType());
 
-		switch (optimizationAction.optimizationType()) {
+			switch (optimizationAction.optimizationType()) {
 
-		case REDIRECT_SERVICE:
-			RedirectAction redirectAction = (RedirectAction) optimizationAction;
-			actuateRedirect(redirectAction);
-			break;
+			case REDIRECT_SERVICE:
+				RedirectAction redirectAction = (RedirectAction) optimizationAction;
+				actuateRedirect(redirectAction);
+				break;
 
-		case ADD_SELFLET:
-			AddSelfletAction addSelfletAction = (AddSelfletAction) optimizationAction;
-			actuateNewSelflet(addSelfletAction);
-			break;
+			case ADD_SELFLET:
+				AddSelfletAction addSelfletAction = (AddSelfletAction) optimizationAction;
+				actuateNewSelflet(addSelfletAction);
+				break;
 
-		case REMOVE_SELFLET:
-			RemoveSelfletAction removeSelfletAction = (RemoveSelfletAction) optimizationAction;
-			actuateRemoveSelflet(removeSelfletAction);
-			break;
+			case REMOVE_SELFLET:
+				RemoveSelfletAction removeSelfletAction = (RemoveSelfletAction) optimizationAction;
+				actuateRemoveSelflet(removeSelfletAction);
+				break;
 
-		case TEACH_SERVICE:
-			TeachServiceAction teachServiceAction = (TeachServiceAction) optimizationAction;
-			actuateTeachService(teachServiceAction);
-			break;
+			case TEACH_SERVICE:
+				TeachServiceAction teachServiceAction = (TeachServiceAction) optimizationAction;
+				actuateTeachService(teachServiceAction);
+				break;
 
-		case CHANGE_SERVICE_IMPLEMENTATION:
-			ChangeServiceImplementationAction changeServiceImplementationAction = (ChangeServiceImplementationAction) optimizationAction;
-			actuateChangeServiceImplementation(changeServiceImplementationAction);
-			break;
+			case CHANGE_SERVICE_IMPLEMENTATION:
+				ChangeServiceImplementationAction changeServiceImplementationAction = (ChangeServiceImplementationAction) optimizationAction;
+				actuateChangeServiceImplementation(changeServiceImplementationAction);
+				break;
 
-		default:
-			throw new IllegalStateException("Trying to actuate an action for which the actuation procedure has not been already specified");
+			default:
+				throw new IllegalStateException(
+						"Trying to actuate an action for which the actuation procedure has not been already specified");
+			}
+		} catch (Exception e) {
+			LOG.error("error in optimization action" + e);
 		}
 
 	}
@@ -89,11 +97,15 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 	}
 
 	private void actuateRedirect(RedirectAction redirectOptimizationAction) {
-		serviceExecutor.setRedirectPolicies(redirectOptimizationAction.getRedirectPolicy());
+		serviceExecutor.setRedirectPolicies(redirectOptimizationAction
+				.getRedirectPolicy());
 	}
-	
-	private void actuateChangeServiceImplementation(ChangeServiceImplementationAction changeServiceImplementationAction){
-		autonomicAttuator.changeServiceImplementation(changeServiceImplementationAction.getService().getName(), changeServiceImplementationAction.getBehaviorQuality());
+
+	private void actuateChangeServiceImplementation(
+			ChangeServiceImplementationAction changeServiceImplementationAction) {
+		autonomicAttuator.changeServiceImplementation(
+				changeServiceImplementationAction.getService().getName(),
+				changeServiceImplementationAction.getBehaviorQuality());
 	}
 
 }
