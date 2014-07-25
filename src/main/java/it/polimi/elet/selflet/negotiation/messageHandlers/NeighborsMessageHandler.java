@@ -31,7 +31,7 @@ public class NeighborsMessageHandler implements ISelfletMessageHandler {
 	public void handleMessage(SelfLetMsg message) {
 		@SuppressWarnings("unchecked")
 		Set<ISelfLetID> receivedNeighbors = (Set<ISelfLetID>) message.getContent();
-		LOG.debug("Received new neighbors set: " + receivedNeighbors);
+		LOG.info("Received new neighbors set: " + receivedNeighbors);
 		addNeighbors(receivedNeighbors);
 	}
 
@@ -39,6 +39,7 @@ public class NeighborsMessageHandler implements ISelfletMessageHandler {
 		
 		Set<Neighbor> neighbors = Sets.newHashSet();
 		for (ISelfLetID selfletID : receivedNeighbors) {
+			LOG.info("new neighbor: " + selfletID);
 			neighbors.add(new Neighbor(selfletID));
 		}
 		neighborManager.addNeighbors(neighbors);
