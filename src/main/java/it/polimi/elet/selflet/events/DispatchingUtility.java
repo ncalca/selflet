@@ -40,7 +40,7 @@ public class DispatchingUtility {
 	 * */
 
 	public static void dispatchEvent(IEventDispatcher dispatcher, Class<?> clazz, Object... constructorArguments) {
-		LOG.info("dispatching event with dispatcher: " + dispatcher.getClass());
+		LOG.info("dispatching event");
 		dispatchEvent(Lists.newArrayList(dispatcher), clazz, constructorArguments);
 	}
 
@@ -64,12 +64,10 @@ public class DispatchingUtility {
 			return;
 		}
 
-		LOG.info("List of dispatchers is long: " + dispatchers.size());
 		Constructor<?> constructor = getConstructor(clazz, constructorInput);
 		for (IEventDispatcher dispatcher : dispatchers) {
 			ISelfletEvent event = createNewEvent(constructor, constructorInput);
 			dispatcher.dispatchEvent(event);
-			LOG.info("Dispatched event " + event.getEventType() + " to dispatcher " + dispatcher.getClass());
 		}
 
 	}

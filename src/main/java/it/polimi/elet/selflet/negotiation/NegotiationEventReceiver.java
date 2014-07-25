@@ -114,6 +114,8 @@ public class NegotiationEventReceiver extends SelfletComponent implements INegot
 			return;
 		}
 
+		LOG.info("Received message of type:" + messageType);
+		LOG.info("handling with handler of type :" + messageType);
 		selfletMessageHandler.handleMessage(selfletMsg);
 	}
 
