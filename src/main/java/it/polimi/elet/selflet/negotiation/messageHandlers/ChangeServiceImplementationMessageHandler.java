@@ -3,6 +3,7 @@ package it.polimi.elet.selflet.negotiation.messageHandlers;
 import org.apache.log4j.Logger;
 
 import it.polimi.elet.selflet.behavior.IBehavior;
+import it.polimi.elet.selflet.exceptions.NotFoundException;
 import it.polimi.elet.selflet.knowledge.IServiceKnowledge;
 import it.polimi.elet.selflet.message.SelfLetMessageTypeEnum;
 import it.polimi.elet.selflet.message.SelfLetMsg;
@@ -30,17 +31,24 @@ public class ChangeServiceImplementationMessageHandler implements
 	}
 
 	private void changeServiceImplementation(ServicePack servicePack) {
-		Service service = serviceKnowledge.getProperty(servicePack.getName());
-		if (serviceKnowledge.isLocalService(service.getName())) {
-			IBehavior newDefaultBehavior = servicePack.getDefaultBehavior();
-			if (service.getDefaultBehavior().equals(newDefaultBehavior)) {
-				return;
+		try {
+			Service service = serviceKnowledge.getProperty(servicePack
+					.getName());
+			if (serviceKnowledge.isLocalService(service.getName())) {
+				IBehavior newDefaultBehavior = servicePack.getDefaultBehavior();
+				if (service.getDefaultBehavior().equals(newDefaultBehavior)) {
+					return;
+				}
+				service.setDefaultBehavior(newDefaultBehavior);
+				serviceKnowledge.updateProperty(service.getName(), service);
+				LOG.info("service " + service.getName()
+						+ " has a new default behavior: "
+						+ newDefaultBehavior.getName());
 			}
-			service.setDefaultBehavior(newDefaultBehavior);
-			serviceKnowledge.updateProperty(service.getName(), service);
-			LOG.info("service " + service.getName()
-					+ " has a new default behavior: "
-					+ newDefaultBehavior.getName());
+		} catch (NotFoundException e) {
+			LOG.error("Service not found: cannot chance the implementation");
+		} catch(Exception e) {
+			LOG.error("Error during service implementation change: " + e);
 		}
 	}
 
