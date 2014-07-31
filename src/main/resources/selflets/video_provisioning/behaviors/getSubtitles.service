@@ -9,7 +9,6 @@
         <next targetState="//@service.0/@behavior.0/@state.2"/>
         <next targetState="//@service.0/@behavior.0/@state.3"/>
       </state>
-      <state xsi:type="selfletbehavior:Final"/>
       <state xsi:type="selfletbehavior:Intermediate" name="checkIfSubtitlesExists">
         <next targetState="//@service.0/@behavior.0/@state.2"/>
         <next targetState="//@service.0/@behavior.0/@state.4"/>
@@ -21,6 +20,7 @@
       <state xsi:type="selfletbehavior:Intermediate" name="translateSubtitleToLanguage">
         <next targetState="//@service.0/@behavior.0/@state.2"/>
       </state>
+      <state xsi:type="selfletbehavior:Final"/>
     </behavior>
   </service>
 </selfletbehavior:Selflet>

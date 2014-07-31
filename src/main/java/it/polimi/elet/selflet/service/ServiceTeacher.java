@@ -32,7 +32,9 @@ public class ServiceTeacher implements IServiceTeacher {
 	private final IServiceKnowledge serviceKnowledge;
 
 	@Inject
-	public ServiceTeacher(IMessageHandler messageHandler, ISelfLetMsgFactory selfletMessageFactory, IServiceKnowledge serviceKnowledge) {
+	public ServiceTeacher(IMessageHandler messageHandler,
+			ISelfLetMsgFactory selfletMessageFactory,
+			IServiceKnowledge serviceKnowledge) {
 		this.messageHandler = messageHandler;
 		this.selfletMessageFactory = selfletMessageFactory;
 		this.serviceKnowledge = serviceKnowledge;
@@ -41,16 +43,17 @@ public class ServiceTeacher implements IServiceTeacher {
 
 	public void teach(Service service, ISelfLetID provider) {
 		LOG.info("Teaching service " + service + " to provider " + provider);
-		try{
-		teachSubServicesIfNecessary(service, provider);
-		packAndSendToProvider(service, provider);
-		} catch (NotFoundException e){
+		try {
+			teachSubServicesIfNecessary(service, provider);
+			packAndSendToProvider(service, provider);
+		} catch (NotFoundException e) {
 			LOG.error(e);
 			LOG.error("Teaching aborted");
 		}
 	}
 
-	private void teachSubServicesIfNecessary(Service service, ISelfLetID provider) {
+	private void teachSubServicesIfNecessary(Service service,
+			ISelfLetID provider) {
 
 		for (State serviceState : service.getDefaultBehavior().getStates()) {
 			if (serviceState.isFinalState() || serviceState.isInitialState()) {
@@ -58,24 +61,28 @@ public class ServiceTeacher implements IServiceTeacher {
 			}
 
 			String subServiceName = serviceState.getName();
-			Service subservice;
 			try {
-				subservice = serviceKnowledge.getProperty(subServiceName);
+				Service subservice = serviceKnowledge.getProperty(subServiceName);
+				packAndSendToProvider(subservice, provider);
 			} catch (NotFoundException e) {
-				throw new NotFoundException("error in getting sub services: " + e);
+				throw new NotFoundException("error in getting sub services: "
+						+ e);
 			}
-
-			packAndSendToProvider(subservice, provider);
 
 		}
 	}
 
 	private void packAndSendToProvider(Service service, ISelfLetID provider) {
-		ServicePack servicePack = servicePackFactory.createServicePackForService(service);
+		if(service.getMaxResponseTimeInMsec() <= 0){
+			throw new NotFoundException("mrp is 0. Problem with service");
+		}
+		ServicePack servicePack = servicePackFactory
+				.createServicePackForService(service);
 		LOG.info("sending service " + service.getName() + "[");
 		LOG.info("demand: " + service.getServiceDemand());
 		LOG.info("mrp: " + service.getMaxResponseTimeInMsec() + "]");
-		SelfLetMsg serviceTeachMessage = selfletMessageFactory.newServiceTeachMsg(servicePack, provider);
+		SelfLetMsg serviceTeachMessage = selfletMessageFactory
+				.newServiceTeachMsg(servicePack, provider);
 		messageHandler.send(serviceTeachMessage);
 	}
 

@@ -74,15 +74,19 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 						"Trying to actuate an action for which the actuation procedure has not been already specified");
 			}
 		} catch (Exception e) {
-			LOG.error("error in optimization action" + e);
+			LOG.error("error in optimization action");
 		}
 
 	}
 
 	private void actuateTeachService(TeachServiceAction optimizationAction) {
+		try{
 		String serviceName = optimizationAction.getService().getName();
 		ISelfLetID receiverSelflet = optimizationAction.getReceiverSelflet();
 		autonomicAttuator.teachServiceToProvider(serviceName, receiverSelflet);
+		} catch (Exception e) {
+			LOG.error("error actuating tech service " + optimizationAction.getService().getName() + ": " + e);
+		}
 	}
 
 	private void actuateRemoveSelflet(RemoveSelfletAction optimizationAction) {
