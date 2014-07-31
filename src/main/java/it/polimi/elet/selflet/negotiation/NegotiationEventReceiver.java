@@ -32,9 +32,11 @@ import com.google.inject.Singleton;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 @Singleton
-public class NegotiationEventReceiver extends SelfletComponent implements INegotiationEventReceiver, Runnable {
+public class NegotiationEventReceiver extends SelfletComponent implements
+		INegotiationEventReceiver, Runnable {
 
-	private static final Logger LOG = Logger.getLogger(NegotiationEventReceiver.class);
+	private static final Logger LOG = Logger
+			.getLogger(NegotiationEventReceiver.class);
 
 	private static final int EVENT_QUEUE_SIZE = 200;
 
@@ -42,10 +44,12 @@ public class NegotiationEventReceiver extends SelfletComponent implements INegot
 	private final Map<SelfLetMessageTypeEnum, ISelfletMessageHandler> selfletMessageHandlers;
 
 	// the queue maintaining the events produced by the dispatcher
-	private final BlockingQueue<ISelfletEvent> eventQueue = new ArrayBlockingQueue<ISelfletEvent>(EVENT_QUEUE_SIZE);
+	private final BlockingQueue<ISelfletEvent> eventQueue = new ArrayBlockingQueue<ISelfletEvent>(
+			EVENT_QUEUE_SIZE);
 
 	@Inject
-	public NegotiationEventReceiver(ISelfletMessageHandlerFactory selfletMessageHandlerFactory) {
+	public NegotiationEventReceiver(
+			ISelfletMessageHandlerFactory selfletMessageHandlerFactory) {
 		this.selfletMessageHandlerFactory = selfletMessageHandlerFactory;
 		this.selfletMessageHandlers = Maps.newHashMap();
 	}
@@ -53,19 +57,27 @@ public class NegotiationEventReceiver extends SelfletComponent implements INegot
 	private void initMessageHandlers() {
 		this.selfletMessageHandlerFactory.setDispatcher(dispatcher);
 
-		Set<SelfLetMessageTypeEnum> messageHandlerTypes = Sets.immutableEnumSet(ASK_NEEDED_SERVICE, GET_SERVICE_PROVIDER_INDIRECTLY,
-				EXECUTE_ACHIEVABLE_SERVICE, DOWNLOAD_ACHIEVABLE_SERVICE, ADVERTISE_ACHIEVABLE_SERVICE, NODE_STATE, REDIRECT_REQUEST, NEIGHBORS, SERVICE_TEACH,
-				REDIRECT_REQUEST_REPLY, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION);
+		Set<SelfLetMessageTypeEnum> messageHandlerTypes = Sets
+				.immutableEnumSet(ASK_NEEDED_SERVICE,
+						GET_SERVICE_PROVIDER_INDIRECTLY,
+						EXECUTE_ACHIEVABLE_SERVICE,
+						DOWNLOAD_ACHIEVABLE_SERVICE,
+						ADVERTISE_ACHIEVABLE_SERVICE, NODE_STATE,
+						REDIRECT_REQUEST, NEIGHBORS, SERVICE_TEACH,
+						REDIRECT_REQUEST_REPLY, REMOVE_SELFLET,
+						CHANGE_SERVICE_IMPLEMENTATION);
 
 		for (SelfLetMessageTypeEnum messageType : messageHandlerTypes) {
 			addMessageHandler(selfletMessageHandlerFactory.create(messageType));
 		}
-		
+
 		LOG.debug("Message handlers initialized");
 	}
 
 	private void addMessageHandler(ISelfletMessageHandler selfletMessageHandler) {
-		selfletMessageHandlers.put(selfletMessageHandler.getTypeOfHandledMessage(), selfletMessageHandler);
+		selfletMessageHandlers.put(
+				selfletMessageHandler.getTypeOfHandledMessage(),
+				selfletMessageHandler);
 	}
 
 	@Override
@@ -85,9 +97,17 @@ public class NegotiationEventReceiver extends SelfletComponent implements INegot
 	public void run() {
 		initMessageHandlers();
 
+		try {
+			listenForEvents();
+		} catch (Exception e) {
+			LOG.error("Error during events listening: " + e);
+		}
+	}
+
+	private void listenForEvents() {
 		while (true) {
 			ISelfletEvent event = getEventFromQueue();
-			LOG.debug("Received [" + event + "]");
+			LOG.info("Received [" + event + "]");
 			messageFromMessageHandler(event);
 		}
 	}
@@ -107,7 +127,8 @@ public class NegotiationEventReceiver extends SelfletComponent implements INegot
 
 		SelfLetMsg selfletMsg = ((MessageReceivedEvent) event).getMessage();
 		SelfLetMessageTypeEnum messageType = selfletMsg.getType();
-		ISelfletMessageHandler selfletMessageHandler = selfletMessageHandlers.get(messageType);
+		ISelfletMessageHandler selfletMessageHandler = selfletMessageHandlers
+				.get(messageType);
 
 		if (selfletMessageHandler == null) {
 			LOG.error("Received message for which no message handler is set. Ignoring it.");
