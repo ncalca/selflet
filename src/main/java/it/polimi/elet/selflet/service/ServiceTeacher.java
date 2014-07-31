@@ -68,7 +68,9 @@ public class ServiceTeacher implements IServiceTeacher {
 
 	private void packAndSendToProvider(Service service, ISelfLetID provider) {
 		ServicePack servicePack = servicePackFactory.createServicePackForService(service);
-		LOG.info("sending a service with max resp. time = " + service.getMaxResponseTimeInMsec());
+		LOG.info("sending service " + service.getName() + "[");
+		LOG.info("demand: " + service.getServiceDemand());
+		LOG.info("mrp: " + service.getMaxResponseTimeInMsec() + "]");
 		SelfLetMsg serviceTeachMessage = selfletMessageFactory.newServiceTeachMsg(servicePack, provider);
 		messageHandler.send(serviceTeachMessage);
 	}
