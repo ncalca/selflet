@@ -44,6 +44,9 @@ public class ServiceTeachMessageHandler implements ISelfletMessageHandler {
 		}
 
 		Service receivedService = new Service(servicePack.getName());
+		LOG.info("installing service " + receivedService);
+		LOG.info("demand: " + servicePack.getServiceDemand());
+		LOG.info("mrt: " + servicePack.getMaxResponseTimeInMsec());
 
 		receivedService.addImplementingBehavior(servicePack.getImplementingBehaviors());
 		receivedService.setMaxResponseTimeInMsec(servicePack.getMaxResponseTimeInMsec());

@@ -5,7 +5,7 @@
       <state xsi:type="selfletbehavior:Init">
         <next targetState="//@service.0/@behavior.0/@state.1"/>
       </state>
-      <state xsi:type="selfletbehavior:Invocation" name="downloadVideoAction">
+      <state xsi:type="selfletbehavior:Invocation" name="downloadVideo">
         <action body="do /downloadVideo.service.downloadVideo_behavior.downloadVideoAction.action" actionFile="downloadVideo.service.downloadVideo_behavior.downloadVideoAction.action"/>
         <next targetState="//@service.0/@behavior.0/@state.2"/>
       </state>
