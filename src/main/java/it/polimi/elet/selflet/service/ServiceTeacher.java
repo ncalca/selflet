@@ -40,7 +40,7 @@ public class ServiceTeacher implements IServiceTeacher {
 	}
 
 	public void teach(Service service, ISelfLetID provider) {
-		LOG.debug("Teaching service " + service + " to provider " + provider);
+		LOG.info("Teaching service " + service + " to provider " + provider);
 		teachSubServicesIfNecessary(service, provider);
 		packAndSendToProvider(service, provider);
 	}
@@ -57,6 +57,7 @@ public class ServiceTeacher implements IServiceTeacher {
 			try {
 				subservice = serviceKnowledge.getProperty(subServiceName);
 			} catch (NotFoundException e) {
+				LOG.error("error in getting sub service " + subServiceName + ":" + e);
 				continue;
 			}
 
@@ -67,6 +68,7 @@ public class ServiceTeacher implements IServiceTeacher {
 
 	private void packAndSendToProvider(Service service, ISelfLetID provider) {
 		ServicePack servicePack = servicePackFactory.createServicePackForService(service);
+		LOG.info("sending a service with max resp. time = " + service.getMaxResponseTimeInMsec());
 		SelfLetMsg serviceTeachMessage = selfletMessageFactory.newServiceTeachMsg(servicePack, provider);
 		messageHandler.send(serviceTeachMessage);
 	}
