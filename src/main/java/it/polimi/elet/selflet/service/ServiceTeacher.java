@@ -41,8 +41,13 @@ public class ServiceTeacher implements IServiceTeacher {
 
 	public void teach(Service service, ISelfLetID provider) {
 		LOG.info("Teaching service " + service + " to provider " + provider);
+		try{
 		teachSubServicesIfNecessary(service, provider);
 		packAndSendToProvider(service, provider);
+		} catch (NotFoundException e){
+			LOG.error(e);
+			LOG.error("Teaching aborted");
+		}
 	}
 
 	private void teachSubServicesIfNecessary(Service service, ISelfLetID provider) {
@@ -57,8 +62,7 @@ public class ServiceTeacher implements IServiceTeacher {
 			try {
 				subservice = serviceKnowledge.getProperty(subServiceName);
 			} catch (NotFoundException e) {
-				LOG.error("error in getting sub service " + subServiceName + ":" + e);
-				continue;
+				throw new NotFoundException("error in getting sub services: " + e);
 			}
 
 			packAndSendToProvider(subservice, provider);
