@@ -56,7 +56,9 @@ public class ServiceTeacher implements IServiceTeacher {
 			ISelfLetID provider) {
 
 		for (State serviceState : service.getDefaultBehavior().getStates()) {
-			if (serviceState.isFinalState() || serviceState.isInitialState()) {
+			LOG.info("service state: " + serviceState);
+			if (serviceState.isFinalState() || serviceState.isInitialState() || serviceState.getName().equals(service.getName())) {
+				LOG.info("skipping state");
 				continue;
 			}
 
@@ -68,6 +70,8 @@ public class ServiceTeacher implements IServiceTeacher {
 			} catch (NotFoundException e) {
 				throw new NotFoundException("error in getting sub services: "
 						+ e);
+			} catch (NullPointerException e){
+				LOG.error("No subservice with that name");
 			}
 
 		}
@@ -75,7 +79,7 @@ public class ServiceTeacher implements IServiceTeacher {
 
 	private void packAndSendToProvider(Service service, ISelfLetID provider) {
 		if(service.getMaxResponseTimeInMsec() <= 0){
-			throw new NotFoundException("mrp is 0. Problem with service");
+			throw new NotFoundException("mrt is 0. Problem with service");
 		}
 		ServicePack servicePack = servicePackFactory
 				.createServicePackForService(service);
