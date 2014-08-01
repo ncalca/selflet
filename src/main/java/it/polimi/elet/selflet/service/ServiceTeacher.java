@@ -63,6 +63,7 @@ public class ServiceTeacher implements IServiceTeacher {
 			String subServiceName = serviceState.getName();
 			try {
 				Service subservice = serviceKnowledge.getProperty(subServiceName);
+				teachSubServicesIfNecessary(subservice, provider);
 				packAndSendToProvider(subservice, provider);
 			} catch (NotFoundException e) {
 				throw new NotFoundException("error in getting sub services: "
