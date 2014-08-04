@@ -44,19 +44,23 @@ public class IstantiateNewSelfletActionGenerator implements IActionGenerator {
 			return Lists.newArrayList();
 		}
 
-		double currentUtilization = performanceMonitor.getCurrentTotalCPUUtilization();
-		double upperBound = performanceMonitor.getCPUUtilizationUpperBound();
-
-		if (currentUtilization <= upperBound) {
+		if (!selfletIsOverloaded()) {
 			return Lists.newArrayList();
 		}
 
-		if (theOnlySelflet() || neighborsAreLoaded()) {
+		if ((theOnlySelflet() && selfletIsOverloaded()) || neighborsAreLoaded()) {
 			double weight = Math.max(computeUtilizationAverage() - performanceMonitor.getCPUUtilizationUpperBound(), 0);
 			return Lists.newArrayList(new AddSelfletAction(weight));
 		}
 
 		return Lists.newArrayList();
+	}
+	
+	private boolean selfletIsOverloaded(){
+		double currentUtilization = performanceMonitor.getCurrentTotalCPUUtilization();
+		double upperBound = performanceMonitor.getCPUUtilizationUpperBound();
+		
+		return currentUtilization > upperBound;
 	}
 
 	private boolean neighborsAreLoaded() {
