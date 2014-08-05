@@ -54,7 +54,7 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 
 		// || stillReceivingRequests()
 		if (selfletRecentlyCreated() || selfletIsLoaded() || theOnlySelflet()
-				|| removalActionRecentlyCreated() || theOnlyOneProvidingSomeService() || neighborsAreLoaded()) {
+				|| removalActionRecentlyCreated() || theOnlyOneProvidingSomeService() /*|| neighborsAreLoaded()*/) {
 			return Lists.newArrayList();
 		}
 

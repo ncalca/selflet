@@ -51,13 +51,13 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 		boolean selfletOverloaded = selfletIsOverloaded();
 		boolean neighnorsOveloaded = neighborsAreLoaded();
 
-		// TODO weight = 0.8...
+		// TODO weight = 0.5...
 		if (selfletOverloaded && neighnorsOveloaded) {
 			for (Service overloadedService : getOverloadedServices()) {
 				if (switchToLowQualityBehaviour(overloadedService)) {
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
-									overloadedService, 1, 0.8));
+									overloadedService, 1, 0.5));
 				}
 			}
 		} else if (!selfletOverloaded && !neighnorsOveloaded) {
