@@ -7,14 +7,14 @@
       </state>
       <state xsi:type="selfletbehavior:Intermediate" name="checkIfSubtitlesAvailable">
         <next targetState="//@service.0/@behavior.0/@state.2"/>
-        <next targetState="//@service.0/@behavior.0/@state.3"/>
+        <next targetState="//@service.0/@behavior.0/@state.5"/>
       </state>
       <state xsi:type="selfletbehavior:Intermediate" name="checkIfSubtitlesExists">
-        <next targetState="//@service.0/@behavior.0/@state.2"/>
-        <next targetState="//@service.0/@behavior.0/@state.4"/>
+        <next targetState="//@service.0/@behavior.0/@state.3"/>
+        <next targetState="//@service.0/@behavior.0/@state.5"/>
       </state>
       <state xsi:type="selfletbehavior:Intermediate" name="getDefaultSubtitle">
-        <next targetState="//@service.0/@behavior.0/@state.2"/>
+        <next targetState="//@service.0/@behavior.0/@state.4"/>
         <next targetState="//@service.0/@behavior.0/@state.5"/>
       </state>
       <state xsi:type="selfletbehavior:Intermediate" name="translateSubtitleToLanguage">
