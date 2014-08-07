@@ -56,7 +56,7 @@ public class DownloadAchievableServiceMessageHandler implements ISelfletMessageH
 
 		Service service = serviceKnowledge.getProperty(serviceName);
 
-		if (service == null || service.getDefaultBehavior() == null || !service.hasLocalOfferMode(ServiceOfferModeEnum.CanTeach)) {
+		if (service == null || service.getDefaultBehavior() == null /*|| !service.hasLocalOfferMode(ServiceOfferModeEnum.CanTeach)*/) {
 
 			String errorMsg = "Service: " + service;
 			if (service != null) {
