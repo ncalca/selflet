@@ -25,6 +25,7 @@ public class SelfletConfiguration extends Configuration {
 	public double utilizationUpperBound;
 	public double utilizationForRemoteService;
 	public boolean useDynamicStrategy;
+	public String availableActions;
 
 	public int requestRateWindowMonitorInSec;
 	public int max_response_time_age_in_sec;

@@ -1,9 +1,12 @@
 package it.polimi.elet.selflet.optimization.generators;
 
+import it.polimi.elet.selflet.configuration.SelfletConfiguration;
 import it.polimi.elet.selflet.optimization.actions.IOptimizationAction;
 import it.polimi.elet.selflet.optimization.actions.OptimizationActionTypeEnum;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,8 +17,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import static it.polimi.elet.selflet.optimization.actions.OptimizationActionTypeEnum.*;
 
 /**
  * This class contains the methods to generate all possible optimization
@@ -30,9 +31,9 @@ import static it.polimi.elet.selflet.optimization.actions.OptimizationActionType
 public class OptimizationActionGeneratorManager implements IOptimizationActionGeneratorManager {
 
 	private static final Logger LOG = Logger.getLogger(OptimizationActionGeneratorManager.class);
-	private static final ImmutableSet<OptimizationActionTypeEnum>
+	private static ImmutableSet<OptimizationActionTypeEnum>
 
-	OPTIMIZATION_ACTIONS = ImmutableSet.of(REDIRECT_SERVICE, ADD_SELFLET, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION, TEACH_SERVICE);
+	OPTIMIZATION_ACTIONS /*= ImmutableSet.of(REDIRECT_SERVICE, ADD_SELFLET, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION, TEACH_SERVICE)*/;
 
 	private final IOptimizationActionGeneratorFactory optimizationActionGeneratorFactory;
 	private final List<IActionGenerator> actionGenerators;
@@ -42,6 +43,7 @@ public class OptimizationActionGeneratorManager implements IOptimizationActionGe
 	public OptimizationActionGeneratorManager(IOptimizationActionGeneratorFactory optimizationActionGeneratorFactory) {
 		this.actionGenerators = Lists.newArrayList();
 		this.optimizationActionGeneratorFactory = optimizationActionGeneratorFactory;
+		populateActionsList();
 		registerActionGenerators();
 	}
 
@@ -56,6 +58,16 @@ public class OptimizationActionGeneratorManager implements IOptimizationActionGe
 		}
 		logGenerationTime();
 		return optimizationActions;
+	}
+	
+	private void populateActionsList(){
+		List<String> actions = Arrays.asList(SelfletConfiguration.getSingleton().availableActions.split(","));
+		Set<OptimizationActionTypeEnum> actionsSet = new HashSet<OptimizationActionTypeEnum>();
+		for(String action : actions){
+			actionsSet.add(OptimizationActionTypeEnum.valueOf(action));
+			LOG.info("loaded action: " + action);
+		}
+		OPTIMIZATION_ACTIONS = ImmutableSet.copyOf(actionsSet);
 	}
 
 	private void registerActionGenerators() {
