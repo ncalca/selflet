@@ -58,6 +58,7 @@ public abstract class RunningService extends Thread {
 
 	public void run() {
 		LOG.debug("Starting execution of service " + service);
+		LOG.info("Service: " + service);
 		startTime = System.currentTimeMillis();
 
 		// main service loop
@@ -65,6 +66,7 @@ public abstract class RunningService extends Thread {
 
 		while (!currentState.isFinalState()) {
 			logStateInfo();
+			LOG.info("-current state:" + currentState.getName());
 			executeCurrentState();
 			try {
 				moveToNextState();
@@ -144,7 +146,8 @@ public abstract class RunningService extends Thread {
 	}
 
 	private void moveToNextState() {
-		currentState = nextStateExtractor.nextState(currentState);
+//		currentState = nextStateExtractor.nextState(currentState);
+		currentState = nextStateExtractor.getNextStateDummy(currentState);
 	}
 
 	private void logStateInfo() {
