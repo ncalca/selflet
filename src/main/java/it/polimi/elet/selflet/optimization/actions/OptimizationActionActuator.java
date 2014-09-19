@@ -39,8 +39,7 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 	@Override
 	public void actuateAction(IOptimizationAction optimizationAction) {
 		try {
-			LOG.info("Actuating action "
-					+ optimizationAction.optimizationType());
+			LOG.info(optimizationAction.optimizationType());
 
 			switch (optimizationAction.optimizationType()) {
 
