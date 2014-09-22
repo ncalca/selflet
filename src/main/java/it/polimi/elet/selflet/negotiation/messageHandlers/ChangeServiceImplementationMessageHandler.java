@@ -46,9 +46,9 @@ public class ChangeServiceImplementationMessageHandler implements
 						+ newDefaultBehavior.getName());
 			}
 		} catch (NotFoundException e) {
-			LOG.error("Service not found: cannot chance the implementation");
+			LOG.warn("Service not found: cannot chance the implementation");
 		} catch(Exception e) {
-			LOG.error("Error during service implementation change: " + e);
+			LOG.warn("Error during service implementation change: " + e);
 		}
 	}
 

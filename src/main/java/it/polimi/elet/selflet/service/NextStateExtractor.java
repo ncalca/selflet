@@ -77,17 +77,19 @@ public class NextStateExtractor {
 	// function go to RunningService.java
 	public it.polimi.elet.selflet.behavior.State getNextStateDummy(
 			it.polimi.elet.selflet.behavior.State currentState) {
+		currentState.incrementVisits();
 		List<Transition> outgoingTransitions = defaultBehavior
 				.getOutgoingTransitions(currentState);
 		if (outgoingTransitions.size() == 1) {
 //			LOG.info("one target state: "
 //					+ outgoingTransitions.get(0).getTarget().getName());
+			outgoingTransitions.get(0).getTarget().incrementVisits();
 			return outgoingTransitions.get(0).getTarget();
 		}
 
 		Random random = new Random();
 		double rand = random.nextDouble();
-//		LOG.info("random number: " + rand);
+		// LOG.info("random number: " + rand);
 		int index = -1;
 		if (dummyProbabilites.containsKey(outgoingTransitions.get(0)
 				.getTarget().getName())) {
@@ -98,14 +100,16 @@ public class NextStateExtractor {
 
 		String targetName = outgoingTransitions.get(index).getTarget()
 				.getName();
-//		LOG.info("target name: " + targetName + "; prob: "
-//				+ dummyProbabilites.get(targetName) + "; rand: " + rand + ";");
+		// LOG.info("target name: " + targetName + "; prob: "
+		// + dummyProbabilites.get(targetName) + "; rand: " + rand + ";");
 		if (dummyProbabilites.get(targetName) > rand) {
 //			LOG.info("next state: " + targetName);
+			outgoingTransitions.get(index).getTarget().incrementVisits();
 			return outgoingTransitions.get(index).getTarget();
 		} else {
 //			LOG.info("next state: "
 //					+ outgoingTransitions.get(1 - index).getTarget().getName());
+			outgoingTransitions.get(1 - index).getTarget().incrementVisits();
 			return outgoingTransitions.get(1 - index).getTarget();
 		}
 
