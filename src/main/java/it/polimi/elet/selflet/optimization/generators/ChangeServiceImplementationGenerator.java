@@ -1,7 +1,6 @@
 package it.polimi.elet.selflet.optimization.generators;
 
 import static it.polimi.elet.selflet.negotiation.nodeState.NodeStateGenericDataEnum.CPU_UTILIZATION;
-import it.polimi.elet.selflet.autonomic.IAutonomicActuator;
 import it.polimi.elet.selflet.behavior.IBehavior;
 import it.polimi.elet.selflet.knowledge.IServiceKnowledge;
 import it.polimi.elet.selflet.knowledge.Neighbor;
@@ -9,7 +8,6 @@ import it.polimi.elet.selflet.negotiation.nodeState.INeighborStateManager;
 import it.polimi.elet.selflet.negotiation.nodeState.INodeState;
 import it.polimi.elet.selflet.optimization.actions.IOptimizationAction;
 import it.polimi.elet.selflet.optimization.actions.changeImplementation.ChangeServiceImplementationAction;
-import it.polimi.elet.selflet.optimization.actions.scaling.AddSelfletAction;
 import it.polimi.elet.selflet.service.Service;
 import it.polimi.elet.selflet.service.utilization.IPerformanceMonitor;
 
@@ -17,7 +15,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
@@ -51,22 +48,25 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 		boolean selfletOverloaded = selfletIsOverloaded();
 		boolean neighnorsOveloaded = neighborsAreLoaded();
 
-		// TODO weight = 0.5...
 		if (selfletOverloaded && neighnorsOveloaded) {
 			for (Service overloadedService : getOverloadedServices()) {
 				if (switchToLowQualityBehaviour(overloadedService)) {
+					double weight = performanceMonitor
+							.getServiceUtilization(overloadedService.getName());
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
-									overloadedService, 1, 0.5));
+									overloadedService, 1, weight));
 				}
 			}
 		} else if (!selfletOverloaded && !neighnorsOveloaded) {
 			services.removeAll(overloadedServices);
 			for (Service lowLoadedService : services) {
 				if (switchToHighQualityBehaviour(lowLoadedService)) {
+					double weight = performanceMonitor
+							.getServiceUtilization(lowLoadedService.getName());
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
-									lowLoadedService, 2, 0.5));
+									lowLoadedService, 2, weight));
 				}
 			}
 		}

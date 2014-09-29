@@ -21,7 +21,14 @@ public class OptimizationActionSelector implements IOptimizationActionSelector {
 			throw new IllegalArgumentException("The given set of optimization actions is empty");
 		}
 
-		return CollectionUtils.weightedRandomElement(optimizationActions);
+		IOptimizationAction action = null;
+		
+		try{
+			action = CollectionUtils.weightedRandomElement(optimizationActions);			
+		} catch (IllegalStateException e){
+			action = CollectionUtils.randomElement(optimizationActions);
+		}
+		return action;
 	}
 
 }
