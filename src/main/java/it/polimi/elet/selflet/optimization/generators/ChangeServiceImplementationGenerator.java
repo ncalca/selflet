@@ -56,14 +56,14 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 							* performanceMonitor
 									.getServiceUtilization(overloadedService
 											.getName());
-					System.out.println("change implementation weight: "
-							+ weight);
+//					System.out.println("change implementation weight: "
+//							+ weight);
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
 									overloadedService, 1, weight));
 				}
 			}
-		} else if (/*!selfletOverloaded && */!neighnorsOveloaded) {
+		} else if (!selfletOverloaded && !neighnorsOveloaded) {
 			services.removeAll(overloadedServices);
 			for (Service lowLoadedService : services) {
 				if (switchToHighQualityBehaviour(lowLoadedService)) {
@@ -75,8 +75,8 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 					} else {
 						weight = FACTOR / (utilization + 0.1);
 					}
-					System.out.println("change implementation weight: "
-							+ weight);
+//					System.out.println("change implementation weight: "
+//							+ weight);
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
 									lowLoadedService, 2, weight));
