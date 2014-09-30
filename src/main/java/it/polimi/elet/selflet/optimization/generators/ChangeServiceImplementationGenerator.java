@@ -28,6 +28,7 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 	private final INeighborStateManager neighborStateManager;
 	private final IPerformanceMonitor performanceMonitor;
 	private final IServiceKnowledge serviceKnowledge;
+	private final double FACTOR = 2.0;
 
 	@Inject
 	public ChangeServiceImplementationGenerator(
@@ -51,19 +52,31 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 		if (selfletOverloaded && neighnorsOveloaded) {
 			for (Service overloadedService : getOverloadedServices()) {
 				if (switchToLowQualityBehaviour(overloadedService)) {
-					double weight = performanceMonitor
-							.getServiceUtilization(overloadedService.getName());
+					double weight = FACTOR
+							* performanceMonitor
+									.getServiceUtilization(overloadedService
+											.getName());
+					System.out.println("change implementation weight: "
+							+ weight);
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
 									overloadedService, 1, weight));
 				}
 			}
-		} else if (!selfletOverloaded && !neighnorsOveloaded) {
+		} else if (/*!selfletOverloaded && */!neighnorsOveloaded) {
 			services.removeAll(overloadedServices);
 			for (Service lowLoadedService : services) {
 				if (switchToHighQualityBehaviour(lowLoadedService)) {
-					double weight = performanceMonitor
+					double weight = 0;
+					double utilization = performanceMonitor
 							.getServiceUtilization(lowLoadedService.getName());
+					if (utilization > 0) {
+						weight = FACTOR / utilization;
+					} else {
+						weight = FACTOR / (utilization + 0.1);
+					}
+					System.out.println("change implementation weight: "
+							+ weight);
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
 									lowLoadedService, 2, weight));
