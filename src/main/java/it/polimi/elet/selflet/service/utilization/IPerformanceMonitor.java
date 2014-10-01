@@ -27,6 +27,11 @@ public interface IPerformanceMonitor extends ISelfletComponent {
 	double getCurrentTotalCPUUtilization();
 
 	/**
+	 * Update the total utilization history
+	 */
+	public void updateUtilizationHistory();
+	
+	/**
 	 * Get the predicted total node utilization. The value is obtained by
 	 * monitoring past values of utilization and applying a prediction
 	 * technique.

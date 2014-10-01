@@ -83,6 +83,10 @@ public class PerformanceMonitor extends SelfletComponent implements IPerformance
 	public double getCurrentTotalCPUUtilization() {
 		return utilizationManager.getCurrentTotalCPUUtilization();
 	}
+	
+	public void updateUtilizationHistory(){
+		utilizationManager.updateUtilizationHistory();
+	}
 
 	public double getPredictedTotalCPUUtilization() {
 		return utilizationManager.getPredictedTotalCPUUtilization();

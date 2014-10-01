@@ -92,8 +92,10 @@ public class NodeStateFactory implements INodeStateFactory {
 			responseTimes.put(serviceName, performanceMonitor.getServiceResponseTimeInMsec(serviceName));
 		}
 
-		performanceData.put(CPU_UTILIZATION.toString(), performanceMonitor.getCurrentTotalCPUUtilization());
-		nodeState.setUtilization(performanceMonitor.getCurrentTotalCPUUtilization());
+		performanceMonitor.updateUtilizationHistory();
+		double currentUtilization = performanceMonitor.getCurrentTotalCPUUtilization();
+		performanceData.put(CPU_UTILIZATION.toString(), currentUtilization);
+		nodeState.setUtilization(currentUtilization);
 		//TODO
 		performanceData.put(CPU_UTILIZATION_UPPER_BOUND.toString(), performanceMonitor.getCPUUtilizationUpperBound());
 		nodeState.setUtilizationUpperBound(performanceMonitor.getCPUUtilizationUpperBound());

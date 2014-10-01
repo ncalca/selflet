@@ -15,6 +15,11 @@ public interface IUtilizationManager {
 	double getCurrentTotalCPUUtilization();
 
 	/**
+	 * Update the utilization history
+	 */
+	public void updateUtilizationHistory();
+	
+	/**
 	 * Returns the predicted CPU utilization as a number in [0,1]
 	 * */
 	double getPredictedTotalCPUUtilization();
