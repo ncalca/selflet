@@ -72,7 +72,7 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 		double lowerBound = performanceMonitor.getCPUUtilizationLowerBound();
 		double currentUtilization = performanceMonitor
 				.getCurrentTotalCPUUtilization();
-		return Math.max(lowerBound - currentUtilization, 0);
+		return Math.max((lowerBound - currentUtilization) / lowerBound, 0);
 	}
 
 	private boolean removalActionRecentlyCreated() {
@@ -95,8 +95,9 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 	private boolean selfletIsLoaded() {
 		double currentUtilization = performanceMonitor
 				.getCurrentTotalCPUUtilization();
-		return (currentUtilization >= performanceMonitor
-				.getCPUUtilizationLowerBound());
+		double lowerBound = performanceMonitor
+				.getCPUUtilizationLowerBound();
+		return (currentUtilization >= lowerBound);
 	}
 
 	private boolean theOnlySelflet() {

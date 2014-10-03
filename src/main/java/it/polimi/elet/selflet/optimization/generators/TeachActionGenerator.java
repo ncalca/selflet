@@ -12,6 +12,8 @@ import it.polimi.elet.selflet.service.utilization.IPerformanceMonitor;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.Lists;
 
 /**
@@ -25,7 +27,9 @@ public class TeachActionGenerator implements IActionGenerator {
 	private final IServiceKnowledge serviceKnowledge;
 	private final IPerformanceMonitor performanceMonitor;
 
-	public TeachActionGenerator(INeighborStateManager neighborStateManager, IServiceKnowledge serviceKnowledge, IPerformanceMonitor performanceMonitor) {
+	public TeachActionGenerator(INeighborStateManager neighborStateManager,
+			IServiceKnowledge serviceKnowledge,
+			IPerformanceMonitor performanceMonitor) {
 		this.neighborStateManager = neighborStateManager;
 		this.serviceKnowledge = serviceKnowledge;
 		this.performanceMonitor = performanceMonitor;
@@ -47,28 +51,49 @@ public class TeachActionGenerator implements IActionGenerator {
 		return actions;
 	}
 
-	private List<IOptimizationAction> generateTeachActionsForNeighbor(Neighbor neighbor) {
+	private List<IOptimizationAction> generateTeachActionsForNeighbor(
+			Neighbor neighbor) {
 		List<IOptimizationAction> actions = Lists.newArrayList();
+		double totalServicesUtilization = computeServicesTotalUtilization();
 
 		for (Service service : serviceKnowledge.getServices()) {
+			double serviceUtilization = performanceMonitor
+					.getServiceUtilization(service.getName());
+			if (serviceUtilization > 0) {
+				if (!neighborIsOfferingService(neighbor, service)
+						&& !neighborIsOverloaded(neighbor)) {
+					double weight = serviceUtilization
+							/ totalServicesUtilization;
 
-			if (!neighborIsOfferingService(neighbor, service) && !neighborIsOverloaded(neighbor)) {
-				double weight = performanceMonitor.getServiceUtilization(service.getName());
-				actions.add(new TeachServiceAction(neighbor.getId(), service, weight));
+					actions.add(new TeachServiceAction(neighbor.getId(),
+							service, weight));
+				}
 			}
 		}
 
 		return actions;
 	}
 
-	private boolean neighborCanDirectlyExecuteTheService(Neighbor neighbor, Service service) {
+	private double computeServicesTotalUtilization() {
+		double total = 0;
+		for (Service service : serviceKnowledge.getServices()) {
+			total += performanceMonitor
+					.getServiceUtilization(service.getName());
+		}
+
+		return total;
+	}
+
+	private boolean neighborCanDirectlyExecuteTheService(Neighbor neighbor,
+			Service service) {
 		if (service.isImplementedByElementaryBehavior()) {
 			return true;
 		}
 
 		List<String> invokedServices = service.getInvokedServices();
 		for (String invokedServiceName : invokedServices) {
-			Service invokedService = serviceKnowledge.getProperty(invokedServiceName);
+			Service invokedService = serviceKnowledge
+					.getProperty(invokedServiceName);
 			if (!neighborIsOfferingService(neighbor, invokedService)) {
 				return false;
 			}
@@ -80,13 +105,15 @@ public class TeachActionGenerator implements IActionGenerator {
 		if (!neighborStateManager.haveInformationAboutNeighbor(neighbor)) {
 			return false;
 		}
-		INodeState nodeState = neighborStateManager.getNodeStateOfNeighbor(neighbor.getId());
+		INodeState nodeState = neighborStateManager
+				.getNodeStateOfNeighbor(neighbor.getId());
 		double utilization = nodeState.getUtilization();
 		return utilization > performanceMonitor.getCPUUtilizationUpperBound();
 	}
 
 	private boolean neighborIsOfferingService(Neighbor neighbor, Service service) {
-		return neighborStateManager.isNeighborOfferingService(neighbor, service);
+		return neighborStateManager
+				.isNeighborOfferingService(neighbor, service);
 	}
 
 }

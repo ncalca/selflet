@@ -24,11 +24,11 @@ public class OptimizationActionSelector implements IOptimizationActionSelector {
 		IOptimizationAction action = null;
 		
 		try{
-			action = CollectionUtils.weightedRandomElement(optimizationActions);			
-		} catch (IllegalStateException e){
-			action = CollectionUtils.randomElement(optimizationActions);
+			action = CollectionUtils.weightedRandomElement(optimizationActions);
+			return action;
+		} catch (Exception e){
+			throw new IllegalStateException("Cannot retrieve optimization action - " + e.getMessage());
 		}
-		return action;
 	}
 
 }

@@ -18,7 +18,7 @@ import it.polimi.elet.selflet.utilities.CollectionUtils;
  * */
 public class UtilizationManager implements IUtilizationManager {
 
-	private static final int HISTORY_LENGTH = 5;
+	private static final int HISTORY_LENGTH = 10;
 	private static final double UTILIZATION_FOR_REMOTE_SERVICE = SelfletConfiguration
 			.getSingleton().utilizationForRemoteService;
 	private static final double UTILIZATION_LOWER_BOUND = SelfletConfiguration
@@ -54,8 +54,8 @@ public class UtilizationManager implements IUtilizationManager {
 	public double getCurrentTotalCPUUtilization() {
 		return CollectionUtils.computeAverage(utilizationHistoryBuffer);
 	}
-	
-	public void updateUtilizationHistory(){
+
+	public void updateUtilizationHistory() {
 		double totalNodeUtilization = computeTotalUtilization();
 		insertInTotalUtilizationHistory(totalNodeUtilization);
 	}
@@ -116,10 +116,15 @@ public class UtilizationManager implements IUtilizationManager {
 		double throughput = performanceMonitor.getServiceThroughput(service
 				.getName());
 
-		double responseTimeInMsec = performanceMonitor
-				.getServiceResponseTimeInMsec(service.getName());
-		double responseTimeInSec = responseTimeInMsec / 1000;
-		return responseTimeInSec * throughput;
+		// TODO (Verify) Response time != CPU time, because it takes into consideration
+		// also the time in queue. In this case the cpu time is = the (expected)
+		// demand of the service
+		// double responseTimeInMsec = performanceMonitor
+		// .getServiceResponseTimeInMsec(service.getName());
+		// double responseTimeInSec = responseTimeInMsec / 1000;
+		double cpuTime = service.getServiceDemand() / 1000;
+
+		return cpuTime * throughput;
 	}
 
 	private double computeTotalUtilization() {

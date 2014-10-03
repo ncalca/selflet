@@ -28,19 +28,20 @@ import com.google.inject.Singleton;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 @Singleton
-public class OptimizationActionGeneratorManager implements IOptimizationActionGeneratorManager {
+public class OptimizationActionGeneratorManager implements
+		IOptimizationActionGeneratorManager {
 
-	private static final Logger LOG = Logger.getLogger(OptimizationActionGeneratorManager.class);
-	private static ImmutableSet<OptimizationActionTypeEnum>
-
-	OPTIMIZATION_ACTIONS /*= ImmutableSet.of(REDIRECT_SERVICE, ADD_SELFLET, REMOVE_SELFLET, CHANGE_SERVICE_IMPLEMENTATION, TEACH_SERVICE)*/;
+	private static final Logger LOG = Logger
+			.getLogger(OptimizationActionGeneratorManager.class);
+	private static ImmutableSet<OptimizationActionTypeEnum> OPTIMIZATION_ACTIONS;
 
 	private final IOptimizationActionGeneratorFactory optimizationActionGeneratorFactory;
 	private final List<IActionGenerator> actionGenerators;
 	private long startOptimizationTime;
 
 	@Inject
-	public OptimizationActionGeneratorManager(IOptimizationActionGeneratorFactory optimizationActionGeneratorFactory) {
+	public OptimizationActionGeneratorManager(
+			IOptimizationActionGeneratorFactory optimizationActionGeneratorFactory) {
 		this.actionGenerators = Lists.newArrayList();
 		this.optimizationActionGeneratorFactory = optimizationActionGeneratorFactory;
 		populateActionsList();
@@ -53,35 +54,59 @@ public class OptimizationActionGeneratorManager implements IOptimizationActionGe
 		Set<IOptimizationAction> optimizationActions = Sets.newHashSet();
 
 		for (IActionGenerator actionGenerator : actionGenerators) {
-			Collection<? extends IOptimizationAction> actionsGenerated = actionGenerator.generateActions();
+			Collection<? extends IOptimizationAction> actionsGenerated = actionGenerator
+					.generateActions();
 			optimizationActions.addAll(actionsGenerated);
 		}
 		logGenerationTime();
 		return optimizationActions;
 	}
-	
-	private void populateActionsList(){
-		List<String> actions = Arrays.asList(SelfletConfiguration.getSingleton().availableActions.split(","));
-		Set<OptimizationActionTypeEnum> actionsSet = new HashSet<OptimizationActionTypeEnum>();
-		for(String action : actions){
-			actionsSet.add(OptimizationActionTypeEnum.valueOf(action));
-			LOG.info("loaded action: " + action);
+
+	private void populateActionsList() {
+		try {
+			List<String> actions = Arrays.asList(SelfletConfiguration
+					.getSingleton().availableActions.split(","));
+			Set<OptimizationActionTypeEnum> actionsSet = new HashSet<OptimizationActionTypeEnum>();
+			for (String action : actions) {
+				actionsSet.add(OptimizationActionTypeEnum.valueOf(action));
+				LOG.info("loaded action: " + action);
+			}
+			if (!actionsSet.isEmpty()) {
+				OPTIMIZATION_ACTIONS = ImmutableSet.copyOf(actionsSet);
+			} else {
+				OPTIMIZATION_ACTIONS = ImmutableSet
+						.of(OptimizationActionTypeEnum.REDIRECT_SERVICE,
+								OptimizationActionTypeEnum.ADD_SELFLET,
+								OptimizationActionTypeEnum.REMOVE_SELFLET,
+								OptimizationActionTypeEnum.CHANGE_SERVICE_IMPLEMENTATION,
+								OptimizationActionTypeEnum.TEACH_SERVICE);
+			}
+		} catch (Exception e) {
+			LOG.error("Error in loading possible actions. Using default set");
+			OPTIMIZATION_ACTIONS = ImmutableSet
+					.of(OptimizationActionTypeEnum.REDIRECT_SERVICE,
+							OptimizationActionTypeEnum.ADD_SELFLET,
+							OptimizationActionTypeEnum.REMOVE_SELFLET,
+							OptimizationActionTypeEnum.CHANGE_SERVICE_IMPLEMENTATION,
+							OptimizationActionTypeEnum.TEACH_SERVICE);
 		}
-		OPTIMIZATION_ACTIONS = ImmutableSet.copyOf(actionsSet);
 	}
 
 	private void registerActionGenerators() {
 		Set<OptimizationActionTypeEnum> generatorsToRegister = getEnabledActionTypes();
 
 		for (OptimizationActionTypeEnum actionType : generatorsToRegister) {
-			LOG.debug("Registering optimization action generator for " + actionType);
-			actionGenerators.add(optimizationActionGeneratorFactory.createActionGenerator(actionType));
+			LOG.debug("Registering optimization action generator for "
+					+ actionType);
+			actionGenerators.add(optimizationActionGeneratorFactory
+					.createActionGenerator(actionType));
 		}
 	}
 
 	private void logGenerationTime() {
 		long endOptimizationTime = System.currentTimeMillis();
-		LOG.debug("Action generation time: " + (endOptimizationTime - startOptimizationTime));
+		LOG.debug("Action generation time: "
+				+ (endOptimizationTime - startOptimizationTime));
 	}
 
 	private void startMeasuringGenerationTime() {

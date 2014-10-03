@@ -46,17 +46,21 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 		Set<Service> overloadedServices = getOverloadedServices();
 
 		boolean selfletOverloaded = selfletIsOverloaded();
-		boolean neighnorsOveloaded = neighborsAreLoaded();
+		boolean neighnorsOveloaded = checkLoadedNeighbors();
 
 		if (selfletOverloaded && neighnorsOveloaded) {
 			for (Service overloadedService : getOverloadedServices()) {
 				if (switchToLowQualityBehaviour(overloadedService)) {
-					double weight = Math.abs(performanceMonitor
+					double serviceResponseTime = performanceMonitor
 							.getServiceResponseTimeInMsec(overloadedService
-									.getName())
-							- overloadedService.getMaxResponseTimeInMsec()) / 1000;
-//					 System.out.println("change implementation weight: "
-//					 + weight);
+									.getName());
+					double serviceMaxResponseTime = overloadedService
+							.getMaxResponseTimeInMsec();
+					double weight = Math.max(
+							Math.min(serviceResponseTime
+									- serviceMaxResponseTime,
+									serviceMaxResponseTime)
+									/ (serviceMaxResponseTime), 0);
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
 									overloadedService, 1, weight));
@@ -65,13 +69,15 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 		} else if (!selfletOverloaded && !neighnorsOveloaded) {
 			services.removeAll(overloadedServices);
 			for (Service lowLoadedService : services) {
-				if (switchToHighQualityBehaviour(lowLoadedService)) {
-					double weight = Math.abs(performanceMonitor
+				if (!lowLoadedService.isRecentlyCreated() && switchToHighQualityBehaviour(lowLoadedService)) {
+					double serviceResponseTime = performanceMonitor
 							.getServiceResponseTimeInMsec(lowLoadedService
-									.getName())
-							- lowLoadedService.getMaxResponseTimeInMsec()) / 1000;
-//					 System.out.println("change implementation weight: "
-//					 + weight);
+									.getName());
+					double serviceMaxResponseTime = lowLoadedService
+							.getMaxResponseTimeInMsec();
+					double weight = Math.max(
+							(serviceMaxResponseTime - serviceResponseTime)
+									/ serviceMaxResponseTime, 0);
 					optimizationActions
 							.add(new ChangeServiceImplementationAction(
 									lowLoadedService, 2, weight));
@@ -146,41 +152,67 @@ public class ChangeServiceImplementationGenerator implements IActionGenerator {
 		return (actualResponseTime > service.getMaxResponseTimeInMsec());
 	}
 
-	private boolean neighborsAreLoaded() {
-
+	// Not used anymore
+//	private boolean neighborsAreLoaded() {
+//
+//		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
+//
+//		if (neighbors.isEmpty()) {
+//			return false;
+//		}
+//
+//		return (computeUtilizationAverage() >= performanceMonitor
+//				.getCPUUtilizationUpperBound());
+//	}
+	
+	private boolean checkLoadedNeighbors() {
 		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
 
 		if (neighbors.isEmpty()) {
 			return false;
 		}
-
-		return (computeUtilizationAverage() >= performanceMonitor
-				.getCPUUtilizationUpperBound());
-	}
-
-	private double computeUtilizationAverage() {
-		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
-		double utilizationSum = 0;
+		
 		int count = 0;
-
 		for (Neighbor neighbor : neighbors) {
 			if (neighborStateManager.haveInformationAboutNeighbor(neighbor)) {
 				INodeState nodeState = neighborStateManager
 						.getNodeStateOfNeighbor(neighbor);
 				double neighborUtilization = (Double) nodeState
 						.getGenericDataWithKey(CPU_UTILIZATION.toString());
-				utilizationSum += neighborUtilization;
-				count++;
+				double neighborUpperBound = nodeState.getUtilizationUpperBound();
+				if (neighborUtilization > neighborUpperBound)
+				{
+					count++;
+				}
 			}
 		}
-
-		if (count == 0) {
-			return 0;
-		}
-
-		double utilizationAverage = utilizationSum / count;
-		return utilizationAverage;
+		
+		return ((count/neighbors.size()) >= 0.5);
 	}
+
+//	private double computeUtilizationAverage() {
+//		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
+//		double utilizationSum = 0;
+//		int count = 0;
+//
+//		for (Neighbor neighbor : neighbors) {
+//			if (neighborStateManager.haveInformationAboutNeighbor(neighbor)) {
+//				INodeState nodeState = neighborStateManager
+//						.getNodeStateOfNeighbor(neighbor);
+//				double neighborUtilization = (Double) nodeState
+//						.getGenericDataWithKey(CPU_UTILIZATION.toString());
+//				utilizationSum += neighborUtilization;
+//				count++;
+//			}
+//		}
+//
+//		if (count == 0) {
+//			return 0;
+//		}
+//
+//		double utilizationAverage = utilizationSum / count;
+//		return utilizationAverage;
+//	}
 
 	private int getCurrentBehaviorQuality(IBehavior behavior) {
 		String name = behavior.getName();

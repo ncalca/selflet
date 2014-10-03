@@ -22,9 +22,11 @@ import com.google.inject.Singleton;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 @Singleton
-public class OptimizationManager extends TimerTask implements IOptimizationManager {
+public class OptimizationManager extends TimerTask implements
+		IOptimizationManager {
 
-	private static final Logger LOG = Logger.getLogger(OptimizationManager.class);
+	private static final Logger LOG = Logger
+			.getLogger(OptimizationManager.class);
 
 	private static final int SLEEP_TIME = SelfletConfiguration.getSingleton().optimizationManagerSleepTimeInSec * 1000;
 
@@ -33,7 +35,9 @@ public class OptimizationManager extends TimerTask implements IOptimizationManag
 	private final IOptimizationActionSelector optimizationActionSelector;
 
 	@Inject
-	public OptimizationManager(IOptimizationActionGeneratorManager optimizationActionGenerator, IOptimizationActionActuator optimizationActionActuator,
+	public OptimizationManager(
+			IOptimizationActionGeneratorManager optimizationActionGenerator,
+			IOptimizationActionActuator optimizationActionActuator,
 			IOptimizationActionSelector optimizationActionSelector) {
 		this.optimizationActionGenerator = optimizationActionGenerator;
 		this.optimizationActionActuator = optimizationActionActuator;
@@ -53,19 +57,29 @@ public class OptimizationManager extends TimerTask implements IOptimizationManag
 
 	@Override
 	public void performOptimization() {
-		Set<IOptimizationAction> optimizationActions = optimizationActionGenerator.generateActions();
+		Set<IOptimizationAction> optimizationActions = optimizationActionGenerator
+				.generateActions();
 
 		logOptimizationActions(optimizationActions);
 		if (optimizationActions.isEmpty()) {
 			return;
 		}
 
-		IOptimizationAction optimizationActionToActuate = optimizationActionSelector.selectAction(optimizationActions);
-		optimizationActionActuator.actuateAction(optimizationActionToActuate);
+		try {
+			IOptimizationAction optimizationActionToActuate = optimizationActionSelector
+					.selectAction(optimizationActions);
+			optimizationActionActuator
+					.actuateAction(optimizationActionToActuate);
+		} catch (Exception e) {
+			LOG.warn(e.getMessage());
+			return;
+		}
 	}
 
-	private void logOptimizationActions(Set<IOptimizationAction> optimizationActions) {
-		LOG.debug("Generated " + optimizationActions.size() + " optimization actions");
+	private void logOptimizationActions(
+			Set<IOptimizationAction> optimizationActions) {
+		LOG.debug("Generated " + optimizationActions.size()
+				+ " optimization actions");
 		for (IOptimizationAction optimizationAction : optimizationActions) {
 			LOG.debug(optimizationAction);
 		}
