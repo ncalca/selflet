@@ -116,13 +116,15 @@ public class UtilizationManager implements IUtilizationManager {
 		double throughput = performanceMonitor.getServiceThroughput(service
 				.getName());
 
-		// TODO (Verify) Response time != CPU time, because it takes into consideration
-		// also the time in queue. In this case the cpu time is = the (expected)
+		// TODO (Verify) Response time != CPU time, because it takes into
+		// consideration
+		// also the time in queue. In this case the cpu time is the (expected)
 		// demand of the service
-		// double responseTimeInMsec = performanceMonitor
-		// .getServiceResponseTimeInMsec(service.getName());
-		// double responseTimeInSec = responseTimeInMsec / 1000;
-		double cpuTime = service.getServiceDemand() / 1000;
+		double responseTimeInMsec = performanceMonitor
+				.getServiceResponseTimeInMsec(service.getName());
+		double responseTimeInSec = responseTimeInMsec / 1000;
+		double cpuTime = responseTimeInSec;
+		// double cpuTime = service.getServiceDemand() / 1000;
 
 		return cpuTime * throughput;
 	}
