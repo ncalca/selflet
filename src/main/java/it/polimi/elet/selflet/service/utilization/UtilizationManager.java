@@ -120,11 +120,11 @@ public class UtilizationManager implements IUtilizationManager {
 		// consideration
 		// also the time in queue. In this case the cpu time is the (expected)
 		// demand of the service
-//		double responseTimeInMsec = performanceMonitor
-//				.getServiceResponseTimeInMsec(service.getName());
-//		double responseTimeInSec = responseTimeInMsec / 1000;
-//		double cpuTime = responseTimeInSec;
-		double cpuTime = service.getServiceDemand() / 1000;
+		double responseTimeInMsec = performanceMonitor
+				.getServiceResponseTimeInMsec(service.getName());
+		double responseTimeInSec = responseTimeInMsec / 1000;
+		double cpuTime = responseTimeInSec;
+//		double cpuTime = service.getServiceDemand() / 1000;
 
 		return cpuTime * throughput;
 	}
