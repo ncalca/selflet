@@ -24,7 +24,7 @@ import it.polimi.elet.selflet.utilities.RandomDistributions;
 public class OptimizationActionActuator implements IOptimizationActionActuator {
 
 	private static final Logger LOG = Logger
-			.getLogger(OptimizationActionActuator.class);
+			.getLogger("actionsLogger");
 
 	private final IServiceExecutor serviceExecutor;
 	private final IAutonomicActuator autonomicAttuator;

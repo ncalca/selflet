@@ -1,5 +1,7 @@
 package it.polimi.elet.selflet.service;
 
+import org.apache.log4j.Logger;
+
 import it.polimi.elet.selflet.action.IActionExecutorFactory;
 import it.polimi.elet.selflet.behavior.IConditionEvaluator;
 import it.polimi.elet.selflet.events.DispatchingUtility;
@@ -15,6 +17,8 @@ import it.polimi.elet.selflet.knowledge.IGeneralKnowledge;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 public class LocalRunningService extends RunningService {
+	
+	private static final Logger LOG = Logger.getLogger("resultsLogger");
 
 	private final RunningService callingService;
 
@@ -44,6 +48,8 @@ public class LocalRunningService extends RunningService {
 
 	private void fireLocalReqLocalExeCompletedEvent(String name, RunningService callingService,
 			RunningService runningService, Object output, Long responseTime) {
+		
+		LOG.info(System.currentTimeMillis() +  ",local," + name +"," + responseTime);
 		DispatchingUtility.dispatchEvent(getDispatcher(), LocalReqLocalExeCompletedEvent.class, name, callingService,
 				runningService, output, responseTime);
 	}

@@ -10,6 +10,8 @@ import it.polimi.elet.selflet.knowledge.IGeneralKnowledge;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
+
 import polimi.reds.MessageID;
 
 /**
@@ -18,6 +20,8 @@ import polimi.reds.MessageID;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 public class RemoteRunningService extends RunningService {
+	
+	private static final Logger LOG = Logger.getLogger("resultsLogger");
 
 	private final ISelfLetID requestorSelflet;
 	private final MessageID originatingMessageID;
@@ -37,6 +41,7 @@ public class RemoteRunningService extends RunningService {
 	private void fireRemoteReqLocalExeCompletedEvent(String serviceName, Object lastOutput, ISelfLetID requestorSelflet, MessageID originatingMessageID,
 			RunningService runningService, long responseTime) {
 
+		LOG.info(System.currentTimeMillis() +  ",remote," + serviceName +"," + responseTime);
 		DispatchingUtility.dispatchEvent(getDispatcher(), RemoteReqLocalExeCompletedEvent.class, serviceName, (Serializable) lastOutput, requestorSelflet,
 				originatingMessageID, runningService, responseTime);
 	}

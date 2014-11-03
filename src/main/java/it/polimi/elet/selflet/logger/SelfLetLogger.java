@@ -29,9 +29,21 @@ public class SelfLetLogger {
 			System.err.println("Cannot find root logger");
 			return;
 		}
-
+		
+		Logger resultsLogger = Logger.getLogger("resultsLogger");
+		if (resultsLogger == null) {
+			System.err.println("Cannot find results logger");
+		}
+		
+		Logger actionsLogger = Logger.getLogger("actionsLogger");
+		if (actionsLogger == null) {
+			System.err.println("Cannot find actions logger");
+		}
+		
 		setConsoleAppender(rootLogger);
 		setFileAppender(rootLogger);
+		setResultsAppender(resultsLogger);
+		setActionsAppender(actionsLogger);
 		setSelfletAppender(rootLogger);
 	}
 
@@ -56,8 +68,26 @@ public class SelfLetLogger {
 
 	private void setFileAppender(Logger rootLogger) {
 		FileAppender fileAppender = (FileAppender) rootLogger.getAppender("myFileAppender");
-
+		
 		String logFileName = LOG_FOLDER + "/selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
+
+		fileAppender.setFile(logFileName);
+		fileAppender.activateOptions();
+	}
+	
+	private void setResultsAppender(Logger resultsLogger) {
+		FileAppender fileAppender = (FileAppender) resultsLogger.getAppender("resultsFileAppender");
+		
+		String logFileName = LOG_FOLDER + "/results_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
+
+		fileAppender.setFile(logFileName);
+		fileAppender.activateOptions();
+	}
+	
+	private void setActionsAppender(Logger resultsLogger) {
+		FileAppender fileAppender = (FileAppender) resultsLogger.getAppender("actionsFileAppender");
+		
+		String logFileName = LOG_FOLDER + "/actions_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
 
 		fileAppender.setFile(logFileName);
 		fileAppender.activateOptions();
