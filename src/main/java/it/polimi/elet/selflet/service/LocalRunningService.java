@@ -49,7 +49,7 @@ public class LocalRunningService extends RunningService {
 	private void fireLocalReqLocalExeCompletedEvent(String name, RunningService callingService,
 			RunningService runningService, Object output, Long responseTime) {
 		
-		LOG.info(System.currentTimeMillis() +  ",local," + name +"," + responseTime);
+		LOG.info(System.currentTimeMillis() +  ",local," + name +"," + responseTime + ",1");
 		DispatchingUtility.dispatchEvent(getDispatcher(), LocalReqLocalExeCompletedEvent.class, name, callingService,
 				runningService, output, responseTime);
 	}

@@ -41,7 +41,7 @@ public class RemoteRunningService extends RunningService {
 	private void fireRemoteReqLocalExeCompletedEvent(String serviceName, Object lastOutput, ISelfLetID requestorSelflet, MessageID originatingMessageID,
 			RunningService runningService, long responseTime) {
 
-		LOG.info(System.currentTimeMillis() +  ",remote," + serviceName +"," + responseTime);
+		LOG.info(System.currentTimeMillis() +  ",remote," + serviceName +"," + responseTime + ",1");
 		DispatchingUtility.dispatchEvent(getDispatcher(), RemoteReqLocalExeCompletedEvent.class, serviceName, (Serializable) lastOutput, requestorSelflet,
 				originatingMessageID, runningService, responseTime);
 	}
