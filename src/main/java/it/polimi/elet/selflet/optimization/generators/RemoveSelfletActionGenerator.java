@@ -30,6 +30,7 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 			.getSingleton().minimumTimeToRemoveSelfletInSec * 1000;
 	private static final long MINIMUM_TIME_BETWEEN_TWO_REMOVAL_ACTIONS = SelfletConfiguration
 			.getSingleton().minimumTimeBetweenTwoRemovalActionsInSec * 1000;
+	private static final long BILL_TIME = SelfletConfiguration.getSingleton().billTime * 1000;
 
 	private final INeighborStateManager neighborStateManager;
 	private final IPerformanceMonitor performanceMonitor;
@@ -53,8 +54,9 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 	public Collection<? extends IOptimizationAction> generateActions() {
 
 		// || stillReceivingRequests()
-		if (selfletRecentlyCreated() || selfletIsLoaded() || theOnlySelflet()
-				|| removalActionRecentlyCreated() || theOnlyOneProvidingSomeService() || neighborsAreLoaded()) {
+		if (isInPayedTime() || selfletIsLoaded() || theOnlySelflet()
+				|| removalActionRecentlyCreated()
+				|| theOnlyOneProvidingSomeService() || neighborsAreLoaded()) {
 			return Lists.newArrayList();
 		}
 
@@ -95,8 +97,7 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 	private boolean selfletIsLoaded() {
 		double currentUtilization = performanceMonitor
 				.getCurrentTotalCPUUtilization();
-		double lowerBound = performanceMonitor
-				.getCPUUtilizationLowerBound();
+		double lowerBound = performanceMonitor.getCPUUtilizationLowerBound();
 		return (currentUtilization >= lowerBound);
 	}
 
@@ -119,12 +120,21 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 		return theOnlyProvider;
 	}
 
+	// TODO replaced by the method below, because takes into consideration the
+	// payed time. If it works, delete this function.
 	private boolean selfletRecentlyCreated() {
 		long now = System.currentTimeMillis();
 		long elapsed = now - startupTime;
 		return elapsed < MINIMUM_TIME_TO_REMOVE_SELFLET;
 	}
-	
+
+	private boolean isInPayedTime() {
+		long now = System.currentTimeMillis();
+		long mod = (now - startupTime) % BILL_TIME;
+		return mod < MINIMUM_TIME_TO_REMOVE_SELFLET;
+
+	}
+
 	private boolean neighborsAreLoaded() {
 
 		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
@@ -133,7 +143,8 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 			return false;
 		}
 
-		return (computeUtilizationAverage() >= performanceMonitor.getCPUUtilizationUpperBound());
+		return (computeUtilizationAverage() >= performanceMonitor
+				.getCPUUtilizationUpperBound());
 	}
 
 	private double computeUtilizationAverage() {
@@ -143,8 +154,10 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 
 		for (Neighbor neighbor : neighbors) {
 			if (neighborStateManager.haveInformationAboutNeighbor(neighbor)) {
-				INodeState nodeState = neighborStateManager.getNodeStateOfNeighbor(neighbor);
-				double neighborUtilization = (Double) nodeState.getGenericDataWithKey(CPU_UTILIZATION.toString());
+				INodeState nodeState = neighborStateManager
+						.getNodeStateOfNeighbor(neighbor);
+				double neighborUtilization = (Double) nodeState
+						.getGenericDataWithKey(CPU_UTILIZATION.toString());
 				utilizationSum += neighborUtilization;
 				count++;
 			}

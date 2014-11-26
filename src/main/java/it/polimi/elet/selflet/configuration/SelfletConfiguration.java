@@ -19,6 +19,7 @@ public class SelfletConfiguration extends Configuration {
 
 	public long maxNeighborAgeInSec;
 	public long minimumTimeToRemoveSelfletInSec;
+	public long billTime;
 	public int minimumTimeBetweenNewSelfletActionsInSec;
 
 	public double utilizationLowerBound;
