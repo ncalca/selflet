@@ -29,11 +29,17 @@ public class NeighborManager implements INeighborManager {
 
 	@Override
 	public void addNeighbor(Neighbor neighbor) {
+		for(Neighbor neighborToken : neighborCache.asMap().keySet()){
+			if(neighborToken.getId().equals(neighbor.getId())){
+				return;
+			}
+		}
 		neighborCache.put(neighbor, neighbor);
 	}
 
 	@Override
 	public Set<Neighbor> getNeighbors() {
+		System.out.println("neighbors count: " + neighborCache.asMap().keySet().size());
 		return Sets.newHashSet(neighborCache.asMap().keySet());
 	}
 
