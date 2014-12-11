@@ -39,7 +39,6 @@ public class NeighborManager implements INeighborManager {
 
 	@Override
 	public Set<Neighbor> getNeighbors() {
-		System.out.println("neighbors count: " + neighborCache.asMap().keySet().size());
 		return Sets.newHashSet(neighborCache.asMap().keySet());
 	}
 
