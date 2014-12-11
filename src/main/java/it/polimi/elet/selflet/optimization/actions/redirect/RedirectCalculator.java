@@ -32,10 +32,12 @@ public class RedirectCalculator implements IRedirectCalculator {
 	 * @param redirectPolicies
 	 *            The set of policies regulating the redirect
 	 * */
-	public RedirectCalculator(Service serviceToRedirect, Set<RedirectPolicy> redirectPolicies, double redirectProbability) {
+	public RedirectCalculator(Service serviceToRedirect,
+			Set<RedirectPolicy> redirectPolicies, double redirectProbability) {
 
 		if (!isValidProbability(redirectProbability)) {
-			throw new IllegalArgumentException("Given number is not a probability " + redirectProbability);
+			throw new IllegalArgumentException(
+					"Given number is not a probability " + redirectProbability);
 		}
 
 		this.serviceToRedirect = serviceToRedirect;
@@ -97,7 +99,9 @@ public class RedirectCalculator implements IRedirectCalculator {
 			}
 		}
 
-		throw new IllegalStateException("Cannot find a candidate redirected provider. " + redirectPolicies);
+		throw new IllegalStateException(
+				"Cannot find a candidate redirected provider. "
+						+ redirectPolicies);
 	}
 
 	private void removeUnusedPolicies() {
@@ -116,10 +120,18 @@ public class RedirectCalculator implements IRedirectCalculator {
 
 	private Set<RedirectPolicy> computeNewRedirectPolicies() {
 		Set<RedirectPolicy> newRedirectPolicies = Sets.newHashSet();
+		double newProbability = 0;
 
 		for (RedirectPolicy redirectPolicy : redirectPolicies) {
-			double newProbability = redirectPolicy.getRedirectProbability() / totalProbability;
-			newRedirectPolicies.add(new RedirectPolicy(redirectPolicy, newProbability));
+
+			if (totalProbability == 0) {
+				newProbability = 1 / redirectPolicies.size();
+			} else {
+				newProbability = redirectPolicy.getRedirectProbability()
+						/ totalProbability;
+			}
+			newRedirectPolicies.add(new RedirectPolicy(redirectPolicy,
+					newProbability));
 		}
 
 		return newRedirectPolicies;

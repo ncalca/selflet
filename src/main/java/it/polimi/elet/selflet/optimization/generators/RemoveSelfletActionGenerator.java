@@ -74,7 +74,8 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 		double lowerBound = performanceMonitor.getCPUUtilizationLowerBound();
 		double currentUtilization = performanceMonitor
 				.getCurrentTotalCPUUtilization();
-		return Math.max((lowerBound - currentUtilization) / lowerBound, 0);
+		//TODO define the best policy to compute weight
+		return lowerBound - currentUtilization;
 	}
 
 	private boolean removalActionRecentlyCreated() {
@@ -129,9 +130,13 @@ public class RemoveSelfletActionGenerator implements IActionGenerator {
 	}
 
 	private boolean isInPayedTime() {
-		long now = System.currentTimeMillis();
-		long mod = (now - startupTime) % BILL_TIME;
-		return mod < MINIMUM_TIME_TO_REMOVE_SELFLET;
+		if (BILL_TIME > MINIMUM_TIME_BETWEEN_TWO_REMOVAL_ACTIONS) {
+			long now = System.currentTimeMillis();
+			long mod = (now - startupTime) % BILL_TIME;
+			return mod < MINIMUM_TIME_TO_REMOVE_SELFLET;
+		}
+		
+		return selfletRecentlyCreated();
 
 	}
 

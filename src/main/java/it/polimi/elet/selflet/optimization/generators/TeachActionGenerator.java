@@ -39,9 +39,10 @@ public class TeachActionGenerator implements IActionGenerator {
 	public Collection<? extends IOptimizationAction> generateActions() {
 		List<IOptimizationAction> actions = Lists.newArrayList();
 
-		if (!performanceMonitor.isCPUUtilizationOverTheThreshold()) {
-			return actions;
-		}
+		// TODO create a teach even if the selflet is not overloaded?
+		// if (!performanceMonitor.isCPUUtilizationOverTheThreshold()) {
+		// return actions;
+		// }
 
 		for (Neighbor neighbor : neighborStateManager.getNeighbors()) {
 			List<IOptimizationAction> actionsForNeighbor = generateTeachActionsForNeighbor(neighbor);
@@ -54,7 +55,25 @@ public class TeachActionGenerator implements IActionGenerator {
 	private List<IOptimizationAction> generateTeachActionsForNeighbor(
 			Neighbor neighbor) {
 		List<IOptimizationAction> actions = Lists.newArrayList();
-		double totalServicesUtilization = computeServicesTotalUtilization();
+		// TODO define the best action generation
+		// double totalServicesUtilization = computeServicesTotalUtilization();
+		//
+		// for (Service service : serviceKnowledge.getServices()) {
+		// double serviceUtilization = performanceMonitor
+		// .getServiceUtilization(service.getName());
+		// if (serviceUtilization > 0) {
+		// if (!neighborIsOfferingService(neighbor, service)
+		// && !neighborIsOverloaded(neighbor)) {
+		// double weight = serviceUtilization
+		// / totalServicesUtilization;
+		//
+		// actions.add(new TeachServiceAction(neighbor.getId(),
+		// service, weight));
+		// }
+		// }
+		// }
+		//
+		// return actions;
 
 		for (Service service : serviceKnowledge.getServices()) {
 			double serviceUtilization = performanceMonitor
@@ -62,8 +81,7 @@ public class TeachActionGenerator implements IActionGenerator {
 			if (serviceUtilization > 0) {
 				if (!neighborIsOfferingService(neighbor, service)
 						&& !neighborIsOverloaded(neighbor)) {
-					double weight = serviceUtilization
-							/ totalServicesUtilization;
+					double weight = serviceUtilization;
 
 					actions.add(new TeachServiceAction(neighbor.getId(),
 							service, weight));
@@ -108,7 +126,7 @@ public class TeachActionGenerator implements IActionGenerator {
 		INodeState nodeState = neighborStateManager
 				.getNodeStateOfNeighbor(neighbor.getId());
 		double utilization = nodeState.getUtilization();
-		return utilization > performanceMonitor.getCPUUtilizationUpperBound();
+		return utilization > nodeState.getUtilizationUpperBound();
 	}
 
 	private boolean neighborIsOfferingService(Neighbor neighbor, Service service) {

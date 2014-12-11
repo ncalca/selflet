@@ -51,20 +51,22 @@ public class RedirectServiceActionGenerator implements IActionGenerator {
 		Set<Service> overloadedServices = getOverloadedServices();
 		double totalServicesUtilization = computeServicesTotalUtilization(overloadedServices);
 		for (Service service : overloadedServices) {
-			optimizationActions.addAll(generateRedirectsForService(service, totalServicesUtilization));
+			optimizationActions.addAll(generateRedirectsForService(service,
+					totalServicesUtilization));
 		}
 
 		return optimizationActions;
 	}
 
-	private Set<IOptimizationAction> generateRedirectsForService(Service service, double totalServicesUtilization) {
+	private Set<IOptimizationAction> generateRedirectsForService(
+			Service service, double totalServicesUtilization) {
 		Set<Neighbor> neighbors = neighborStateManager.getNeighbors();
 		Set<IOptimizationAction> optimizationActions = Sets.newHashSet();
 
 		// FIXME Why???????????
-		 if (service.isRecentlyCreated()) {
-		 return optimizationActions;
-		 }
+		if (service.isRecentlyCreated()) {
+			return optimizationActions;
+		}
 
 		for (Neighbor neighbor : neighbors) {
 			if (neighborIsOfferingService(neighbor, service)
@@ -121,24 +123,40 @@ public class RedirectServiceActionGenerator implements IActionGenerator {
 				service, neighbor, totalServicesUtilization);
 		RedirectPolicy redirectPolicy = new RedirectPolicy(service.getName(),
 				neighbor.getId(), redirectProbability);
+		
 		double weight = computeActionWeight(service, neighbor);
-		return new RedirectAction(Sets.newHashSet(redirectPolicy),
-				weight);
+		return new RedirectAction(Sets.newHashSet(redirectPolicy), weight);
 	}
 
 	private double computeRedirectProbabilityTowardNeighbor(Service service,
 			Neighbor neighbor, double totalServicesUtilization) {
-		double serviceUtilization = performanceMonitor
-				.getServiceUtilization(service.getName());
-		INodeState nodeState = neighborStateManager
-				.getNodeStateOfNeighbor(neighbor);
-		double neighborUtilization = nodeState.getUtilization();
-		
-		double probability = Math.max((serviceUtilization
-				/ totalServicesUtilization) * (1 - neighborUtilization), 0.5);
+		// TODO Define the best way to compute probability
+		// double serviceUtilization = performanceMonitor
+		// .getServiceUtilization(service.getName());
+		// INodeState nodeState = neighborStateManager
+		// .getNodeStateOfNeighbor(neighbor);
+		// double neighborUtilization = nodeState.getUtilization();
+		//
+		// double probability = Math.max((serviceUtilization
+		// / totalServicesUtilization) * (1 - neighborUtilization), 0.5);
+		// return probability;
+
+		double currentCpuUtil = performanceMonitor
+				.getCurrentTotalCPUUtilization();
+		double deltaCpuUtil = Math.max(
+				currentCpuUtil
+						- performanceMonitor.getCPUUtilizationUpperBound(), 0);
+		double deltaServiceReqRate = deltaCpuUtil / service.getServiceDemand();
+		double serviceReqRate = performanceMonitor
+				.getServiceRequestRate(service.getName());
+		double probability = 0;
+		if (serviceReqRate > 0) {
+			probability = Math.min(deltaServiceReqRate / serviceReqRate, 1);
+		}
+
 		return probability;
 	}
-	
+
 	private double computeServicesTotalUtilization(Set<Service> services) {
 		double total = 0;
 		for (Service service : services) {
@@ -148,18 +166,23 @@ public class RedirectServiceActionGenerator implements IActionGenerator {
 
 		return total;
 	}
-	
-	private double computeActionWeight(Service service,  Neighbor neighbor){
-		double serviceResponseTime = performanceMonitor
-				.getServiceResponseTimeInMsec(service.getName());
-		double serviceMaxResponseTime = service.getMaxResponseTimeInMsec();
-		INodeState nodeState = neighborStateManager
-				.getNodeStateOfNeighbor(neighbor);
-		double neighborUtilization = nodeState.getUtilization();
-		double weight = Math.max(
-				Math.min(serviceResponseTime - serviceMaxResponseTime,
-						serviceMaxResponseTime) / (serviceMaxResponseTime), 0)
-				* (1 - neighborUtilization);
+
+	private double computeActionWeight(Service service, Neighbor neighbor) {
+		// TODO Define the best way to assign the weight
+		// double serviceResponseTime = performanceMonitor
+		// .getServiceResponseTimeInMsec(service.getName());
+		// double serviceMaxResponseTime = service.getMaxResponseTimeInMsec();
+		// INodeState nodeState = neighborStateManager
+		// .getNodeStateOfNeighbor(neighbor);
+		// double neighborUtilization = nodeState.getUtilization();
+		// double weight = Math.max(
+		// Math.min(serviceResponseTime - serviceMaxResponseTime,
+		// serviceMaxResponseTime) / (serviceMaxResponseTime), 0)
+		// * (1 - neighborUtilization);
+		// return weight;
+
+		double weight = performanceMonitor.getServiceUtilization(service
+				.getName());
 		return weight;
 	}
 
