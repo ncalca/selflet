@@ -19,9 +19,9 @@ import it.polimi.elet.selflet.knowledge.Neighbor;
 @Singleton
 public class NeighborManager implements INeighborManager {
 
-	private static final int MAX_NEIGHBOR_AGE = 60;
+	private static final int MAX_NEIGHBOR_AGE = 7;
 
-	private Cache<Neighbor, Neighbor> neighborCache;
+	private Cache<ISelfLetID, Neighbor> neighborCache;
 
 	public NeighborManager() {
 		neighborCache = CacheBuilder.newBuilder().expireAfterWrite(MAX_NEIGHBOR_AGE, TimeUnit.SECONDS).build();
@@ -29,17 +29,13 @@ public class NeighborManager implements INeighborManager {
 
 	@Override
 	public void addNeighbor(Neighbor neighbor) {
-		for(Neighbor neighborToken : neighborCache.asMap().keySet()){
-			if(neighborToken.getId().equals(neighbor.getId())){
-				return;
-			}
-		}
-		neighborCache.put(neighbor, neighbor);
+		ISelfLetID neighborId = neighbor.getId();
+		neighborCache.put(neighborId, neighbor);
 	}
 
 	@Override
 	public Set<Neighbor> getNeighbors() {
-		return Sets.newHashSet(neighborCache.asMap().keySet());
+		return Sets.newHashSet(neighborCache.asMap().values());
 	}
 
 	@Override
@@ -51,13 +47,7 @@ public class NeighborManager implements INeighborManager {
 
 	@Override
 	public void removeNeighbor(ISelfLetID neighborToRemove) {
-		Set<Neighbor> neighbors = neighborCache.asMap().keySet();
-
-		for (Neighbor neighbor : neighbors) {
-			if (neighbor.getId().equals(neighborToRemove)) {
-				neighborCache.invalidate(neighbor);
-			}
-		}
+		neighborCache.invalidate(neighborToRemove);
 	}
 
 }
