@@ -15,5 +15,7 @@ public enum OptimizationActionTypeEnum {
 
 	ADD_SELFLET,
 
-	REMOVE_SELFLET;
+	REMOVE_SELFLET,
+	
+	NOACTION;
 }
