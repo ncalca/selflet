@@ -129,7 +129,7 @@ public class RunningServiceManager extends SelfletComponent implements IRunningS
 			}
 		}
 		if (removed > 0) {
-			LOG.warn("Removed " + removed + " requests due to timeout");
+			LOG.error("Removed " + removed + " requests due to timeout");
 		}
 	}
 
