@@ -35,7 +35,6 @@ public abstract class RunningService extends Thread {
 	private final Service service;
 	private final NextStateExtractor nextStateExtractor;
 	private final IEventDispatcher dispatcher;
-	private long startTime;
 
 	private Object lastOutput;
 	private long responseTime;
@@ -43,24 +42,24 @@ public abstract class RunningService extends Thread {
 
 	private CountDownLatch countDownLatch;
 
+	private boolean complete;
+
 	public RunningService(Service service, IGeneralKnowledge generalKnowledge,
-			IActionExecutorFactory actionExecutorFactory, IEventDispatcher dispatcher,
-			IConditionEvaluator conditionEvaluator) {
+			IActionExecutorFactory actionExecutorFactory,
+			IEventDispatcher dispatcher, IConditionEvaluator conditionEvaluator) {
 		super(service.getName());
 		this.service = service;
 		this.generalKnowledge = generalKnowledge;
 		this.actionExecutorFactory = actionExecutorFactory;
 		this.defaultBehavior = service.getDefaultBehavior();
 		this.dispatcher = dispatcher;
+		this.complete = false;
 		// move to a factory
-		this.nextStateExtractor = new NextStateExtractor(defaultBehavior, conditionEvaluator);
+		this.nextStateExtractor = new NextStateExtractor(defaultBehavior,
+				conditionEvaluator);
 	}
 
 	public void run() {
-		LOG.debug("Starting execution of service " + service);
-		LOG.info("Service: " + service);
-		startTime = System.currentTimeMillis();
-
 		// main service loop
 		currentState = defaultBehavior.getInitialState();
 
@@ -71,7 +70,8 @@ public abstract class RunningService extends Thread {
 			try {
 				moveToNextState();
 			} catch (DeadStateException e) {
-				LOG.error("Dead state. Abandoning behavior " + defaultBehavior, e);
+				LOG.error("Dead state. Abandoning behavior " + defaultBehavior,
+						e);
 				break;
 			}
 		}
@@ -80,10 +80,12 @@ public abstract class RunningService extends Thread {
 	}
 
 	private void finalizeService() {
-		LOG.debug("Service '" + service.getName() + "' completed. Response time: " + formatNumber(responseTime));
+		LOG.debug("Service '" + service.getName()
+				+ "' completed. Response time: " + formatNumber(responseTime));
 		logStateInfo();
 		computeResponseTime();
 		fireCompletionEvent();
+		setCompletion(true);
 	}
 
 	private void computeResponseTime() {
@@ -122,7 +124,8 @@ public abstract class RunningService extends Thread {
 	}
 
 	private boolean isInvocationStateOfElementaryBehavior() {
-		return (defaultBehavior.isElementaryBehavior() && currentState.getAction() != null);
+		return (defaultBehavior.isElementaryBehavior() && currentState
+				.getAction() != null);
 	}
 
 	private Object executeAction(Action action, String stateName) {
@@ -135,23 +138,27 @@ public abstract class RunningService extends Thread {
 		Object outputFromAction = null;
 
 		try {
-			IActionExecutor actionExecutor = actionExecutorFactory.createActionExecutor(this);
+			IActionExecutor actionExecutor = actionExecutorFactory
+					.createActionExecutor(this);
 			outputFromAction = actionExecutor.executeAction(action, stateName);
 		} catch (ActionException e) {
-			LOG.error("Prolem while executing the action contained in state " + stateName, e);
+			LOG.error("Prolem while executing the action contained in state "
+					+ stateName, e);
 		}
 
-		generalKnowledge.setOrUpdateProperty("outputFromAction_" + stateName, outputFromAction);
+		generalKnowledge.setOrUpdateProperty("outputFromAction_" + stateName,
+				outputFromAction);
 		return outputFromAction;
 	}
 
 	private void moveToNextState() {
-//		currentState = nextStateExtractor.nextState(currentState);
+		// currentState = nextStateExtractor.nextState(currentState);
 		currentState = nextStateExtractor.getNextStateDummy(currentState);
 	}
 
 	private void logStateInfo() {
-		LOG.info("Current state: <<" + currentState.getName() + ":" + currentState.getUniqueId() + " of behavior: "
+		LOG.info("Current state: <<" + currentState.getName() + ":"
+				+ currentState.getUniqueId() + " of behavior: "
 				+ defaultBehavior + ">>");
 	}
 
@@ -159,6 +166,14 @@ public abstract class RunningService extends Thread {
 	 * This method is called upon completion of service
 	 * */
 	protected abstract void fireCompletionEvent();
+
+	public void setCompletion(boolean completion) {
+		this.complete = completion;
+	}
+
+	public boolean isCompletionReached() {
+		return this.complete;
+	}
 
 	public Object getLastOutput() {
 		return lastOutput;
@@ -191,16 +206,19 @@ public abstract class RunningService extends Thread {
 	}
 
 	public long getServiceLifeTimeInMillis() {
-		return System.currentTimeMillis() - startTime;
+		long lifeTime = System.currentTimeMillis() - this.serviceCreationTime;
+		LOG.error("service " + this.getName() + " lifetime = " + lifeTime);
+		return lifeTime;
 	}
 
 	public abstract boolean isChildService();
 
 	public abstract boolean isLocalServiceInvocation();
 
-	private void fireServiceNeededEvent(String serviceName, String outputDestination, RunningService callingService) {
-		DispatchingUtility.dispatchEvent(dispatcher, ServiceNeededEvent.class, serviceName, outputDestination,
-				callingService);
+	private void fireServiceNeededEvent(String serviceName,
+			String outputDestination, RunningService callingService) {
+		DispatchingUtility.dispatchEvent(dispatcher, ServiceNeededEvent.class,
+				serviceName, outputDestination, callingService);
 	}
 
 }

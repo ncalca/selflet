@@ -36,5 +36,10 @@ public interface IRunningServiceManager extends ISelfletComponent {
 	 * Removes old entries from the running service manager
 	 * */
 	void cleanOldRequests();
+	
+	/**
+	 * Removes completed services
+	 */
+	public void cleanCompletedRequests();
 
 }

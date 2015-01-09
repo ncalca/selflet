@@ -124,12 +124,26 @@ public class RunningServiceManager extends SelfletComponent implements IRunningS
 		int removed = 0;
 		for (RunningService runningService : activeServices) {
 			if (runningService.getServiceLifeTimeInMillis() > MAX_SERVICE_EXECUTION_TIME_IN_MSEC) {
+				LOG.debug("Service " + runningService.getName() + " (ID " + runningService.getId() + ") is in timeout: lifetime = " + runningService.getServiceLifeTimeInMillis());
 				removeRunningService(runningService);
 				removed++;
 			}
 		}
 		if (removed > 0) {
 			LOG.error("Removed " + removed + " requests due to timeout");
+		}
+	}
+	
+	public void cleanCompletedRequests() {
+		int removed = 0;
+		for (RunningService runningService : activeServices) {
+			if (runningService.isCompletionReached()) {
+				removeRunningService(runningService);
+				removed++;
+			}
+		}
+		if (removed > 0) {
+			LOG.debug("Removed " + removed + " requests due to completion");
 		}
 	}
 

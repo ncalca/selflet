@@ -5,6 +5,8 @@ import it.polimi.elet.selflet.threadUtilities.IPeriodicTask;
 
 import java.util.TimerTask;
 
+import org.junit.runner.RunWith;
+
 import com.google.inject.Inject;
 
 /**
@@ -30,6 +32,7 @@ public class OldRequestCleanerTimerTask extends TimerTask implements IPeriodicTa
 
 	@Override
 	public void run() {
+		runningServiceManager.cleanCompletedRequests();
 		runningServiceManager.cleanOldRequests();
 	}
 
