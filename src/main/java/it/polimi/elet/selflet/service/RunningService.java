@@ -198,6 +198,8 @@ public abstract class RunningService extends Thread {
 	public void resumeService() {
 		if (countDownLatch != null) {
 			countDownLatch.countDown();
+		} else {
+			fireCompletionEvent();
 		}
 	}
 
@@ -207,7 +209,6 @@ public abstract class RunningService extends Thread {
 
 	public long getServiceLifeTimeInMillis() {
 		long lifeTime = System.currentTimeMillis() - this.serviceCreationTime;
-		LOG.error("service " + this.getName() + " lifetime = " + lifeTime);
 		return lifeTime;
 	}
 
