@@ -23,8 +23,7 @@ import it.polimi.elet.selflet.utilities.RandomDistributions;
 @Singleton
 public class OptimizationActionActuator implements IOptimizationActionActuator {
 
-	private static final Logger LOG = Logger
-			.getLogger("actionsLogger");
+	private static final Logger LOG = Logger.getLogger("actionsLogger");
 
 	private final IServiceExecutor serviceExecutor;
 	private final IAutonomicActuator autonomicAttuator;
@@ -39,7 +38,10 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 	@Override
 	public void actuateAction(IOptimizationAction optimizationAction) {
 		try {
-			LOG.info(System.currentTimeMillis() + "," + optimizationAction.optimizationType());
+			if (optimizationAction.optimizationType() != OptimizationActionTypeEnum.REDIRECT_SERVICE) {
+				LOG.info(System.currentTimeMillis() + ","
+						+ optimizationAction.optimizationType());
+			}
 
 			switch (optimizationAction.optimizationType()) {
 
@@ -79,12 +81,15 @@ public class OptimizationActionActuator implements IOptimizationActionActuator {
 	}
 
 	private void actuateTeachService(TeachServiceAction optimizationAction) {
-		try{
-		String serviceName = optimizationAction.getService().getName();
-		ISelfLetID receiverSelflet = optimizationAction.getReceiverSelflet();
-		autonomicAttuator.teachServiceToProvider(serviceName, receiverSelflet);
+		try {
+			String serviceName = optimizationAction.getService().getName();
+			ISelfLetID receiverSelflet = optimizationAction
+					.getReceiverSelflet();
+			autonomicAttuator.teachServiceToProvider(serviceName,
+					receiverSelflet);
 		} catch (Exception e) {
-			LOG.error("error actuating tech service " + optimizationAction.getService().getName() + ": " + e);
+			LOG.error("error actuating tech service "
+					+ optimizationAction.getService().getName() + ": " + e);
 		}
 	}
 

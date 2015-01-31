@@ -26,6 +26,8 @@ import com.google.inject.Singleton;
 public class ServiceExecutor extends SelfletComponent implements IServiceExecutor {
 
 	private static final Logger LOG = Logger.getLogger(ServiceExecutor.class);
+	private static final Logger ACTLOG = Logger
+			.getLogger("actionsLogger");
 
 	private final IRedirectCalculatorFactory redirectCalculatorFactory;
 	private final IAutonomicActuator autonomicAttuator;
@@ -70,6 +72,7 @@ public class ServiceExecutor extends SelfletComponent implements IServiceExecuto
 		IRedirectCalculator redirectCalculator = redirectCalculatorFactory.create(service, redirectPolicies);
 		ISelfLetID redirectedProvider = redirectCalculator.getRedirectedProvider();
 		if (redirectCalculator.performRedirect() && redirectedProvider != null) {
+			ACTLOG.info(System.currentTimeMillis() + ",REDIRECT_SERVICE");
 			autonomicAttuator.redirectRequestToProvider(service.getName(), redirectedProvider, callingService);
 		} else {
 			fireLocalReqLocalExeExecuteEvent(service.getName(), callingService);
