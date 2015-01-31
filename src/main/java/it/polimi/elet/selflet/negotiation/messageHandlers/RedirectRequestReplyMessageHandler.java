@@ -1,5 +1,7 @@
 package it.polimi.elet.selflet.negotiation.messageHandlers;
 
+import java.io.Serializable;
+
 import polimi.reds.MessageID;
 import it.polimi.elet.selflet.events.DispatchingUtility;
 import it.polimi.elet.selflet.events.IEventDispatcher;
@@ -28,7 +30,7 @@ public class RedirectRequestReplyMessageHandler implements ISelfletMessageHandle
 	}
 
 	private void fireLocalReqRemoteExeCompletedEvent(String serviceName, Object object, MessageID messageID) {
-		DispatchingUtility.dispatchEvent(eventDispatcher, LocalReqRemoteExeCompletedEvent.class, serviceName, serviceName, messageID);
+		DispatchingUtility.dispatchEvent(eventDispatcher, LocalReqRemoteExeCompletedEvent.class, serviceName, (Serializable) object, messageID);
 	}
 
 	@Override

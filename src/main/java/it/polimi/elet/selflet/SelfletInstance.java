@@ -10,7 +10,6 @@ import it.polimi.elet.selflet.autonomic.IAutonomicManager;
 import it.polimi.elet.selflet.configuration.SelfletConfiguration;
 import it.polimi.elet.selflet.events.IEventDispatcher;
 import it.polimi.elet.selflet.events.ISelfletComponent;
-import it.polimi.elet.selflet.events.service.LocalReqLocalExeExecuteEvent;
 import it.polimi.elet.selflet.id.ISelfLetID;
 import it.polimi.elet.selflet.id.SelfLetID;
 import it.polimi.elet.selflet.injectorModules.GuiceModuleFactory;
@@ -41,6 +40,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Injector;
 
@@ -62,6 +62,7 @@ public class SelfletInstance {
 	private final Injector injector;
 
 	private final ISelfLetID selfLetId;
+	public static ISelfLetID myID;
 
 	/** Internal subsystems */
 	private final IActionManager actionManager;
@@ -107,6 +108,7 @@ public class SelfletInstance {
 		UtilitiesProvider.setWorkingDir(workingDir);
 
 		this.selfLetId = new SelfLetID(selfLetIdString);
+		myID = selfLetId;
 		this.injector = GuiceModuleFactory.buildProductionModule(selfLetId);
 
 		this.dispatcher = injector.getInstance(IEventDispatcher.class);
@@ -126,7 +128,7 @@ public class SelfletInstance {
 		this.neighborStateManager = injector.getInstance(INeighborStateManager.class);
 		this.serviceExecutor = injector.getInstance(IServiceExecutor.class);
 		this.loadProfileManager = injector.getInstance(ILoadProfileManager.class);
-
+		
 		registerSelfletComponents();
 
 		// TODO fix this, use add rule

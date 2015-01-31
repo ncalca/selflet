@@ -1,5 +1,6 @@
 package it.polimi.elet.selflet.service;
 
+import it.polimi.elet.selflet.SelfletInstance;
 import it.polimi.elet.selflet.action.IActionExecutorFactory;
 import it.polimi.elet.selflet.behavior.IConditionEvaluator;
 import it.polimi.elet.selflet.events.DispatchingUtility;
@@ -21,7 +22,6 @@ import polimi.reds.MessageID;
  * */
 public class RemoteRunningService extends RunningService {
 	
-	private static final Logger LOG = Logger.getLogger("resultsLogger");
 
 	private final ISelfLetID requestorSelflet;
 	private final MessageID originatingMessageID;
@@ -41,8 +41,9 @@ public class RemoteRunningService extends RunningService {
 	private void fireRemoteReqLocalExeCompletedEvent(String serviceName, Object lastOutput, ISelfLetID requestorSelflet, MessageID originatingMessageID,
 			RunningService runningService, long responseTime) {
 
-		LOG.info(System.currentTimeMillis() +  ",remote," + serviceName +"," + responseTime + ",1");
-		DispatchingUtility.dispatchEvent(getDispatcher(), RemoteReqLocalExeCompletedEvent.class, serviceName, (Serializable) lastOutput, requestorSelflet,
+		String myOutput = this.getServiceCreationTime() + ":" + SelfletInstance.myID;
+		
+		DispatchingUtility.dispatchEvent(getDispatcher(), RemoteReqLocalExeCompletedEvent.class, serviceName, (Serializable) (Object)myOutput, requestorSelflet,
 				originatingMessageID, runningService, responseTime);
 	}
 
