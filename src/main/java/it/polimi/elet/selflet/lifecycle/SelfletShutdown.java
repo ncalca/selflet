@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import it.polimi.elet.selflet.SelfletInstance;
 import it.polimi.elet.selflet.message.IMessageHandler;
 import it.polimi.elet.selflet.negotiation.INegotiationManager;
 import it.polimi.elet.selflet.service.IRunningServiceManager;
@@ -19,6 +20,8 @@ import it.polimi.elet.selflet.threadUtilities.PeriodicThreadStarter;
 public class SelfletShutdown implements ISelfletShutdown {
 
 	private static final Logger LOG = Logger.getLogger(SelfletShutdown.class);
+	private static final Logger LIFELOG = Logger.getLogger("lifeLogger");
+	private static final Logger ENDLOG = Logger.getLogger("endLogger");
 
 	private static final long SLEEP_BEFORE_KILL = 20 * 1000;
 
@@ -46,6 +49,12 @@ public class SelfletShutdown implements ISelfletShutdown {
 		messageHandler.disconnect();
 		
 		// TODO for now brutally kill this selflet
+		long killTime = System.currentTimeMillis();
+		long lifeTime = killTime - SelfletInstance.startTime;
+		ENDLOG.info(killTime + "," + SelfletInstance.myID);
+		LIFELOG.info(System.currentTimeMillis() + "," + SelfletInstance.myID
+				+ "," + SelfletInstance.startTime + "," + killTime + ","
+				+ lifeTime);
 		System.exit(0);
 	}
 

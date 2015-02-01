@@ -40,10 +40,28 @@ public class SelfLetLogger {
 			System.err.println("Cannot find actions logger");
 		}
 		
+		Logger lifeLogger = Logger.getLogger("lifeLogger");
+		if (lifeLogger == null) {
+			System.err.println("Cannot find life logger");
+		}
+		
+		Logger startLogger = Logger.getLogger("startLogger");
+		if (startLogger == null) {
+			System.err.println("Cannot find start logger");
+		}
+		
+		Logger endLogger = Logger.getLogger("endLogger");
+		if (endLogger == null) {
+			System.err.println("Cannot find end logger");
+		}
+		
 		setConsoleAppender(rootLogger);
 		setFileAppender(rootLogger);
 		setResultsAppender(resultsLogger);
 		setActionsAppender(actionsLogger);
+		setLifeAppender(lifeLogger);
+		setStartAppender(startLogger);
+		setEndAppender(endLogger);
 		setSelfletAppender(rootLogger);
 	}
 
@@ -88,6 +106,33 @@ public class SelfLetLogger {
 		FileAppender fileAppender = (FileAppender) resultsLogger.getAppender("actionsFileAppender");
 		
 		String logFileName = LOG_FOLDER + "/actions_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
+
+		fileAppender.setFile(logFileName);
+		fileAppender.activateOptions();
+	}
+	
+	private void setLifeAppender(Logger lifeLogger) {
+		FileAppender fileAppender = (FileAppender) lifeLogger.getAppender("lifeFileAppender");
+		
+		String logFileName = LOG_FOLDER + "/life_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
+
+		fileAppender.setFile(logFileName);
+		fileAppender.activateOptions();
+	}
+	
+	private void setStartAppender(Logger startLogger) {
+		FileAppender fileAppender = (FileAppender) startLogger.getAppender("startFileAppender");
+		
+		String logFileName = LOG_FOLDER + "/start_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
+
+		fileAppender.setFile(logFileName);
+		fileAppender.activateOptions();
+	}
+	
+	private void setEndAppender(Logger endLogger) {
+		FileAppender fileAppender = (FileAppender) endLogger.getAppender("endFileAppender");
+		
+		String logFileName = LOG_FOLDER + "/end_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
 
 		fileAppender.setFile(logFileName);
 		fileAppender.activateOptions();

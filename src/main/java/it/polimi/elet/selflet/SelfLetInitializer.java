@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 public class SelfLetInitializer {
 
 	private static final Logger LOG = Logger.getLogger(SelfLetInitializer.class);
+	private static final Logger STARTLOG = Logger.getLogger("startLogger");
 
 	private final InputParametersParser inputParameters;
 
@@ -96,6 +97,7 @@ public class SelfLetInitializer {
 
 	public void startSelfLet() {
 		selfLetInstance.startup(REDSAddress, REDSPort, LIMEPort, abilities, initialService);
+		STARTLOG.info(SelfletInstance.startTime + "," + SelfletInstance.myID);
 	}
 
 	/** Set the knowledge type parameters */
