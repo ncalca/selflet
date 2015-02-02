@@ -94,12 +94,15 @@ public class PerformanceMonitor extends SelfletComponent implements IPerformance
 
 	public double getServiceUtilization(String serviceName) {
 		Service service;
+		double utilization = 0;
 		try {
 			service = serviceKnowledge.getProperty(serviceName);
 		} catch (NotFoundException e) {
-			return 0;
+			return utilization;
 		}
-		return utilizationManager.getCurrentServiceUtilization(service);
+		utilization = utilizationManager.getCurrentServiceUtilization(service);
+//		System.out.println("utilization of service " + serviceName + ": " + utilization);
+		return utilization;
 	}
 
 	public List<ServiceRate> getRequestRates() {

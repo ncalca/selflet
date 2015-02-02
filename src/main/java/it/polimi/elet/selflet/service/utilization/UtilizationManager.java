@@ -1,5 +1,8 @@
 package it.polimi.elet.selflet.service.utilization;
 
+import org.apache.log4j.Logger;
+
+import it.polimi.elet.selflet.SelfletInstance;
 import it.polimi.elet.selflet.behavior.BehaviorUtilities;
 import it.polimi.elet.selflet.behavior.IBehavior;
 import it.polimi.elet.selflet.behavior.State;
@@ -17,6 +20,8 @@ import it.polimi.elet.selflet.utilities.CollectionUtils;
  * @author Nicola Calcavecchia <calcavecchia@gmail.com>
  * */
 public class UtilizationManager implements IUtilizationManager {
+	
+	private static final Logger CPULOG = Logger.getLogger("cpuLogger");
 
 	private static final int HISTORY_LENGTH = 50;
 	private static final double UTILIZATION_FOR_REMOTE_SERVICE = SelfletConfiguration
@@ -53,13 +58,13 @@ public class UtilizationManager implements IUtilizationManager {
 	@Override
 	public double getCurrentTotalCPUUtilization() {
 		double cpuUtilization = CollectionUtils.computeAverage(utilizationHistoryBuffer);
-		System.out.println("Current CPU utilization: " + cpuUtilization);
-		return CollectionUtils.computeAverage(utilizationHistoryBuffer);
+		return cpuUtilization;
 	}
 
 	public void updateUtilizationHistory() {
 		double totalNodeUtilization = computeTotalUtilization();
 		insertInTotalUtilizationHistory(totalNodeUtilization);
+		CPULOG.info(System.currentTimeMillis() + "," + SelfletInstance.myID + "," + totalNodeUtilization); 
 	}
 
 	/**

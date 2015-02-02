@@ -55,6 +55,11 @@ public class SelfLetLogger {
 			System.err.println("Cannot find end logger");
 		}
 		
+		Logger cpuLogger = Logger.getLogger("cpuLogger");
+		if (cpuLogger == null) {
+			System.err.println("Cannot find cpu logger");
+		}
+		
 		setConsoleAppender(rootLogger);
 		setFileAppender(rootLogger);
 		setResultsAppender(resultsLogger);
@@ -62,6 +67,7 @@ public class SelfLetLogger {
 		setLifeAppender(lifeLogger);
 		setStartAppender(startLogger);
 		setEndAppender(endLogger);
+		setCpuAppender(cpuLogger);
 		setSelfletAppender(rootLogger);
 	}
 
@@ -133,6 +139,15 @@ public class SelfLetLogger {
 		FileAppender fileAppender = (FileAppender) endLogger.getAppender("endFileAppender");
 		
 		String logFileName = LOG_FOLDER + "/end_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
+
+		fileAppender.setFile(logFileName);
+		fileAppender.activateOptions();
+	}
+	
+	private void setCpuAppender(Logger cpuLogger) {
+		FileAppender fileAppender = (FileAppender) cpuLogger.getAppender("cpuFileAppender");
+		
+		String logFileName = LOG_FOLDER + "/cpu_selflet" + selfLetID + "_" + System.currentTimeMillis() + ".log";
 
 		fileAppender.setFile(logFileName);
 		fileAppender.activateOptions();
