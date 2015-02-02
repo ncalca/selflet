@@ -211,6 +211,10 @@ public abstract class RunningService extends Thread {
 		long lifeTime = System.currentTimeMillis() - this.serviceCreationTime;
 		return lifeTime;
 	}
+	
+	public long getServiceCreationTime(){
+		return this.serviceCreationTime;
+	}
 
 	public abstract boolean isChildService();
 
